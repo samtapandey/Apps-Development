@@ -1,2 +1,1 @@
-# Apps-Development
-HISP INDIA External Apps Development
+# dhis-data-status-app
