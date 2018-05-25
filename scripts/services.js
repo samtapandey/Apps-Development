@@ -137,7 +137,7 @@ var excelUploadServices = angular.module('excelUploadServices', ['ngResource'])
             return promise;
         },
         importData: function(dataValueSet){
-            var url = "../api/dataValueSets";
+            var url = "../../../api/dataValueSets";
 			var header = {	'Accept': 'application/json','Content-Type': 'application/json'	};
 			var dataJSON = JSON.stringify(dataValueSet);
 			
