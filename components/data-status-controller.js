@@ -13,9 +13,9 @@ DataStatusApp.controller('DataStatusController',
                             
                     });
                 }
-            );
-		
-        
+			);
+			
+       
 	$scope.basicUrl = "../../sqlViews/";
 		
 	sqlviewservice.getAll().then(function(data)
@@ -243,8 +243,6 @@ DataStatusApp.controller('DataStatusController',
                 }
             }
 
-        
-
             if( isValidated === "true")
             {
                 var selOrgUnit = selection.getSelected();
@@ -279,10 +277,7 @@ DataStatusApp.controller('DataStatusController',
                     }
                 );
 
-
             }
-
-
         }
 		
 		//Results
@@ -363,12 +358,16 @@ DataStatusApp.controller('DataStatusController',
 							}
 						}
 					});
-					
-			if( includeZero )
-				var url = $scope.basicUrl + $scope.dataSummarySV + "/data.json?";
-			else
-				var url = $scope.basicUrl + $scope.dataSummaryExZeroSV + "/data.json?";
 
+					var url1 = "../../dataSets/"+ selDataSetUid +".json?fields=periodType";
+					$.get(url1 , function(dp)
+					{
+						$scope.dsPeriodType = dp.periodType;
+					});
+		
+					
+				var url = $scope.basicUrl + $scope.dataSummarySV + "/data.json?";
+		
             url+= "var=compulsoryDECount:" + $scope.compulsoryDECount + ",dataSetUid:" + selDataSetUid + ",orgUnitUid:" + selOrgUnit + ",startDate:" + selStartPeriod + ",endDate:" + selEndPeriod + ",orgUnitUids:" +$scope.organisationunitid_1[0] ;
 			
 			$.get(url, function(data){
@@ -393,7 +392,7 @@ DataStatusApp.controller('DataStatusController',
 				htmlString += "<tr style = 'background:#ddd'><th style='min-width:150px'>Organisation Units</th>";
 				
 				$scope.allPeriods.forEach(function(p){
-					htmlString += "<th style='min-width:100px;max-width:100px;'>" + $scope.monthString( p[0])  + "</th>";					
+					htmlString += "<th style='min-width:100px;max-width:100px;'>" + $scope.monthString( p[0],$scope.dsPeriodType)  + "</th>";					
 				});
 				
 				htmlString += "</tr>";
@@ -453,8 +452,7 @@ DataStatusApp.controller('DataStatusController',
 						orgNameWithBreaks =  ParentName_1+" / "+ParentName_2+" / "+ParentName_3+" / "+ParentName_4+" / "+ParentName_5+" / "+ParentName_6+" / "+ParentName_7;
 					}
 					$scope.compulsoryDECount = 1;
-		
-
+	
 					
 					if($scope.GetUID($scope.organisationUnits_id,org.uid))
 					{
@@ -462,8 +460,6 @@ DataStatusApp.controller('DataStatusController',
 						$scope.Final_orgNameWithBreaks[orgNameWithBreaks]=org.uid;
 						
 					}
-					
-
 
 				});
 				$scope.Final_orgNameWithBreaks.sort();
@@ -504,7 +500,6 @@ DataStatusApp.controller('DataStatusController',
 								htmlString += "<td style='background:"+ currentColor +"'  style='padding:2px 15px;border-color: #0000ff;'></td>";
 							
 								})
-				
 				
 								htmlString += "</tr>";		
 				
@@ -556,7 +551,14 @@ DataStatusApp.controller('DataStatusController',
                 $scope.compulsoryDECount=json.height;
 
 
-            });
+			});
+			
+			var url1 = "../../dataSets/"+ selDataSetUid +".json?fields=periodType";
+			$.get(url1 , function(dp)
+			{
+				$scope.dsPeriodType = dp.periodType;
+			});
+
 
                 $.get("../../dataSets/"+ selDataSetUid +".json?fields=*,dataSetElements[id,categoryCombo]&skipPaging=true" ,function(json){
 
@@ -572,11 +574,8 @@ DataStatusApp.controller('DataStatusController',
 					});
 
 				$scope.OrgUnit_uid	=$scope.filteredOrgUnitList.toString();
-			if( includeZero )
 				var url = $scope.basicUrl + $scope.dataStatusSV + "/data.json?";
-			else
-				var url = $scope.basicUrl + $scope.dataStatusExZeroSV + "/data.json?";
-			
+				
 			url+= "var=compulsoryDECount:" + $scope.compulsoryDECount + ",dataSetUid:" + selDataSetUid + ",orgUnitUids:" +$scope.organisationunitid_1[0] + ",startDate:" + selStartPeriod + ",endDate:" + selEndPeriod;	;	
 						
 			$.get(url, function(data){
@@ -603,7 +602,7 @@ DataStatusApp.controller('DataStatusController',
 				htmlString += "<tr style = 'background:#ddd'><th style='min-width:150px'>Organisation Units</th>";
 				
 				$scope.allPeriods.forEach(function(p){
-					htmlString += "<th style='min-width:100px;max-width:100px;'>" + $scope.monthString( p[0])  + "</th>";					
+					htmlString += "<th style='min-width:100px;max-width:100px;'>" + $scope.monthString( p[0],$scope.dsPeriodType)  + "</th>";					
 				});
 				
 				htmlString += "</tr>";
@@ -751,13 +750,15 @@ DataStatusApp.controller('DataStatusController',
 			var selEndPeriod = $scope.currentSelection.endPeriodYear + "" + $scope.currentSelection.endPeriodMonth + "01";	
 			var includeZero = $scope.currentSelection.includeZero;
 			
-			if( includeZero )
 				var url = $scope.basicUrl + $scope.userDetailsSV + "/data.json?";
-			else
-				var url = $scope.basicUrl + $scope.userDetailsExZeroSV + "/data.json?";
-			
+					
 			url+= "var=dataSetUid:" + selDataSetUid + ",orgUnitUid:" + selOrgUnit  + ",startDate:" + selStartPeriod + ",endDate:" + selEndPeriod;	;	
-						
+
+			var url1 = "../../dataSets/"+ selDataSetUid +".json?fields=periodType";			
+			$.get(url1 , function(dp)
+			{
+				$scope.dsPeriodType = dp.periodType;
+			});
 			$.get(url, function(data){
 				var summaryData = data.rows;
 				
@@ -783,7 +784,7 @@ DataStatusApp.controller('DataStatusController',
 				htmlString += "<tr style = 'background:#ddd'><th style='min-width:150px'>Organisation Units</th>";
 				
 				$scope.allPeriods.forEach(function(p){
-					htmlString += "<th style='min-width:100px;max-width:100px;'>" + $scope.monthString( p[0])  + "</th>";					
+					htmlString += "<th style='min-width:100px;max-width:100px;'>" + $scope.monthString( p[0],$scope.dsPeriodType)  + "</th>";					
 				});
 				
 				htmlString += "</tr>";
@@ -881,107 +882,6 @@ DataStatusApp.controller('DataStatusController',
 			$("#resultModal").modal('show');			
 		};
 		
-		//*****************************************************************************
-		//Comments Result
-		//*****************************************************************************
-		$scope.showComments = function(){
-            Loader.showLoader();
-			$("#tableContent").html("");
-			$("#coverLoad").show();
-			$("#headTitle").html("Comments");
-			$("#modal-header").fadeIn();
-			$("#modal-body").delay(300).fadeIn();
-			$("#modal-footer").delay(600).fadeIn();
-			$("#resultModal").delay(900).fadeIn();
-			$("#dwnLoad").fadeOut();
-			
-			//passing variables to query
-			var selOrgUnit = selection.getSelected();
-			var selDataSetUid = $scope.currentSelection.dataSet;
-			var selStartPeriod = $scope.currentSelection.startPeriodYear + "" + $scope.currentSelection.startPeriodMonth + "01";
-			var selEndPeriod = $scope.currentSelection.endPeriodYear + "" + $scope.currentSelection.endPeriodMonth + "01";	
-			var includeZero = $scope.currentSelection.includeZero;
-			
-			if( includeZero )
-				var url = $scope.basicUrl + $scope.commentsSV + "/data.json?";
-			else
-				var url = $scope.basicUrl + $scope.commentsExZeroSV + "/data.json?";
-			
-			url+= "var=dataSetUid:" + selDataSetUid + ",orgUnitUid:" + selOrgUnit  + ",startDate:" + selStartPeriod + ",endDate:" + selEndPeriod;	;	
-						
-			$.get(url, function(data){
-				var summaryData = data.rows;
-				
-				var currentPeriodId = -1;
-				var currentPeriodStartDate = -1;
-				var currentUser = "";
-				
-				
-				var summaryData = data.rows;
-				
-				var totPeriods = $scope.allPeriods.length + 2 ;
-				
-				var htmlString = "";
-				htmlString += "<tr style = 'background:#eee'><td colspan = '"+ totPeriods +"'  style='padding:2px 15px'> <b>Root Organisation Unit : </b>" + $scope.currentSelection.orgUnitName +"</td></tr>";
-				htmlString += "<tr style = 'background:#eee'><td colspan = '"+ totPeriods +"'  style='padding:2px 15px'> <b>Data Set : </b>" + $("#dataSetId option:selected").text() +"</td></tr>";
-				var durationString = $scope.monthString($scope.currentSelection.startPeriodYear + "-" + $scope.currentSelection.startPeriodMonth ) + " to " + $scope.monthString($scope.currentSelection.endPeriodYear + "-" + $scope.currentSelection.endPeriodMonth );	
-				htmlString += "<tr style = 'background:#eee'><td colspan = '"+ totPeriods +"'  style='padding:2px 15px'> <b>Duration : </b>" + durationString +"</td></tr>";
-				htmlString += "<tr style = 'background:#fff'><td colspan = '"+ totPeriods +"' ></td></tr>";
-				
-				
-				htmlString += "<tr style = 'background:#fff'><td colspan = '"+ totPeriods +"' ></td></tr>";
-				
-				htmlString += "<tr style = 'background:#ddd'><th style='min-width:150px'>Organisation Units</th>";
-				
-				$scope.allPeriods.forEach(function(p){
-					htmlString += "<th style='min-width:100px;max-width:100px;'>" + $scope.monthString( p[0])  + "</th>";					
-				});
-				
-				htmlString += "</tr>";
-				
-				var currentComment= "";
-				var currentColor = "#fff";
-				
-				$scope.allOrgUnitChildren.forEach(function(org){
-					var orgNameWithBreaks = "";
-					var totBreaks = org.level - $scope.grandParentLevel;
-					
-					for( var x = 0 ; x < totBreaks ; x++ )
-						orgNameWithBreaks += "|-------------";
-					
-					orgNameWithBreaks += org.name;
-					
-					htmlString += "<tr><td style='padding:0 15px'>" + orgNameWithBreaks + "</td>";
-					$scope.allPeriods.forEach(function(pr){
-						currentComment = "";
-						currentColor = "#eee";
-						if( $scope.isOrgFound( org.uid, summaryData ) )
-						{
-								currentComment = "-";
-								currentColor = "#fff";
-								
-								summaryData.forEach(function(sdata){
-									if( sdata[0] == org.uid && sdata[1] == pr[0] )
-									{
-										currentComment= sdata[2];
-									}
-									if( currentComment == "" )
-									currentComment = "-";
-								htmlString += "<td style='background:"+ currentColor +";padding:0 15px'>" + currentComment + "</td>";
-								});
-								
-								
-						}
-						
-					});
-					htmlString += "</tr>";
-				});
-				
-				$("#tableContent").html(htmlString);
-				$("#dwnLoad").fadeIn();
-				$("#coverLoad").hide();
-			});
-		};
 		
 		// common functions
 		
@@ -1182,36 +1082,88 @@ DataStatusApp.controller('DataStatusController',
 		//*****************************************************************************
 		//Month String
 		//*****************************************************************************
-		$scope.monthString = function( dte ){
+		$scope.monthString = function( dte,pt ){
+
+			if(pt == "Weekly")
+			{
+				var weekDate = parseInt(dte.split("-")[2]);
+				var monthNumber = parseInt(dte.split("-")[1]);
+				var yearNumber = parseInt(dte.split("-")[0]);
+				var tempDate = yearNumber+","+monthNumber+","+weekDate;
+				var myDate = new Date(tempDate);
+
+				var weekNumber = myDate.getWeek();
+
+			return "W"+weekNumber + " "+ dte.split("-")[0];
+
+			}
+			if(pt == "Yearly")
+			{
+				var yearNumber = parseInt(dte.split("-")[0]);
+				return yearNumber;
+
+			}
+			if(pt == "Quarterly")
+			{
+				var monthNumber = parseInt(dte.split("-")[1]);
+
+				if(monthNumber == 1 || monthNumber == 2 || monthNumber == 3)
+				{
+					var quaterName = "January - March";
+				}
+				if(monthNumber == 4 || monthNumber == 5 || monthNumber == 6)
+				{
+					var quaterName = "April - June";
+				}
+				if(monthNumber == 7 || monthNumber == 8 || monthNumber == 9)
+				{
+					var quaterName = "July - September";
+				}
+				if(monthNumber == 10 || monthNumber == 11 || monthNumber == 12)
+				{
+					var quaterName = "October - December";
+				}
+
+				return quaterName + " " + dte.split("-")[0];
+			}
+			if(pt == "Monthly")
+			{
+				var monthNumber = parseInt(dte.split("-")[1]);
+				var monthName = "";
+				
+				if( monthNumber == 1)
+					monthName = "Jan";
+				else if( monthNumber == 2)
+					monthName = "Feb";
+				else if( monthNumber == 3)
+					monthName = "Mar";
+				else if( monthNumber == 4)
+					monthName = "Apr";
+				else if( monthNumber == 5)
+					monthName = "May";
+				else if( monthNumber == 6)
+					monthName = "Jun";
+				else if( monthNumber == 7)
+					monthName = "Jul";
+				else if( monthNumber == 8)
+					monthName = "Aug";
+				else if( monthNumber == 9)
+					monthName = "Sep";
+				else if( monthNumber == 10)
+					monthName = "Oct";
+				else if( monthNumber == 11)
+					monthName = "Nov";
+				else if( monthNumber == 12)
+					monthName = "Dec";
+				
+				return monthName + " " + dte.split("-")[0];
+			}
 			
-			var monthNumber = parseInt(dte.split("-")[1]);
-			var monthName = "";
-			
-			if( monthNumber == 1)
-				monthName = "Jan";
-			else if( monthNumber == 2)
-				monthName = "Feb";
-			else if( monthNumber == 3)
-				monthName = "Mar";
-			else if( monthNumber == 4)
-				monthName = "Apr";
-			else if( monthNumber == 5)
-				monthName = "May";
-			else if( monthNumber == 6)
-				monthName = "Jun";
-			else if( monthNumber == 7)
-				monthName = "Jul";
-			else if( monthNumber == 8)
-				monthName = "Aug";
-			else if( monthNumber == 9)
-				monthName = "Sep";
-			else if( monthNumber == 10)
-				monthName = "Oct";
-			else if( monthNumber == 11)
-				monthName = "Nov";
-			else if( monthNumber == 12)
-				monthName = "Dec";
-			
-			return monthName + " " + dte.split("-")[0];
 		};
+
+		Date.prototype.getWeek = function() {
+			var dt = new Date(this.getFullYear(),0,1);
+			return Math.ceil((((this - dt) / 86400000) + dt.getDay()+1)/7);
+		};
+		
     });
