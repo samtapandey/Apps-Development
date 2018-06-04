@@ -435,7 +435,7 @@ DataStatusApp.controller('DataStatusController',
 					}
 					else if(totBreaks==4)
 					{
-						ParentName_4=org.name;
+						ParentName_5=org.name;
 						for( var x = 0 ; x < totBreaks ; x++ )
 						orgNameWithBreaks =  ParentName_1+" / "+ParentName_2+" / "+ParentName_3+" / "+ParentName_4+" / "+ParentName_5;
 					}
@@ -645,7 +645,7 @@ DataStatusApp.controller('DataStatusController',
 					}
 					else if(totBreaks==4)
 					{
-						ParentName_4=org.name;
+						ParentName_5=org.name;
 						for( var x = 0 ; x < totBreaks ; x++ )
 						orgNameWithBreaks =  ParentName_1+" / "+ParentName_2+" / "+ParentName_3+" / "+ParentName_4+" / "+ParentName_5;
 					}
@@ -827,7 +827,7 @@ DataStatusApp.controller('DataStatusController',
 					}
 					else if(totBreaks==4)
 					{
-						ParentName_4=org.name;
+						ParentName_5=org.name;
 						for( var x = 0 ; x < totBreaks ; x++ )
 						orgNameWithBreaks =  ParentName_1+" / "+ParentName_2+" / "+ParentName_3+" / "+ParentName_4+" / "+ParentName_5;
 					}
