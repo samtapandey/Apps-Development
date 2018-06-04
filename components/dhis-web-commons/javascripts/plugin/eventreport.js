@@ -3527,7 +3527,7 @@ Ext.onReady( function() {
 
         // dhis2
         requests.push({
-            url: init.contextPath + '../../../api/systemSettings.' + type + '?key=keyCalendar&key=keyDateFormat',
+            url: init.contextPath + '../../api/systemSettings.' + type + '?key=keyCalendar&key=keyDateFormat',
             disableCaching: false,
             success: function(r) {
                 var systemSettings = r.responseText ? Ext.decode(r.responseText) : r,

@@ -1,5 +1,5 @@
-<script type="text/javascript" src="../dhis-web-commons/oust/oust.js"></script>
-<script type="text/javascript" src="../dhis-web-commons/oust/selectionTreeSelect.js"></script>
+<script type="text/javascript" src="../../../dhis-web-commons/oust/oust.js"></script>
+<script type="text/javascript" src="../../../dhis-web-commons/oust/selectionTreeSelect.js"></script>
 <script type="text/javascript">
 jQuery(document).ready( function()
 {		

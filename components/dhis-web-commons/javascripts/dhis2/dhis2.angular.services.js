@@ -337,7 +337,7 @@ var d2Services = angular.module('d2Services', ['ngResource'])
                                 }
                             }                            
                         }                        
-                        newInputField = newInputField + ' <div ng-messages="outerForm.' + fieldId + '.$error" class="required" ng-if="interacted(outerForm.' + fieldId + ')" ng-messages-include="../dhis-web-commons/angular-forms/error-messages.html"></div>';
+                        newInputField = newInputField + ' <div ng-messages="outerForm.' + fieldId + '.$error" class="required" ng-if="interacted(outerForm.' + fieldId + ')" ng-messages-include="../../../dhis-web-commons/angular-forms/error-messages.html"></div>';
 
                         htmlCode = htmlCode.replace(inputField, newInputField);
                     }

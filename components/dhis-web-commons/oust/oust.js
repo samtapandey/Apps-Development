@@ -6,7 +6,7 @@
 
 var selectionTreeSelection = new SelectionTreeSelection();
 var selectionTree = new SelectionTree();
-var selectionTreePath = '../dhis-web-commons/oust/';
+var selectionTreePath = '../../../dhis-web-commons/oust/';
 var selectedOrganisationUnit = new Array();
 var selectedOrganisationUnitUid = new Array();
 
@@ -78,7 +78,7 @@ function SelectionTreeSelection()
             }
             else
             {
-                $.post( '../../' + selectionTreePath + 'setorgunit.action', { id:unitId }, responseReceived );
+                $.post( '../../../' + selectionTreePath + 'setorgunit.action', { id:unitId }, responseReceived );
 				
                 // Remove all select marks
                 var treeTag = document.getElementById( 'selectionTree' );
@@ -340,7 +340,7 @@ function SelectionTree()
     function getToggleExpand()
     {
         var imgTag = getToggleImage();
-        imgTag.src = '../images/colapse.png';
+        imgTag.src = '../../../images/colapse.png';
         imgTag.alt = '[+]';
         return imgTag;
     }
@@ -348,7 +348,7 @@ function SelectionTree()
     function getToggleCollapse()
     {
         var imgTag = getToggleImage();
-        imgTag.src = '../images/expand.png';
+        imgTag.src = '../../../images/expand.png';
         imgTag.alt = '[-]';
         return imgTag;
     }
@@ -356,7 +356,7 @@ function SelectionTree()
 	function getToggleBlank()
 	{
 		var imgTag = getToggleImage();
-		imgTag.src = '../images/transparent.gif';
+		imgTag.src = '../../../images/transparent.gif';
 		imgTag.width = '9';
         imgTag.height = '9';
 		imgTag.alt = '';
@@ -373,7 +373,7 @@ function SelectionTree()
 
     function setLoadingMessage( treeTag )
     {
-        treeTag.style.backgroundImage = 'url(../images/ajax-loader-circle.gif)';
+        treeTag.style.backgroundImage = 'url(../../../images/ajax-loader-circle.gif)';
         treeTag.style.backgroundRepeat = 'no-repeat';
     }
 

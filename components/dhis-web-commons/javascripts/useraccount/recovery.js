@@ -23,7 +23,7 @@ function recoverAccount()
 	}
 	
 	$.ajax( {
-		url: "../../api/account/recovery",
+		url: "../../../api/account/recovery",
 		data: {
 			username: username
 		},

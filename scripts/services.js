@@ -16,7 +16,7 @@ var reportsAppServices = angular.module('reportsAppServices',[])
 .service('GenerateUidService',  function ($http){
     return {
         getUid: function () {
-            var promise = $http.get('../api/system/id.json&paging=false').then(function (response) {
+            var promise = $http.get('../../../api/system/id.json&paging=false').then(function (response) {
                 return response.data ;
             });
             return promise;
@@ -31,7 +31,7 @@ var reportsAppServices = angular.module('reportsAppServices',[])
 .service('UserGroupService',  function ($http){
         return {
             getAllUserGroup: function () {
-                var promise = $http.get('../api/userGroups.json?fields=[id,name]&paging=false').then(function (response) {
+                var promise = $http.get('../../../api/userGroups.json?fields=[id,name]&paging=false').then(function (response) {
                     return response.data ;
                 });
                 return promise;
@@ -45,7 +45,7 @@ var reportsAppServices = angular.module('reportsAppServices',[])
 .service('ResourceService',  function ($http){
     return {
         getAllResource: function () {
-            var promise = $http.get('../api/documents.json?fields=[id,name]&paging=false').then(function (response) {
+            var promise = $http.get('../../../api/documents.json?fields=[id,name]&paging=false').then(function (response) {
                 return response.data ;
             });
             return promise;
@@ -181,7 +181,7 @@ var reportsAppServices = angular.module('reportsAppServices',[])
             },
             getDataSetPeriodTypeAndSource: function( dataSetUid ){
                 if( dataSetUid != "" ){
-                    var promise = $http.get( '../api/dataSets.json?filter=id:eq:' + dataSetUid + '&fields=id,name,periodType,organisationUnits[id,name]&paging=false' ).then(function(response){
+                    var promise = $http.get( '../../../api/dataSets.json?filter=id:eq:' + dataSetUid + '&fields=id,name,periodType,organisationUnits[id,name]&paging=false' ).then(function(response){
                         return response.data ;
                     });
                 }
@@ -211,7 +211,7 @@ var reportsAppServices = angular.module('reportsAppServices',[])
             },
 
             getOrganisationUnitLevelLength: function(){
-                var promise = $http.get( '../api/organisationUnitLevels.json?paging=false' ).then(function(response){
+                var promise = $http.get( '../../../api/organisationUnitLevels.json?paging=false' ).then(function(response){
                     return response.data ;
                 });
                 return promise;
@@ -219,7 +219,7 @@ var reportsAppServices = angular.module('reportsAppServices',[])
 
             getAllChildren: function( orgUnitUid ){
                 if( orgUnitUid != "" ){
-                    var promise = $http.get( '../api/organisationUnits.json?filter=id:eq:' + orgUnitUid + '&fields=id,name,children[id,name,children[id,name]]&paging=false' ).then(function(response){
+                    var promise = $http.get( '../../../api/organisationUnits.json?filter=id:eq:' + orgUnitUid + '&fields=id,name,children[id,name,children[id,name]]&paging=false' ).then(function(response){
                         return response.data ;
                     });
                 }
@@ -251,7 +251,7 @@ var reportsAppServices = angular.module('reportsAppServices',[])
 
             getUsersByUserGroup: function(userGroupUid){
                 if(  userGroupUid != "" ){
-                    var promise = $http.get( '../api/userGroups.json?filter=id:eq:' + userGroupUid + '&fields=id,name,users[id,name]&paging=false' ).then(function(response){
+                    var promise = $http.get( '../../../api/userGroups.json?filter=id:eq:' + userGroupUid + '&fields=id,name,users[id,name]&paging=false' ).then(function(response){
                         return response.data ;
                     });
                 }

@@ -427,7 +427,7 @@ function sortList( id, type ) {
  */
 function getAvailablePeriods( periodTypeId, availablePeriodsId, selectedPeriodsId, year )
 {
-	$.getJSON( "../dhis-web-commons-ajax-json/getAvailablePeriods.action", {
+	$.getJSON( "../../../dhis-web-commons-ajax-json/getAvailablePeriods.action", {
 		"periodType": $( "#" + periodTypeId ).val(),
 		"year": year },
 		function( json ) {

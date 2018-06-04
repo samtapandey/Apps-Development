@@ -26,7 +26,7 @@ var d2Directives = angular.module('d2Directives', [])
             });
 
             $("#searchField").autocomplete({
-                source: "../dhis-web-commons/ouwt/getOrganisationUnitsByName.action",
+                source: "../../../dhis-web-commons/ouwt/getOrganisationUnitsByName.action",
                 select: function (event, ui) {
                     $("#searchField").val(ui.item.value);
                     selection.findByName();
@@ -185,7 +185,7 @@ var d2Directives = angular.module('d2Directives', [])
         controller: function ($scope, Paginator) {
             $scope.paginator = Paginator;
         },
-        templateUrl: '../dhis-web-commons/angular-forms/serverside-pagination.html'
+        templateUrl: '../../../dhis-web-commons/angular-forms/serverside-pagination.html'
     };
 })
 
@@ -273,17 +273,17 @@ var d2Directives = angular.module('d2Directives', [])
                 var url = '';
                 if (initialize) {
                     currentLayer = 0;
-                    url = '../api/organisationUnits.geojson?level=' + ouLevels[currentLayer].level;
+                    url = '../../../api/organisationUnits.geojson?level=' + ouLevels[currentLayer].level;
                 }
                 else {
                     if (mode === 'IN') {
                         currentLayer++;
-                        url = '../api/organisationUnits.geojson?level=' + ouLevels[currentLayer].level + '&parent=' + event.feature.D;
+                        url = '../../../api/organisationUnits.geojson?level=' + ouLevels[currentLayer].level + '&parent=' + event.feature.D;
                     }
                     if (mode === 'OUT') {
                         currentLayer--;
                         var parents = event.feature.k.parentGraph.substring(1, event.feature.k.parentGraph.length - 1).split('/');
-                        url = '../api/organisationUnits.geojson?level=' + ouLevels[currentLayer].level + '&parent=' + parents[parents.length - 2];
+                        url = '../../../api/organisationUnits.geojson?level=' + ouLevels[currentLayer].level + '&parent=' + parents[parents.length - 2];
                     }
                 }
 

@@ -58,8 +58,8 @@ dhis2.commons.redirectCurrentPage = function( url ) {
 // -----------------------------------------------------------------------------
 
 var headerMessageTimeout = -1;
-var _loading_bar_html = "<span id='loaderSpan'><img src='../images/ajax-loader-bar.gif'></span>";
-var _loading_circle_html = "<span id='loaderSpan'><img src='../images/ajax-loader-circle.gif'></span>";
+var _loading_bar_html = "<span id='loaderSpan'><img src='../../../images/ajax-loader-bar.gif'></span>";
+var _loading_circle_html = "<span id='loaderSpan'><img src='../../../images/ajax-loader-circle.gif'></span>";
 
 /**
  * Go back using the document.referrer.
@@ -98,7 +98,7 @@ function translateWithContext( context )
  */
 function translate( className, uid )
 {
-    var url = "../dhis-web-commons/i18n.action?className=" + className + "&uid=" + uid + "&returnUrl=" + htmlEncode( window.location.href );
+    var url = "../../../dhis-web-commons/i18n.action?className=" + className + "&uid=" + uid + "&returnUrl=" + htmlEncode( window.location.href );
     
     window.location.href = url; 
 }
@@ -164,7 +164,7 @@ function joinNameableObjects( objects )
 function getHelpContent( id )
 {
     $.get( 
-       '../dhis-web-commons-about/getHelpContent.action',
+       '../../../dhis-web-commons-about/getHelpContent.action',
        { "id": id },
        function( data )
        {
@@ -1173,7 +1173,7 @@ function addRemoveDateButton( id, hideDel )
 		if( jQuery("#" + removeId).length == 0 )
 		{
 			jQuery("#" + id).after(function() {
-			  return ' <img src="../images/calendar-delete.png" align="justify" id="'+ removeId +'" onclick="jQuery( \'#' + id + '\').val(\'\');jQuery( \'#' + id + '\').change();"> ';
+			  return ' <img src="../../../images/calendar-delete.png" align="justify" id="'+ removeId +'" onclick="jQuery( \'#' + id + '\').val(\'\');jQuery( \'#' + id + '\').change();"> ';
 			});
 		}
 	}
@@ -1785,7 +1785,7 @@ function pingNotifications( category, tableId, completedCallback )
 	
 	var param = ( undefined !== lastUid ) ? '?lastId=' + lastUid : '';
 	
-	$.getJSON( '../api/system/tasks/' + category + param, function( notifications )
+	$.getJSON( '../../../api/system/tasks/' + category + param, function( notifications )
 	{
 		var html = '',
 		    isComplete = false;
@@ -1811,11 +1811,11 @@ function pingNotifications( category, tableId, completedCallback )
 				html += '<tr><td>' + time + '</td><td>' + notification.message + ' &nbsp;';
 				
 				if ( notification.level == "ERROR" ) {
-					html += '<img src="../images/error_small.png">';
+					html += '<img src="../../../images/error_small.png">';
 					isComplete = true;
 				}
 				else if ( notification.completed ) {
-					html += '<img src="../images/completed.png">';
+					html += '<img src="../../../images/completed.png">';
 					isComplete = true;
 				}
 				else {
@@ -1853,5 +1853,5 @@ function selectSymbol( img )
 {
 	$( "#symbol" ).val( img );
 	$( "#symbolDiv" ).dialog( "close" );
-	$( "#symbolImg" ).attr( "src", "../images/orgunitgroup/" + img ).show();
+	$( "#symbolImg" ).attr( "src", "../../../images/orgunitgroup/" + img ).show();
 }

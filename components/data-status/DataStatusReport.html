@@ -257,7 +257,7 @@
 			
 			
 			//Get orgunit Hierarchy			
-			$.get("../api/organisationUnits/"+ orgUnitUID +".json?fields=name,id,level,parent[id],children[id],dataSets[id]&includeDescendants=true" ,function(json1)
+			$.get("../../../api/organisationUnits/"+ orgUnitUID +".json?fields=name,id,level,parent[id],children[id],dataSets[id]&includeDescendants=true" ,function(json1)
 			{	
 				//Get Data
 				

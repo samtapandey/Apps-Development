@@ -20,7 +20,7 @@ reportsApp.controller('ReportsController',
 
             sessionStorage.setItem('reportUid',reportUid);
 
-            window.location.href = '../dhis-web-reports-app/index.html#/edit-report?reportUid=' + reportUid;
+            window.location.href = '../../../dhis-web-reports-app/index.html#/edit-report?reportUid=' + reportUid;
             //console.log($location.path());
         };
 

@@ -32,7 +32,7 @@ function restoreSubmitHandler()
 	$( "#submitButton" ).attr( "disabled", "disabled" );
 
 	$.ajax( {
-		url: "../../api/account/restore",
+		url: "../../../api/account/restore",
 		data: {
 			username: $( "#username" ).val(),
 			token: $( "#token" ).val(),

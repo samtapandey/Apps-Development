@@ -322,7 +322,7 @@ function dhisAjaxSelect_selectedList_dblclick(sourceId, targetId)
             var $clear_button = $("#" + clear_button_id);
 
             var loader_id = id + '_loader';
-            $('<img id="' + loader_id + '" src="../images/ajax-loader-bar.gif" />').insertAfter($wrapper);
+            $('<img id="' + loader_id + '" src="../../../images/ajax-loader-bar.gif" />').insertAfter($wrapper);
             $('#' + loader_id).css('visibility', 'hidden');
 
             settings.params = params;

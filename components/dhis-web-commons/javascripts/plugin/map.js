@@ -5888,7 +5888,7 @@ Ext.onReady(function() {
                     var rule = new OpenLayers.Rule({
                         symbolizer: {
                             'pointRadius': 8,
-                            'externalGraphic': '../images/orgunitgroup/' + items[i].data.symbol
+                            'externalGraphic': '../../../images/orgunitgroup/' + items[i].data.symbol
                         },
                         filter: new OpenLayers.Filter.Comparison({
                             type: OpenLayers.Filter.Comparison.EQUAL_TO,
@@ -5910,7 +5910,7 @@ Ext.onReady(function() {
 
                 for (var i = 0; i < items.length; i++) {
                     child = document.createElement("div");
-                    child.style.backgroundImage = 'url(../images/orgunitgroup/' + items[i].data.symbol + ')';
+                    child.style.backgroundImage = 'url(../../../images/orgunitgroup/' + items[i].data.symbol + ')';
                     child.style.backgroundRepeat = 'no-repeat';
                     child.style.width = "21px";
                     child.style.height = "16px";
@@ -6647,7 +6647,7 @@ Ext.onReady(function() {
 
         // dhis2
         requests.push({
-            url: init.contextPath + '../../../api/systemSettings.' + type + '?key=keyCalendar&key=keyDateFormat',
+            url: init.contextPath + '../../api/systemSettings.' + type + '?key=keyCalendar&key=keyDateFormat',
             disableCaching: false,
             success: function(r) {
                 var systemSettings = r.responseText ? Ext.decode(r.responseText) : r,

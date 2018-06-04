@@ -26,7 +26,7 @@ function DataDictionary()
 
         if ( dataElementsGroups.length == 0 )
         {
-            jQuery.getJSON( '../dhis-web-commons-ajax-json/getDataElementGroups.action', function( json )
+            jQuery.getJSON( '../../../dhis-web-commons-ajax-json/getDataElementGroups.action', function( json )
             {
                 target.append( '<option value="' + ALL_KEY + '">ALL</option>' );
                 dataElementsGroups.push( new DataElementGroup( ALL_KEY, 'ALL' ) );
@@ -63,7 +63,7 @@ function DataDictionary()
         {
             des = new Array();
 
-            jQuery.getJSON( '../dhis-web-commons-ajax-json/getDataElements.action', {
+            jQuery.getJSON( '../../../dhis-web-commons-ajax-json/getDataElements.action', {
                 id : id
             }, function( json )
             {
@@ -92,7 +92,7 @@ function DataDictionary()
 
         if ( indicatorGroups.length == 0 )
         {
-            jQuery.getJSON( '../dhis-web-commons-ajax-json/getIndicatorGroups.action', function( json )
+            jQuery.getJSON( '../../../dhis-web-commons-ajax-json/getIndicatorGroups.action', function( json )
             {
                 target.append( '<option value="' + ALL_KEY + '">ALL</option>' );
                 indicatorGroups.push( new IndicatorGroup( ALL_KEY, 'ALL' ) );
@@ -128,7 +128,7 @@ function DataDictionary()
         {
             ins = new Array();
 
-            jQuery.getJSON( '../dhis-web-commons-ajax-json/getIndicators.action', {
+            jQuery.getJSON( '../../../dhis-web-commons-ajax-json/getIndicators.action', {
                 id : id
             }, function( json )
             {
@@ -161,7 +161,7 @@ function DataDictionary()
         {
             options = new Array();
 
-            jQuery.getJSON( '../dhis-web-commons-ajax-json/getCategoryOptionCombos.action', {
+            jQuery.getJSON( '../../../dhis-web-commons-ajax-json/getCategoryOptionCombos.action', {
                 id : id
             }, function( json )
             {

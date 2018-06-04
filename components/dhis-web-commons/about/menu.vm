@@ -6,7 +6,7 @@ jQuery( document ).ready( function() {
 </script>
 
 #if ( $keyFlag )
-<img src="../dhis-web-commons/flags/${keyFlagImage}" style="margin-top: 16px; margin-left: 16px; border: 1px solid #D0D0D0;">
+<img src="../../../dhis-web-commons/flags/${keyFlagImage}" style="margin-top: 16px; margin-left: 16px; border: 1px solid #D0D0D0;">
 #end
 
 <h2>$i18n.getString( "dhis2_online" )&nbsp;</h2>

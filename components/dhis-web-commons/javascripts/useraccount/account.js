@@ -11,7 +11,7 @@ var validationRules = {
         username: {
             required: true,
             rangelength: [ 4, 80 ],
-            remote: "../../api/account/username"
+            remote: "../../../api/account/username"
         },
         password: {
             required: true,
@@ -83,11 +83,11 @@ function accountSubmitHandler() {
     $("#submitButton").attr("disabled", "disabled");
 
     $.ajax({
-        url: "../../api/account",
+        url: "../../../api/account",
         data: $("#accountForm").serialize(),
         type: "post",
         success: function( data ) {
-            window.location.href = "../../dhis-web-commons-about/redirect.action";
+            window.location.href = "../../../dhis-web-commons-about/redirect.action";
         },
         error: function( jqXHR, textStatus, errorThrown ) {
             $("#messageSpan").show().text(jqXHR.responseText);

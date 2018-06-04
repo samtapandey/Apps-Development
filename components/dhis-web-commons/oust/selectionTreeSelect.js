@@ -19,7 +19,7 @@ function selectOrganisationUnit__( ids )
 
 function unSelectChildren()
 {
-	jQuery.get('../dhis-web-commons/oust/removeorgunit.action', {
+	jQuery.get('../../../dhis-web-commons/oust/removeorgunit.action', {
 		children : true
 	}, function( xml )
 	{
@@ -29,7 +29,7 @@ function unSelectChildren()
 
 function selectChildren()
 {
-	jQuery.get('../dhis-web-commons/oust/addorgunit.action', {
+	jQuery.get('../../../dhis-web-commons/oust/addorgunit.action', {
 		children : true
 	}, function( xml )
 	{
@@ -39,7 +39,7 @@ function selectChildren()
 
 function selectOrganisationUnitAtLevel()
 {
-	jQuery.get('../dhis-web-commons/oust/addorgunit.action', {
+	jQuery.get('../../../dhis-web-commons/oust/addorgunit.action', {
 		level : getFieldValue('levelList')
 	}, function( xml )
 	{
@@ -49,7 +49,7 @@ function selectOrganisationUnitAtLevel()
 
 function unSelectOrganisationUnitAtLevel()
 {
-	jQuery.get('../dhis-web-commons/oust/removeorgunit.action', {
+	jQuery.get('../../../dhis-web-commons/oust/removeorgunit.action', {
 		level : getFieldValue('levelList')
 	}, function( xml )
 	{
@@ -59,7 +59,7 @@ function unSelectOrganisationUnitAtLevel()
 
 function unSelectAllTree()
 {
-	jQuery.get('../dhis-web-commons/oust/clearSelectedOrganisationUnits.action', function( xml )
+	jQuery.get('../../../dhis-web-commons/oust/clearSelectedOrganisationUnits.action', function( xml )
 	{
 		selectedOrganisationUnitXML__(xml);
 	});
@@ -67,7 +67,7 @@ function unSelectAllTree()
 
 function selectAllTree()
 {
-	jQuery.get('../dhis-web-commons/oust/selectallorgunit.action', function( xml )
+	jQuery.get('../../../dhis-web-commons/oust/selectallorgunit.action', function( xml )
 	{
 		selectedOrganisationUnitXML__(xml);
 	});
@@ -75,7 +75,7 @@ function selectAllTree()
 
 function selectOrganisationUnitByGroup()
 {
-	jQuery.get('../dhis-web-commons/oust/addorgunit.action', {
+	jQuery.get('../../../dhis-web-commons/oust/addorgunit.action', {
 		organisationUnitGroupId : getFieldValue('groupList')
 	}, function( xml )
 	{
@@ -85,7 +85,7 @@ function selectOrganisationUnitByGroup()
 
 function unSelectOrganisationUnitByGroup()
 {
-	jQuery.get('../dhis-web-commons/oust/removeorgunit.action', {
+	jQuery.get('../../../dhis-web-commons/oust/removeorgunit.action', {
 		organisationUnitGroupId : getFieldValue('groupList')
 	}, function( xml )
 	{
@@ -95,7 +95,7 @@ function unSelectOrganisationUnitByGroup()
 
 function loadOrganisationUnitLevel()
 {
-	jQuery.getJSON('../dhis-web-commons-ajax-json/getOrganisationUnitLevels.action', function( json )
+	jQuery.getJSON('../../../dhis-web-commons-ajax-json/getOrganisationUnitLevels.action', function( json )
 	{
 		var levels = jQuery("#levelList");
 		levels.empty();
@@ -109,7 +109,7 @@ function loadOrganisationUnitLevel()
 
 function loadOrganisationUnitGroup()
 {
-	jQuery.getJSON('../dhis-web-commons-ajax-json/getOrganisationUnitGroups.action', function( json )
+	jQuery.getJSON('../../../dhis-web-commons-ajax-json/getOrganisationUnitGroups.action', function( json )
 	{
 		var groups = jQuery("#groupList");
 		groups.empty();

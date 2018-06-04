@@ -56,19 +56,19 @@
 }
 
 .ux-carousel-nav .ux-carousel-nav-prev {
-    background-image: url('../img/prev.png');
+    background-image: url('../../../img/prev.png');
     height: 16px;
     width: 16px;
 }
 
 .ux-carousel-nav .ux-carousel-nav-next {
-    background-image: url('../img/next.png');
+    background-image: url('../../../img/next.png');
     height: 16px;
     width: 16px;
 }
 
 .ux-carousel-nav-play {
-    background-image: url('../img/play_pause.png');
+    background-image: url('../../../img/play_pause.png');
     height: 16px;
     width: 16px;
     margin-left: 2px;
