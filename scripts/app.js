@@ -12,7 +12,10 @@ var DataStatusApp = angular.module('DataStatusApp',['ui.bootstrap',
     'reportServices'
 ])
 .config(function($routeProvider,$translateProvider){
-        $routeProvider.when('/', {
+    $routeProvider.when('/', {
+        templateUrl:'components/home.html',
+        controller: 'HomeController'
+        }).when('/data-status', {
             templateUrl:'components/data-status.html',
             controller: 'DataStatusController'
         }).when('/data-status-result',{

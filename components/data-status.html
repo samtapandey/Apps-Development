@@ -4,14 +4,22 @@
 <link type="text/css" rel="stylesheet" media="screen" href="styles/custom.css">
 
 <div id="leftBar">
-<div id="orgUnitTree">
-		<ul>
-		</ul>
-</div>
-</div>
-
-
-<div class="page" id="mainPage">
+        <div class="left-bar-menu">
+            
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href ng-click="showDataStatusScreen()">{{'data_status'| translate}}</a></li>
+            </ul>
+            <ul class="nav nav-pills nav-stacked">
+                    <li><a href ng-click="showDataStatusScreen()">{{'data_status_data_set_wise'| translate}}</a></li>
+                </ul>
+        </div>
+        <div id="orgUnitTree">
+            <ul>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="page" id="mainPage">
 
 		<h1 style="color:#0B2161; text-align:center;font-size:250%;font-family:arial;top-margin:0px;"><strong>{{'data_status_report'| translate}}</strong></h1><br /><br />
 

@@ -45,5 +45,9 @@ function ($rootScope,$scope, $location,reportSettingService,reportsService,
         $location.path('/data-status');
 
     };
+    $scope.showDataStatusScreen = function () {
+        $location.path('/data-status');
+
+    };
 
 });
