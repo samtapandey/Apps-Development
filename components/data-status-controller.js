@@ -92,11 +92,17 @@ DataStatusApp.controller('DataStatusController',
         };
 
 
-        DataSetService.getAllDataSet().then(function(data){
+     /*   DataSetService.getAllDataSet().then(function(data){
                 $scope.dataSets = data.dataSets;
                 $scope.updatePeriods();
-            }
-        );
+			});*/
+		var url = "../../dataSets.json?fields=name,id&filter=attributeValues.attribute.id:eq:XSZbdSOTfDY"; // data sets based on report app attribute
+		$.get(url, function(data){
+			$scope.dataSets = data.dataSets;
+			$scope.updatePeriods();	
+		});
+
+        
 		$.ajaxSetup({
             async:false
         });

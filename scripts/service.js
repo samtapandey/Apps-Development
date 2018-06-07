@@ -140,7 +140,7 @@ var reportServices = angular.module('reportServices', ['ngResource'])
     .service('DataSetService',  function ($http){
         return {
             getAllDataSet: function () {
-                var promise = $http.get('../../dataSets.json?fields=id,name&paging=false').then(function (response) {
+                var promise = $http.get('../../dataSets.json?fields=id,name,attributeValues[attribute[id]]&paging=false').then(function (response) {
                     return response.data ;
                 });
                 return promise;
