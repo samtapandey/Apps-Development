@@ -100,21 +100,18 @@ DataStatusApp.controller('DataStatusController',
 			var url = "../../dataSets.json?fields=name,id,attributeValues[attribute[id,name],value]&filter=attributeValues.attribute.id:eq:XSZbdSOTfDY"; // data sets based on report app attribute
 			$.get(url, function(data){
 				$scope.dataSets = data.dataSets;
-				$scope.updatePeriods();	
 			});
 		};
 		$scope.dataSetHospital = function(){
 			var url = "../../dataSets.json?fields=name,id,attributeValues[attribute[id,name],value]&filter=attributeValues.attribute.id:eq:KImLMEN4m8O"; // data sets based on Hospital attribute
 			$.get(url, function(data){
 				$scope.dataSets = data.dataSets;
-				$scope.updatePeriods();	
 			});
 		};
 		$scope.dataSetMedical = function(){
 			var url = "../../dataSets.json?fields=name,id,attributeValues[attribute[id,name],value]&filter=attributeValues.attribute.id:eq:DG8A7Ha62vY"; // data sets based on Muncipalities attribute
 			$.get(url, function(data){
 				$scope.dataSets = data.dataSets;
-				$scope.updatePeriods();	
 			});
 		};
 
@@ -144,14 +141,17 @@ DataStatusApp.controller('DataStatusController',
 						if($scope.orgLevel == 1 && $scope.currentSelection.orgUnitName == "Libya")
 						{
 							$scope.dataSetReport();
+							$scope.updatePeriods();	
 						}
 						if($scope.orgLevel == 2 && $scope.currentSelection.orgUnitName == "Muncipalities")
 						{
 							$scope.dataSetMedical();
+							$scope.updatePeriods();	
 						}
 						if($scope.orgLevel == 2 && $scope.currentSelection.orgUnitName == "Hospitals and Medical Centres")
 						{
 							$scope.dataSetHospital();
+							$scope.updatePeriods();	
 						}
                         ReportConfigurationService.getAllReportConfiguration().then(function (resultData) {
                             if(resultData != "") {
@@ -319,7 +319,7 @@ DataStatusApp.controller('DataStatusController',
                 );
 
 
-            }
+			}
 
 
         }
@@ -371,7 +371,7 @@ DataStatusApp.controller('DataStatusController',
 					
 		$scope.showDataSummary = function(){
 
-			$scope.generateDataStatusReport();
+			// $scope.generateDataStatusReport();
             Loader.showLoader();
             $("#coverLoad").show();
 			$("#headTitle").html("Data Summary - Data Sets");
@@ -567,7 +567,7 @@ DataStatusApp.controller('DataStatusController',
 		
 		
 		$scope.showDataStatus = function(){
-			$scope.generateDataStatusReport();
+			// $scope.generateDataStatusReport();
 
             Loader.showLoader();
 			$("#tableContent").html("");
@@ -786,7 +786,7 @@ DataStatusApp.controller('DataStatusController',
 		//User Details Result
 		//*****************************************************************************
 		$scope.showUserDetails = function(){
-			$scope.generateDataStatusReport();
+			// $scope.generateDataStatusReport();
             Loader.showLoader();
 			$("#tableContent").html("");
 			$("#coverLoad").show();
