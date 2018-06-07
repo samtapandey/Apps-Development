@@ -378,7 +378,7 @@ DataStatusApp.controller('DataStatusController',
 				var htmlString = "";
 				htmlString += "<tr style = 'background:#eee'><td colspan = '"+ totPeriods +"'  style='padding:2px 15px'> <b>Root Organisation Unit : </b>" + $scope.currentSelection.orgUnitName +"</td></tr>";
 				htmlString += "<tr style = 'background:#eee'><td colspan = '"+ totPeriods +"'  style='padding:2px 15px'> <b>Data Set : </b>" + $("#dataSetId option:selected").text() +"</td></tr>";
-				var durationString = $scope.monthString($scope.currentSelection.startPeriodYear + "-" + $scope.currentSelection.startPeriodMonth ) + " to " + $scope.monthString($scope.currentSelection.endPeriodYear + "-" + $scope.currentSelection.endPeriodMonth );	
+				var durationString = $scope.durationString($scope.currentSelection.startPeriodYear + "-" + $scope.currentSelection.startPeriodMonth ) + " to " + $scope.durationString($scope.currentSelection.endPeriodYear + "-" + $scope.currentSelection.endPeriodMonth );	
 				htmlString += "<tr style = 'background:#eee'><td colspan = '"+ totPeriods +"'  style='padding:2px 15px'> <b>Duration : </b>" + durationString +"</td></tr>";
 				htmlString += "<tr style = 'background:#fff'><td colspan = '"+ totPeriods +"' ></td></tr>";
 				
@@ -392,13 +392,14 @@ DataStatusApp.controller('DataStatusController',
 				htmlString += "<tr style = 'background:#ddd'><th style='min-width:150px'>Organisation Units</th>";
 				
 				$scope.allPeriods.forEach(function(p){
-					htmlString += "<th style='min-width:100px;max-width:100px;'>" + $scope.monthString( p[0],$scope.dsPeriodType)  + "</th>";					
+					htmlString += "<th style='min-width:100px;max-width:100px;'>" + $scope.periodString( p[0],$scope.dsPeriodType)  + "</th>";					
 				});
 				
 				htmlString += "</tr>";
 				var ParentName_1="",ParentName_2="",ParentName_3="",ParentName_4="",ParentName_5="",ParentName_6="",ParentName_7="",ParentName_8="";
 				var currentStatus= 0;
 				var currentColor = "#eeeeee";
+				var currentText = "";
 				var statusText = "";
 				
 				$scope.final_org=[];
@@ -473,31 +474,36 @@ DataStatusApp.controller('DataStatusController',
 												currentStatus = 0;
 												statusText = "";
 												currentColor = "#FFCCCC";//light purple
+												currentText = "Not Entered";
 										
 											var val= $scope.isOrgFound_1( $scope.Final_orgNameWithBreaks[key], summaryData ) ;
 												if( val)
 												{
 												currentStatus = 0;
 												currentColor = "#FFCCCC";//pink
+												currentText = "Not Entered";
 												statusText = "0(" + $scope.compulsoryDECount + ")";
-												
+
 												summaryData.forEach(function(sdata){
 													
 													if( sdata[3] == $scope.Final_orgNameWithBreaks[key] && sdata[1] == pr[0] )
 													{
 														currentStatus= sdata[4]/$scope.compulsoryDECount;
 														statusText = sdata[4] + "(" + $scope.compulsoryDECount + ")";
-														}
+
+													}
 														
 												
 											});
 											
 											if( currentStatus >= 1 )
-												currentColor = "#99FF99";//green	
+											{
+												currentColor = "#99FF99";//green
+												currentText = "Entered";
+											}
 										}
-										
 									
-								htmlString += "<td style='background:"+ currentColor +"'  style='padding:2px 15px;border-color: #0000ff;'></td>";
+								htmlString += "<td style='background:"+ currentColor +"'  style='padding:2px 15px;border-color: #0000ff;'>"+currentText+"</td>";
 							
 								})
 				
@@ -587,7 +593,7 @@ DataStatusApp.controller('DataStatusController',
 				htmlString += "<tr style = 'background:#eee'><td colspan = '"+ totPeriods +"'  style='padding:2px 15px'> <b>Root Organisation Unit : </b>" + $scope.currentSelection.orgUnitName +"</td></tr>";
 				htmlString += "<tr style = 'background:#eee'><td colspan = '"+ totPeriods +"'  style='padding:2px 15px'> <b>Data Set : </b>" + $("#dataSetId option:selected").text() +"</td></tr>";
 				htmlString += "<tr style = 'background:#eee'><td colspan = '"+ totPeriods +"'  style='padding:2px 15px'> <b>Total Data Elements : </b>" + $scope.compulsoryDECount  +"</td></tr>";
-				var durationString = $scope.monthString($scope.currentSelection.startPeriodYear + "-" + $scope.currentSelection.startPeriodMonth ) + " to " + $scope.monthString($scope.currentSelection.endPeriodYear + "-" + $scope.currentSelection.endPeriodMonth );	
+				var durationString = $scope.durationString($scope.currentSelection.startPeriodYear + "-" + $scope.currentSelection.startPeriodMonth ) + " to " + $scope.durationString($scope.currentSelection.endPeriodYear + "-" + $scope.currentSelection.endPeriodMonth );	
 				htmlString += "<tr style = 'background:#eee'><td colspan = '"+ totPeriods +"'  style='padding:2px 15px'> <b>Duration : </b>" + durationString +"</td></tr>";
 				htmlString += "<tr style = 'background:#fff'><td colspan = '"+ totPeriods +"' ></td></tr>";
 				
@@ -602,7 +608,7 @@ DataStatusApp.controller('DataStatusController',
 				htmlString += "<tr style = 'background:#ddd'><th style='min-width:150px'>Organisation Units</th>";
 				
 				$scope.allPeriods.forEach(function(p){
-					htmlString += "<th style='min-width:100px;max-width:100px;'>" + $scope.monthString( p[0],$scope.dsPeriodType)  + "</th>";					
+					htmlString += "<th style='min-width:100px;max-width:100px;'>" + $scope.periodString( p[0],$scope.dsPeriodType)  + "</th>";					
 				});
 				
 				htmlString += "</tr>";
@@ -682,6 +688,7 @@ DataStatusApp.controller('DataStatusController',
 											currentStatus = 0;
 											statusText = "";
 											currentColor = "#FF9999";//light purple
+											statusText = 0;
 									
 									 
 									if( $scope.isOrgFound_1( $scope.Final_orgNameWithBreaks[key], summaryData ) )
@@ -774,7 +781,7 @@ DataStatusApp.controller('DataStatusController',
 				var htmlString = "";
 				htmlString += "<tr style = 'background:#eee'><td colspan = '"+ totPeriods +"'  style='padding:2px 15px'> <b>Root Organisation Unit : </b>" + $scope.currentSelection.orgUnitName +"</td></tr>";
 				htmlString += "<tr style = 'background:#eee'><td colspan = '"+ totPeriods +"'  style='padding:2px 15px'> <b>Data Set : </b>" + $("#dataSetId option:selected").text() +"</td></tr>";
-				var durationString = $scope.monthString($scope.currentSelection.startPeriodYear + "-" + $scope.currentSelection.startPeriodMonth ) + " to " + $scope.monthString($scope.currentSelection.endPeriodYear + "-" + $scope.currentSelection.endPeriodMonth );	
+				var durationString = $scope.durationString($scope.currentSelection.startPeriodYear + "-" + $scope.currentSelection.startPeriodMonth ) + " to " + $scope.durationString($scope.currentSelection.endPeriodYear + "-" + $scope.currentSelection.endPeriodMonth );	
 				htmlString += "<tr style = 'background:#eee'><td colspan = '"+ totPeriods +"'  style='padding:2px 15px'> <b>Duration : </b>" + durationString +"</td></tr>";
 				htmlString += "<tr style = 'background:#fff'><td colspan = '"+ totPeriods +"' ></td></tr>";
 				
@@ -784,7 +791,7 @@ DataStatusApp.controller('DataStatusController',
 				htmlString += "<tr style = 'background:#ddd'><th style='min-width:150px'>Organisation Units</th>";
 				
 				$scope.allPeriods.forEach(function(p){
-					htmlString += "<th style='min-width:100px;max-width:100px;'>" + $scope.monthString( p[0],$scope.dsPeriodType)  + "</th>";					
+					htmlString += "<th style='min-width:100px;max-width:100px;'>" + $scope.periodString( p[0],$scope.dsPeriodType)  + "</th>";					
 				});
 				
 				htmlString += "</tr>";
@@ -1078,11 +1085,47 @@ DataStatusApp.controller('DataStatusController',
 			
 			return dateString;
 		};
-		
 		//*****************************************************************************
-		//Month String
+		//Duration String
 		//*****************************************************************************
-		$scope.monthString = function( dte,pt ){
+
+		$scope.durationString = function( dte ){
+			
+			var monthNumber = parseInt(dte.split("-")[1]);
+			var monthName = "";
+			
+			if( monthNumber == 1)
+				monthName = "Jan";
+			else if( monthNumber == 2)
+				monthName = "Feb";
+			else if( monthNumber == 3)
+				monthName = "Mar";
+			else if( monthNumber == 4)
+				monthName = "Apr";
+			else if( monthNumber == 5)
+				monthName = "May";
+			else if( monthNumber == 6)
+				monthName = "Jun";
+			else if( monthNumber == 7)
+				monthName = "Jul";
+			else if( monthNumber == 8)
+				monthName = "Aug";
+			else if( monthNumber == 9)
+				monthName = "Sep";
+			else if( monthNumber == 10)
+				monthName = "Oct";
+			else if( monthNumber == 11)
+				monthName = "Nov";
+			else if( monthNumber == 12)
+				monthName = "Dec";
+			
+			return monthName + " " + dte.split("-")[0];
+		};
+
+		//*****************************************************************************
+		//Period String
+		//*****************************************************************************
+		$scope.periodString = function( dte,pt ){
 
 			if(pt == "Weekly")
 			{
