@@ -153,45 +153,46 @@ DataStatusApp.controller('DataStatusController',
             var isValidated = "true";
             if( $scope.currentSelection.orgUnitName === "" || $scope.currentSelection.orgUnitName === undefined )
             {
-                alert( "Please select organisation unit");
+				alert( "Please select organisation unit");
+				window.location.reload();
                 isValidated = "false";
                 return;
             }
-            else if( $scope.currentSelection.dataStatusReport === "" || $scope.currentSelection.dataStatusReport === undefined )
-            {
-                alert( "Please set data set Status Report in Report Configuration page");
-                isValidated = "false";
-                return;
-            }
+           
             else if( $scope.currentSelection.dataSet === "" || $scope.currentSelection.dataSet === undefined )
             {
-                alert( "Please select data set");
+				alert( "Please select data set");
+				window.location.reload();
                 isValidated = "false";
                 return;
             }
             else if( $scope.currentSelection.startPeriodMonth === "" || $scope.currentSelection.startPeriodMonth === undefined )
             {
-                alert( "Please select start period month");
+				alert( "Please select start period month");
+				window.location.reload();
                 isValidated = "false";
                 return;
             }
 
             else if( $scope.currentSelection.startPeriodYear === "" || $scope.currentSelection.startPeriodYear === undefined )
             {
-                alert( "Please select start period year");
+				alert( "Please select start period year");
+				window.location.reload();
                 isValidated = "false";
                 return;
             }
             else if( $scope.currentSelection.endPeriodMonth === "" || $scope.currentSelection.endPeriodMonth === undefined )
             {
-                alert( "Please select end period month");
+				alert( "Please select end period month");
+				window.location.reload();
                 isValidated = "false";
                 return;
             }
 
             else if( $scope.currentSelection.endPeriodYear === "" || $scope.currentSelection.endPeriodYear === undefined )
             {
-                alert( "Please select end period year");
+				alert( "Please select end period year");
+				window.location.reload();
                 isValidated = "false";
                 return;
             }
@@ -204,7 +205,8 @@ DataStatusApp.controller('DataStatusController',
 
                 if( lastDayOfSelStartPeriod > currentMonthLastDay )
                 {
-                    alert( "You can not select future period for start period");
+					alert( "You can not select future period for start period");
+					window.location.reload();
                     isValidated = "false";
                     return;
                 }
@@ -218,7 +220,8 @@ DataStatusApp.controller('DataStatusController',
 
                 if( lastDayOfSelEndPeriod > currentMonthLastDay )
                 {
-                    alert( "You can not select future period for end period");
+					alert( "You can not select future period for end period");
+					window.location.reload();
                     isValidated = "false";
                     return;
                 }
@@ -237,11 +240,14 @@ DataStatusApp.controller('DataStatusController',
 
                 if( selectedStartPeriod > selectedEndPeriod )
                 {
-                    alert( "Start period should not be greater then end period");
+					alert( "Start period should not be greater then end period");
+					window.location.reload();
                     isValidated = "false";
                     return;
                 }
             }
+
+        
 
             if( isValidated === "true")
             {
@@ -277,7 +283,10 @@ DataStatusApp.controller('DataStatusController',
                     }
                 );
 
+
             }
+
+
         }
 		
 		//Results
@@ -327,7 +336,7 @@ DataStatusApp.controller('DataStatusController',
 					
 		$scope.showDataSummary = function(){
 
-
+			$scope.generateDataStatusReport();
             Loader.showLoader();
             $("#coverLoad").show();
 			$("#headTitle").html("Data Summary - Data Sets");
@@ -523,6 +532,8 @@ DataStatusApp.controller('DataStatusController',
 		
 		
 		$scope.showDataStatus = function(){
+			$scope.generateDataStatusReport();
+
             Loader.showLoader();
 			$("#tableContent").html("");
 			$("#coverLoad").show();
@@ -740,6 +751,7 @@ DataStatusApp.controller('DataStatusController',
 		//User Details Result
 		//*****************************************************************************
 		$scope.showUserDetails = function(){
+			$scope.generateDataStatusReport();
             Loader.showLoader();
 			$("#tableContent").html("");
 			$("#coverLoad").show();
