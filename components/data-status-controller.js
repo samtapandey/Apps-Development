@@ -96,11 +96,27 @@ DataStatusApp.controller('DataStatusController',
                 $scope.dataSets = data.dataSets;
                 $scope.updatePeriods();
 			});*/
-		var url = "../../dataSets.json?fields=name,id&filter=attributeValues.attribute.id:eq:XSZbdSOTfDY"; // data sets based on report app attribute
-		$.get(url, function(data){
-			$scope.dataSets = data.dataSets;
-			$scope.updatePeriods();	
-		});
+		$scope.dataSetReport = function(){
+			var url = "../../dataSets.json?fields=name,id,attributeValues[attribute[id,name],value]&filter=attributeValues.attribute.id:eq:XSZbdSOTfDY"; // data sets based on report app attribute
+			$.get(url, function(data){
+				$scope.dataSets = data.dataSets;
+				$scope.updatePeriods();	
+			});
+		};
+		$scope.dataSetHospital = function(){
+			var url = "../../dataSets.json?fields=name,id,attributeValues[attribute[id,name],value]&filter=attributeValues.attribute.id:eq:KImLMEN4m8O"; // data sets based on Hospital attribute
+			$.get(url, function(data){
+				$scope.dataSets = data.dataSets;
+				$scope.updatePeriods();	
+			});
+		};
+		$scope.dataSetMedical = function(){
+			var url = "../../dataSets.json?fields=name,id,attributeValues[attribute[id,name],value]&filter=attributeValues.attribute.id:eq:DG8A7Ha62vY"; // data sets based on Muncipalities attribute
+			$.get(url, function(data){
+				$scope.dataSets = data.dataSets;
+				$scope.updatePeriods();	
+			});
+		};
 
         
 		$.ajaxSetup({
@@ -123,7 +139,20 @@ DataStatusApp.controller('DataStatusController',
                 $scope.selectedOrgUnit = selection.getSelected();
                 $scope.currentSelection.orgUnit = $scope.selectedOrgUnit;
                 OrganisationUnitService.getOrgUnitNameAndLevelByUid( $scope.selectedOrgUnit ).then(function(data){
-                        $scope.currentSelection.orgUnitName = data.organisationUnits[0].name;
+						$scope.currentSelection.orgUnitName = data.organisationUnits[0].name;
+						$scope.orgLevel = data.organisationUnits[0].level;
+						if($scope.orgLevel == 1 && $scope.currentSelection.orgUnitName == "Libya")
+						{
+							$scope.dataSetReport();
+						}
+						if($scope.orgLevel == 2 && $scope.currentSelection.orgUnitName == "Muncipalities")
+						{
+							$scope.dataSetMedical();
+						}
+						if($scope.orgLevel == 2 && $scope.currentSelection.orgUnitName == "Hospitals and Medical Centres")
+						{
+							$scope.dataSetHospital();
+						}
                         ReportConfigurationService.getAllReportConfiguration().then(function (resultData) {
                             if(resultData != "") {
                                 $scope.configurationParameters = resultData;

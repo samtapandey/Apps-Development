@@ -41,10 +41,6 @@ function ($rootScope,$scope, $location,reportSettingService,reportsService,
 
     });
 
-    $scope.back = function(){
-        $location.path('/data-status');
-
-    };
     $scope.showDataStatusScreen = function () {
         $location.path('/data-status');
 
