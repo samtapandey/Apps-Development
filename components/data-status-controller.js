@@ -175,155 +175,6 @@ DataStatusApp.controller('DataStatusController',
 
         selection.setListenerFunction($scope.listenToOuChange);
 
-        $scope.generateDataStatusReport = function(){
-           
-            var date = new Date();
-            var currentMonthFirstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-            var currentMonthLastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-            var selectedStartPeriod = "";
-            var lastDayOfSelStartPeriod = "";
-            var lastDayOfSelEndPeriod = "";
-
-
-            var isValidated = "true";
-            if( $scope.currentSelection.orgUnitName === "" || $scope.currentSelection.orgUnitName === undefined )
-            {
-				alert( "Please select organisation unit");
-				window.location.reload();
-                isValidated = "false";
-                return;
-            }
-           
-            else if( $scope.currentSelection.dataSet === "" || $scope.currentSelection.dataSet === undefined )
-            {
-				alert( "Please select data set");
-				window.location.reload();
-                isValidated = "false";
-                return;
-            }
-            else if( $scope.currentSelection.startPeriodMonth === "" || $scope.currentSelection.startPeriodMonth === undefined )
-            {
-				alert( "Please select start period month");
-				window.location.reload();
-                isValidated = "false";
-                return;
-            }
-
-            else if( $scope.currentSelection.startPeriodYear === "" || $scope.currentSelection.startPeriodYear === undefined )
-            {
-				alert( "Please select start period year");
-				window.location.reload();
-                isValidated = "false";
-                return;
-            }
-            else if( $scope.currentSelection.endPeriodMonth === "" || $scope.currentSelection.endPeriodMonth === undefined )
-            {
-				alert( "Please select end period month");
-				window.location.reload();
-                isValidated = "false";
-                return;
-            }
-
-            else if( $scope.currentSelection.endPeriodYear === "" || $scope.currentSelection.endPeriodYear === undefined )
-            {
-				alert( "Please select end period year");
-				window.location.reload();
-                isValidated = "false";
-                return;
-            }
-            if( $scope.currentSelection.startPeriodMonth != undefined && $scope.currentSelection.startPeriodYear != undefined  )
-            {
-                var selStartYear = $scope.currentSelection.startPeriodYear;
-                var selStartMonth = $scope.currentSelection.startPeriodMonth;
-                selectedStartPeriod = new Date( selStartYear + "-" + selStartMonth + "-01" );
-                lastDayOfSelStartPeriod = new Date(selectedStartPeriod.getFullYear(), selectedStartPeriod.getMonth() + 1, 0);
-
-                if( lastDayOfSelStartPeriod > currentMonthLastDay )
-                {
-					alert( "You can not select future period for start period");
-					window.location.reload();
-                    isValidated = "false";
-                    return;
-                }
-            }
-            if( $scope.currentSelection.endPeriodMonth != undefined && $scope.currentSelection.endPeriodYear != undefined  )
-            {
-                var selEndYear = $scope.currentSelection.endPeriodYear;
-                var selEndMonth = $scope.currentSelection.endPeriodMonth;
-                var selectedEndPeriod = new Date( selEndYear + "-" + selEndMonth + "-01" );
-                lastDayOfSelEndPeriod = new Date(selectedEndPeriod.getFullYear(), selectedEndPeriod.getMonth() + 1, 0);
-
-                if( lastDayOfSelEndPeriod > currentMonthLastDay )
-                {
-					alert( "You can not select future period for end period");
-					window.location.reload();
-                    isValidated = "false";
-                    return;
-                }
-            }
-
-            if( $scope.currentSelection.startPeriodMonth != undefined && $scope.currentSelection.startPeriodYear != undefined
-                    && $scope.currentSelection.endPeriodMonth != undefined && $scope.currentSelection.endPeriodYear != undefined )
-            {
-                var selStartYear = $scope.currentSelection.startPeriodYear;
-                var selStartMonth = $scope.currentSelection.startPeriodMonth;
-                var selectedStartPeriod = new Date( selStartYear + "-" + selStartMonth + "-01" );
-
-                var selEndYear = $scope.currentSelection.endPeriodYear;
-                var selEndMonth = $scope.currentSelection.endPeriodMonth;
-                var selectedEndPeriod = new Date( selEndYear + "-" + selEndMonth + "-01" );
-
-                if( selectedStartPeriod > selectedEndPeriod )
-                {
-					alert( "Start period should not be greater then end period");
-					window.location.reload();
-                    isValidated = "false";
-                    return;
-                }
-            }
-
-        
-
-            if( isValidated === "true")
-            {
-                var selOrgUnit = selection.getSelected();
-                var selDataSetUid = $scope.currentSelection.dataSet;
-                var selStartPeriod = $scope.currentSelection.startPeriodYear + "" + $scope.currentSelection.startPeriodMonth;
-                var selEndPeriod = $scope.currentSelection.endPeriodYear + "" + $scope.currentSelection.endPeriodMonth;
-                var reportUid = $scope.currentSelection.dataStatusReport;
-                var includeZero = $scope.currentSelection.includeZero;
-                OrganisationUnitService.getOrganisationUnitLevelLength().then(function(data){
-                        $scope.level = data.organisationUnitLevels.length;
-                    }
-                );
-
-                DataSetService.getDataSetPeriodTypeAndSource( selDataSetUid ).then(function(data){
-                        $scope.dataSetPeriodType = data.dataSets[0].periodType;
-                        $scope.dataSetSource = data.dataSets[0].organisationUnits;
-
-                        sessionStorage.setItem('selOrgUnit',selOrgUnit);
-                        sessionStorage.setItem('selDataSetUid',selDataSetUid);
-                        sessionStorage.setItem('dataSetPeriodType',$scope.dataSetPeriodType);
-                        sessionStorage.setItem('dataSetSource',$scope.dataSetSource);
-                        sessionStorage.setItem('selStartPeriod',selStartPeriod);
-                        sessionStorage.setItem('selEndPeriod',selEndPeriod);
-                        sessionStorage.setItem('selectedStartPeriod',selectedStartPeriod);
-                        sessionStorage.setItem('lastDayOfSelStartPeriod',lastDayOfSelStartPeriod);
-                        sessionStorage.setItem('lastDayOfSelEndPeriod',lastDayOfSelEndPeriod);
-
-                        $window.location.href = "../dhis-web-reporting/generateHtmlReport.action?uid="+reportUid+"&orgUnitUID="+selOrgUnit+"&dataSetUID="+selDataSetUid+"&dataSetPeriodType="+$scope.dataSetPeriodType
-                        +"&startDate="+selStartPeriod+"&endDate="+selEndPeriod+"&includeZero="+includeZero ;
-
-
-                    }
-                );
-
-
-			}
-
-
-        }
-		
 		//Results
 		
 		$scope.allOrgUnitChildren = [];
@@ -371,7 +222,6 @@ DataStatusApp.controller('DataStatusController',
 					
 		$scope.showDataSummary = function(){
 
-			// $scope.generateDataStatusReport();
             Loader.showLoader();
             $("#coverLoad").show();
 			$("#headTitle").html("Data Summary - Data Sets");
@@ -567,7 +417,6 @@ DataStatusApp.controller('DataStatusController',
 		
 		
 		$scope.showDataStatus = function(){
-			// $scope.generateDataStatusReport();
 
             Loader.showLoader();
 			$("#tableContent").html("");
@@ -786,7 +635,7 @@ DataStatusApp.controller('DataStatusController',
 		//User Details Result
 		//*****************************************************************************
 		$scope.showUserDetails = function(){
-			// $scope.generateDataStatusReport();
+
             Loader.showLoader();
 			$("#tableContent").html("");
 			$("#coverLoad").show();
@@ -927,17 +776,7 @@ DataStatusApp.controller('DataStatusController',
 			});
 		};
 		
-		//*****************************************************************************
-		//Validation Status Result
-		//*****************************************************************************
-		$scope.showValidationStatus = function(){
-			$("#coverLoad").show();
-			$("#headTitle").html("Validation Status");
-			$("#resultModal").modal('show');			
-		};
-		
-		
-		// common functions
+			// common functions
 		
 		//*****************************************************************************
 		//Check whether an organisation found in the result set
@@ -1011,6 +850,7 @@ DataStatusApp.controller('DataStatusController',
 						$("#btn5").fadeIn();
 						$("#btn6").fadeIn();
 						$("#loading").hide();
+						$scope.generateDataStatusReport();
 					});
 				});
 			}
@@ -1026,6 +866,27 @@ DataStatusApp.controller('DataStatusController',
 			}
 		};
 		
+		// validations 
+
+		$scope.generateDataStatusReport = function(){
+           
+			var selStartPeriod = $scope.currentSelection.startPeriodYear + "" + $scope.currentSelection.startPeriodMonth + "01";
+			var selEndPeriod = $scope.currentSelection.endPeriodYear + "" + $scope.currentSelection.endPeriodMonth + "01";
+
+			console.log(selStartPeriod+" -- selStartPeriod -- "+ selEndPeriod+" -- selEndPeriod");
+
+			if(selStartPeriod > selEndPeriod)
+			{
+				alert("Start period should not be greater than end period");
+				$("#btn1").fadeOut();
+				$("#btn2").fadeOut();
+				$("#btn3").fadeOut();
+				$("#btn4").fadeOut();
+				$("#btn5").fadeOut();
+				$("#btn6").fadeOut();
+				$("#loading").hide();
+			}
+        }
 		
 		//*****************************************************************************
 		//Extracting orgUnit meta data for labelling purpose
@@ -1255,5 +1116,7 @@ DataStatusApp.controller('DataStatusController',
 			var dt = new Date(this.getFullYear(),0,1);
 			return Math.ceil((((this - dt) / 86400000) + dt.getDay()+1)/7);
 		};
+
+	
 		
     });
