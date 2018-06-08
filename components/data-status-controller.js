@@ -90,28 +90,51 @@ DataStatusApp.controller('DataStatusController',
                 "endPeriodYear":""
             }
         };
+		//api/dataSets?filter=attributeValues.attribute.id:eq:XSZbdSOTfDY&filter=attributeValues.value:eq:true
 
-
-     /*   DataSetService.getAllDataSet().then(function(data){
-                $scope.dataSets = data.dataSets;
-                $scope.updatePeriods();
-			});*/
 		$scope.dataSetReport = function(){
 			var url = "../../dataSets.json?fields=name,id,attributeValues[attribute[id,name],value]&filter=attributeValues.attribute.id:eq:XSZbdSOTfDY"; // data sets based on report app attribute
 			$.get(url, function(data){
-				$scope.dataSets = data.dataSets;
+				for(var i = 0;i<data.dataSets.length;i++)
+				{
+					for(var j =0;j<data.dataSets[i].attributeValues.length;j++)
+					{
+						if(data.dataSets[i].attributeValues[j].value == "true")
+						{
+							$scope.dataSets = data.dataSets;
+						}
+					}
+				}
 			});
 		};
 		$scope.dataSetHospital = function(){
 			var url = "../../dataSets.json?fields=name,id,attributeValues[attribute[id,name],value]&filter=attributeValues.attribute.id:eq:KImLMEN4m8O"; // data sets based on Hospital attribute
 			$.get(url, function(data){
-				$scope.dataSets = data.dataSets;
+				for(var i = 0;i<data.dataSets.length;i++)
+				{
+					for(var j =0;j<data.dataSets[i].attributeValues.length;j++)
+					{
+						if(data.dataSets[i].attributeValues[j].value == "true")
+						{
+							$scope.dataSets = data.dataSets;
+						}
+					}
+				}
 			});
 		};
 		$scope.dataSetMedical = function(){
 			var url = "../../dataSets.json?fields=name,id,attributeValues[attribute[id,name],value]&filter=attributeValues.attribute.id:eq:DG8A7Ha62vY"; // data sets based on Muncipalities attribute
 			$.get(url, function(data){
-				$scope.dataSets = data.dataSets;
+				for(var i = 0;i<data.dataSets.length;i++)
+				{
+					for(var j =0;j<data.dataSets[i].attributeValues.length;j++)
+					{
+						if(data.dataSets[i].attributeValues[j].value == "true")
+						{
+							$scope.dataSets = data.dataSets;
+						}
+					}
+				}
 			});
 		};
 
