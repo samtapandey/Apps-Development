@@ -21,6 +21,9 @@ var DataStatusApp = angular.module('DataStatusApp',['ui.bootstrap',
         }).when('/data-status-result',{
             templateUrl:'components/data-status-result.html',
             controller: 'DataStatusResultController'
+        }).when('/data-status-data-set-wise',{
+            templateUrl:'components/data-status-data-set-wise.html',
+            controller: 'DataStatusDataSetWiseController'
         }).otherwise({
             redirectTo : '/'
         });

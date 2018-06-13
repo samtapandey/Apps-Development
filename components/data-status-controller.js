@@ -1140,6 +1140,14 @@ DataStatusApp.controller('DataStatusController',
 			return Math.ceil((((this - dt) / 86400000) + dt.getDay()+1)/7);
 		};
 
+	    $scope.showDataStatusScreen = function () {
+			$location.path('/data-status');
+			window.location.reload();
+		};
 	
+		$scope.showDataStatusScreen2 = function () {
+			$location.path('/data-status-data-set-wise');
+			window.location.reload();
+		};
 		
     });

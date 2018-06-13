@@ -43,7 +43,12 @@ function ($rootScope,$scope, $location,reportSettingService,reportsService,
 
     $scope.showDataStatusScreen = function () {
         $location.path('/data-status');
+        window.location.reload();
+    };
 
+    $scope.showDataStatusScreen2 = function () {
+        $location.path('/data-status-data-set-wise');
+        window.location.reload();
     };
 
 });
