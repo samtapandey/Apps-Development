@@ -93,7 +93,7 @@ DataStatusApp.controller('DataStatusController',
 		//api/dataSets?filter=attributeValues.attribute.id:eq:XSZbdSOTfDY&filter=attributeValues.value:eq:true
 
 		$scope.dataSetReport = function(){
-			var url = "../../dataSets.json?fields=name,id,attributeValues[attribute[id,name],value]&filter=attributeValues.attribute.id:eq:XSZbdSOTfDY"; // data sets based on report app attribute
+			var url = "../../dataSets.json?fields=name,id,attributeValues[attribute[id,name],value]&filter=attributeValues.attribute.id:eq:XSZbdSOTfDY&paging=false"; // data sets based on report app attribute
 			$.get(url, function(data){
 				for(var i = 0;i<data.dataSets.length;i++)
 				{
@@ -108,7 +108,7 @@ DataStatusApp.controller('DataStatusController',
 			});
 		};
 		$scope.dataSetHospital = function(){
-			var url = "../../dataSets.json?fields=name,id,attributeValues[attribute[id,name],value]&filter=attributeValues.attribute.id:eq:KImLMEN4m8O"; // data sets based on Hospital attribute
+			var url = "../../dataSets.json?fields=name,id,attributeValues[attribute[id,name],value]&filter=attributeValues.attribute.id:eq:KImLMEN4m8O&paging=false"; // data sets based on Hospital attribute
 			$.get(url, function(data){
 				for(var i = 0;i<data.dataSets.length;i++)
 				{
@@ -123,7 +123,7 @@ DataStatusApp.controller('DataStatusController',
 			});
 		};
 		$scope.dataSetMedical = function(){
-			var url = "../../dataSets.json?fields=name,id,attributeValues[attribute[id,name],value]&filter=attributeValues.attribute.id:eq:DG8A7Ha62vY"; // data sets based on Muncipalities attribute
+			var url = "../../dataSets.json?fields=name,id,attributeValues[attribute[id,name],value]&filter=attributeValues.attribute.id:eq:DG8A7Ha62vY&paging=false"; // data sets based on Muncipalities attribute
 			$.get(url, function(data){
 				for(var i = 0;i<data.dataSets.length;i++)
 				{
