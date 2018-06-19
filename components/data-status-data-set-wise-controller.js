@@ -92,52 +92,49 @@ sqlviewservice.getAll().then(function(data)
     };
     //api/dataSets?filter=attributeValues.attribute.id:eq:XSZbdSOTfDY&filter=attributeValues.value:eq:true
 
-    $scope.dataSetReport = function(){
-        var url = "../../dataSets.json?fields=name,id,attributeValues[attribute[id,name],value]&filter=attributeValues.attribute.id:eq:XSZbdSOTfDY"; // data sets based on report app attribute
-        $.get(url, function(data){
-            for(var i = 0;i<data.dataSets.length;i++)
-            {
-                for(var j =0;j<data.dataSets[i].attributeValues.length;j++)
-                {
-                    if(data.dataSets[i].attributeValues[j].value == "true")
-                    {
-                        $scope.dataSets = data.dataSets;
-                    }
-                }
-            }
-        });
-    };
-    $scope.dataSetHospital = function(){
-        var url = "../../dataSets.json?fields=name,id,attributeValues[attribute[id,name],value]&filter=attributeValues.attribute.id:eq:KImLMEN4m8O"; // data sets based on Hospital attribute
-        $.get(url, function(data){
-            for(var i = 0;i<data.dataSets.length;i++)
-            {
-                for(var j =0;j<data.dataSets[i].attributeValues.length;j++)
-                {
-                    if(data.dataSets[i].attributeValues[j].value == "true")
-                    {
-                        $scope.dataSets = data.dataSets;
-                    }
-                }
-            }
-        });
-    };
-    $scope.dataSetMedical = function(){
-        var url = "../../dataSets.json?fields=name,id,attributeValues[attribute[id,name],value]&filter=attributeValues.attribute.id:eq:DG8A7Ha62vY"; // data sets based on Muncipalities attribute
-        $.get(url, function(data){
-            for(var i = 0;i<data.dataSets.length;i++)
-            {
-                for(var j =0;j<data.dataSets[i].attributeValues.length;j++)
-                {
-                    if(data.dataSets[i].attributeValues[j].value == "true")
-                    {
-                        $scope.dataSets = data.dataSets;
-                    }
-                }
-            }
-        });
-    };
+    $scope.currentSelection.orgUnit = "";
+    $scope.dataSets = [];
+		
+ 
 
+    $scope.peType = "";
+
+    $scope.petypeValue = function(){
+    
+        var currentSelectedOU = $scope.currentSelection.orgUnit;
+    
+        $scope.peType = document.getElementById("periodtype").value;
+        console.log("petype=" + $scope.peType);
+        $scope.dataSetReport(currentSelectedOU, $scope.peType);
+            
+    }
+
+    $scope.dataSetReport = function(orgUnitUid , periodType){
+        $scope.dataSetss = [];
+        $scope.dataSets = [];
+        var url = "../../organisationUnits/" +orgUnitUid + ".json?fields=id,name,dataSets[id,name,periodType,attributeValues[attribute[id,name],value]&paging=false"; // data sets based on report app attribute
+        $.get(url, function(data){
+            for(var i = 0;i<data.dataSets.length;i++ )
+            {
+                if(data.dataSets[i].periodType === periodType) {
+
+                for(var j =0;j<data.dataSets[i].attributeValues.length;j++)
+                {
+                    if(data.dataSets[i].attributeValues[j].attribute.name === 'Report app'  && data.dataSets[i].attributeValues[j].value == "true" )
+                    {
+                        $scope.dataSetss = data.dataSets[i];
+                        console.log(" 1 " + $scope.dataSetss);
+                        
+                    }
+                }
+                $scope.dataSets.push($scope.dataSetss);
+                console.log("2 =" + $scope.dataSets);
+            }
+            }
+        });
+        $scope.updatePeriods();
+    };
+  
     
     $.ajaxSetup({
         async:false
@@ -154,28 +151,157 @@ sqlviewservice.getAll().then(function(data)
         }
     };
 
+
+
+
+    
+    // for period type
+   
+    $scope.dsId = []; // Selected data set id
+    $scope.dataSetArray = [];
+            $scope.arrayds = "";
+            $scope.returnValue = [];
+        $scope.peType = "";
+    
+        
+            
+            $scope.getValues = function(arraystring) { // selected id
+               
+                console.log("$scope.currentSelection.orgUnit" +$scope.currentSelection.orgUnit);
+                
+                var dataSetidString = arraystring;
+                console.log("aa" + dataSetidString); 
+                
+            
+                var length = dataSetidString.length; // selected id length
+    
+                console.log("length =" + length);
+    
+                for(var i=0; i<dataSetidString.length;i++)
+                {
+    
+                    for (var j = 0; j<$scope.dataSets.length; j++)
+                    {
+                        if($scope.dataSets[j].id == dataSetidString[i]) // match id
+                        {
+                        
+                         $scope.a = "";
+                    $scope.a = $scope.dataSets[j];
+                    //console.log("arr==" + $scope.a);
+                    $scope.dataSetArray.push($scope.a);
+
+
+            for(var i = 0 ; i < $scope.dataSetArray.length; i++)
+            {
+               $scope.dataSetid = $scope.dataSetArray[i].id;
+               $scope.dsId.push($scope.dataSetid);
+               console.log("$scope.dsId" + $scope.dsId);
+               
+            }
+                    
+            
+                        }
+    
+    
+                    }
+            //$("#dataSetId").find('option:selected').remove();
+            
+            
+            //return $scope.returnValue;
+        }
+        console.log(" a== " + $scope.dataSetArray.length);
+            $scope.dataSets.remove($scope.dataSetArray);
+            return $scope.dataSetArray;
+            
+    }
+    
+    Array.prototype.remove = function(dataSetArray){
+            var args = Array.apply(null, dataSetArray);
+            console.log(dataSetArray);
+            var indices = [];
+            for(var i = 0; i < args.length; i++){
+                var arg = args[i];
+                console.log("arg =" + arg)
+                var index = this.indexOf(arg);
+                console.log(index);
+                while(index > -1){
+                    indices.push(index);
+                    console.log("ind" + indices)
+                    index = this.indexOf(arg, index + 1);
+                }
+            }
+            indices.sort();
+            for(var i = 0; i < indices.length; i++){
+                var index = indices[i] - i;
+                this.splice(index, 1);
+                console.log("ds" + $scope.dataSets.length);
+            }    
+        }
+    
+        
+    
+    
+        $scope.dataSets1 = [];
+    
+        $scope.col = function(dataSetArray) {
+          
+           // console.log("col = " + $scope.currentSelection.dataSet);
+            $scope.dataArray = dataSetArray;
+            console.log("dataSetArray = " +  $scope.dataArray);
+            $scope.i = $("#multipleSelect").prop('selectedIndex')	
+            var conceptName = $('#multipleSelect').find(":selected").text();
+            //console.log("vv" + val);console.log("vv" + val);
+            
+            //$scope.removeArrayIndex ();
+    console.log("dataSet ====" + $scope.dataArray );
+    
+    var x = document.getElementById("multipleSelect");
+    var y = document.getElementById("multipleSelect").options;
+    
+    
+    console.log(y[x.selectedIndex].text);
+    
+    $scope.struer =y[x.selectedIndex].text;
+    
+    
+    console.log($scope.dataSets);
+    
+        
+        //	var strUser = x.options[x.selectedIndex].text;
+            console.log("struer" + $scope.struer);
+    
+    
+    
+            for(var i=0; i<$scope.dataArray.length;i++)
+            {
+    
+                    if($scope.dataArray[i].name == $scope.struer)
+                    {
+                        $scope.a =$scope.dataArray[i];
+                        break;
+                    }	
+            }
+    
+        //x.remove(x.selectedIndex);
+        
+        $scope.dataSets.push($scope.a);
+        $scope.dataSetArray.remove($scope.dataSets);
+    console.log("ds1" + $scope.dataSets);
+        //	console.log("struer" + $scope.strUser);
+            $("#multipleSelect").find('option:selected').remove();
+        }
+    
+
+
+
     $scope.listenToOuChange = function(){
         $timeout(function() {
             $scope.selectedOrgUnit = selection.getSelected();
             $scope.currentSelection.orgUnit = $scope.selectedOrgUnit;
             OrganisationUnitService.getOrgUnitNameAndLevelByUid( $scope.selectedOrgUnit ).then(function(data){
                     $scope.currentSelection.orgUnitName = data.organisationUnits[0].name;
-                    $scope.orgLevel = data.organisationUnits[0].level;
-                    if($scope.orgLevel == 1 && $scope.currentSelection.orgUnitName == "Libya")
-                    {
-                        $scope.dataSetReport();
-                        $scope.updatePeriods();	
-                    }
-                    if($scope.orgLevel == 2 && $scope.currentSelection.orgUnitName == "Muncipalities")
-                    {
-                        $scope.dataSetMedical();
-                        $scope.updatePeriods();	
-                    }
-                    if($scope.orgLevel == 2 && $scope.currentSelection.orgUnitName == "Hospitals and Medical Centres")
-                    {
-                        $scope.dataSetHospital();
-                        $scope.updatePeriods();	
-                    }
+                   // $scope.petypeValue ($scope.currentSelection.orgUnit);
+              
                     ReportConfigurationService.getAllReportConfiguration().then(function (resultData) {
                         if(resultData != "") {
                             $scope.configurationParameters = resultData;
@@ -264,7 +390,7 @@ sqlviewservice.getAll().then(function(data)
         var includeZero = $scope.currentSelection.includeZero;
        var htmlString = "";
 
-       $scope.dsPeriodType = 'Monthly';
+       $scope.dsPeriodType = $scope.peType;   // period type select variable
 
        var totPeriods = $scope.allPeriods.length + 2 ;
             
@@ -287,7 +413,7 @@ sqlviewservice.getAll().then(function(data)
                 htmlString += "<th style='min-width:100px;max-width:100px;'>" + $scope.periodString( p[0],$scope.dsPeriodType)  + "</th>";					
             });
         
-            var selDataSetUid=['yY9r5kbus3t','DVEYU2A2aF2','WRzYEN981Nb'];
+            var selDataSetUid= $scope.dsId   // data Set value variable
 
             for(var j=0;j<selDataSetUid.length;j++)
             {
@@ -297,7 +423,10 @@ sqlviewservice.getAll().then(function(data)
                 url+= "var=dataSetUid:" + selDataSetUid[j] + ",orgUnitUid:" + selOrgUnit + ",startDate:" + selStartPeriod + ",endDate:" + selEndPeriod;
 
         $.get(url, function(data){
+            
+            if(data.rows.length > 0){
             var summaryData = data.rows[0];
+            
             
             htmlString += "</tr>";
             var currentStatus= 0;
@@ -343,6 +472,14 @@ sqlviewservice.getAll().then(function(data)
             $("#tableContent").html(htmlString);
             $("#dwnLoad").fadeIn();
             $("#coverLoad").hide();
+             }
+             else{
+                htmlString += "<tr>No data to display</tr>";		
+                  
+                $("#tableContent").html(htmlString);
+                $("#dwnLoad").fadeIn();
+                $("#coverLoad").hide();
+             }
         });
     }
     };
@@ -374,7 +511,7 @@ sqlviewservice.getAll().then(function(data)
       var htmlString = "";
        
       var totPeriods = $scope.allPeriods.length + 2 ;
-      $scope.dsPeriodType = 'Monthly';
+      $scope.dsPeriodType = $scope.peType;   // period type variable 
       
        htmlString += "<tr style = 'background:#eee'><td colspan = '"+ totPeriods +"'  style='padding:2px 15px'> <b>Selected Organisation Unit : </b>" + $scope.currentSelection.orgUnitName +"</td></tr>";
       var durationString = $scope.durationString($scope.currentSelection.startPeriodYear + "-" + $scope.currentSelection.startPeriodMonth ) + " to " + $scope.durationString($scope.currentSelection.endPeriodYear + "-" + $scope.currentSelection.endPeriodMonth );	
@@ -395,7 +532,7 @@ sqlviewservice.getAll().then(function(data)
            htmlString += "<th style='min-width:100px;max-width:100px;'>" + $scope.periodString( p[0],$scope.dsPeriodType)  + "</th>";					
        });
 
-      var selDataSetUid=['yY9r5kbus3t','DVEYU2A2aF2','WRzYEN981Nb'];
+      var selDataSetUid = $scope.dsId;    // data set variable
 
       for(var j=0;j<selDataSetUid.length;j++)
       {
@@ -421,7 +558,9 @@ sqlviewservice.getAll().then(function(data)
         url+= "var=dataSetUid:" + selDataSetUid[j] + ",orgUnitUid:" +selOrgUnit + ",startDate:" + selStartPeriod + ",endDate:" + selEndPeriod;	;	
                     
         $.get(url, function(data){
-            var summaryData = data.rows[0];
+            if(data.rows.length > 0){
+                var summaryData = data.rows[0];
+                
            
             
             htmlString += "</tr>";
@@ -462,6 +601,14 @@ sqlviewservice.getAll().then(function(data)
             $("#tableContent").html(htmlString);
             $("#dwnLoad").fadeIn();
             $("#coverLoad").hide();
+        }
+        else{
+           htmlString += "<tr>No data to display</tr>";		
+             
+           $("#tableContent").html(htmlString);
+           $("#dwnLoad").fadeIn();
+           $("#coverLoad").hide();
+        }
         });
         }
     };
@@ -655,14 +802,16 @@ sqlviewservice.getAll().then(function(data)
             return isFound;			
         
     }
+
     //*****************************************************************************
     //Show and Hide buttons
     //*****************************************************************************
     $scope.showHideButtons = function(){
         $("#loading").show();
+        
         if( 
                 $scope.currentSelection.orgUnitName &&
-                $scope.currentSelection.dataSet  &&
+             //  $scope.currentSelection.dataSet  &&
                 $scope.currentSelection.startPeriodMonth &&
                 $scope.currentSelection.startPeriodYear &&
                 $scope.currentSelection.endPeriodMonth &&
@@ -674,7 +823,7 @@ sqlviewservice.getAll().then(function(data)
                 
             })
             .then(function(){
-                $.get("../../dataSets/"+ $scope.currentSelection.dataSet +".json" ,function(json){
+                $.get("../../dataSets/Ri1mp3YgF3s.json" ,function(json){
                     if( json.dataSetElements.length == 0 )
                         $scope.compulsoryDECount = 1;
                     else
@@ -685,7 +834,7 @@ sqlviewservice.getAll().then(function(data)
                 var selStartPeriod = $scope.currentSelection.startPeriodYear + "" + $scope.currentSelection.startPeriodMonth + "01";
                 var selEndPeriod = $scope.currentSelection.endPeriodYear + "" + $scope.currentSelection.endPeriodMonth + "01";
                 
-                $.get("../../sqlViews/"+ $scope.periodsSV +"/data.json?var=startDate:"+ selStartPeriod +",endDate:" + selEndPeriod +",dataSetUidForLevel:" + $scope.currentSelection.dataSet , function(pr){						
+                $.get("../../sqlViews/"+ $scope.periodsSV +"/data.json?var=startDate:"+ selStartPeriod +",endDate:" + selEndPeriod +",dataSetUidForLevel:Ri1mp3YgF3s" , function(pr){						
                     $scope.allPeriods = pr.rows;
                     
                     $("#btn1").fadeIn();

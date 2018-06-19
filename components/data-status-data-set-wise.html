@@ -26,60 +26,96 @@
         <div class="vertical-spacing col-md-10" align="center" style="background-color:lavender;align:center;" >
     
             <table class="table">
-                <tr>
-                    <td style="vertical-align: middle;"><h3 style="color:#8A0868; font-size:125%;font-family:arial;" align="left"><strong>{{'select_orgUnit' | translate}}</strong></h3></td>
-                    <td >
-                        <div class="col-md-5">
+                <tr >
+                    <td class="col-md-2" style="vertical-align: middle;"><h3 style="color:#8A0868; font-size:125%;font-family:arial;" align="left"><strong>{{'select_orgUnit' | translate}}</strong></h3></td>
+                    <td class="col-md-3">
+                        <div >
                              <input  class="form-control" ng-model="currentSelection.orgUnitName" type="text" ng-readonly="true"/>
                              <input class="form-control" type="hidden" ng-model="currentSelection.orgUnit"/>
                              <input class="form-control" type="hidden" ng-model="currentSelection.dataStatusReport"/>
                         </div>
                         <div class="col-md-3" style="display:none">
-                            <input id="includeZero" type="checkbox" ng-model="currentSelection.includeZero" ng-checked="true" disabled="true" >Include Zero
+                            <input id="includeZero" type="checkbox" ng-model="currentSelection.includeZero" ng-checked="true" disabled="true" >
                         </div>
                     </td>
-                </tr>
-                <tr>
-                    <td class="margin-base-vertical" style="vertical-align: middle;"><h3 style="color:#8A0868; font-size:125%;font-family:arial;" align="left"><strong>{{'select_data_set' | translate}}</strong></h3></td>
-                    <td >
-                        <div class="col-md-8">
-                            <select class="form-control margin-base-vertical input-small" style="width:100%" ng-required="true" ng-model="currentSelection.dataSet"
-                                    ng-options="dataSet.id as dataSet.name for dataSet in dataSets" id ="dataSetId" ng-change = "showHideButtons()" >
-                                    <option value="">{{'please_select'| translate}}</option>
-                            </select>
-                    </div>
+                    <td class="col-md-2" style="vertical-align: middle;"><h3 style="color:#8A0868; font-size:125%;font-family:arial;" align="left"><strong>{{'select_periodType' | translate}}</strong></h3></td>
+                    <td class="col-md-3" >
+                        <select ng-model="selectedGroup" ng-change="petypeValue()"   class="form-control margin-base-vertical input-small" id="periodtype"   >
+                         
+                          <option value ="Monthly">Monthly</option>
+                          <option value ="Yearly">Yearly</option>
+                          <option value ="Quarterly">Quarterly</option>
+                          <option value ="Weekly">Weekly</option>
+    
+    
+                    </select>
                     </td>
+    
+    
+    
                 </tr>
+    
                 <tr>
-                    <td style="vertical-align: middle;"><h3 style="color:#8A0868; font-size:125%;font-family:arial;" align="left"><strong>{{'select_start_period' | translate}}</strong></h3></td>
+                    <td class="col-md-2" style="vertical-align: middle;"><h3 style="color:#8A0868; font-size:125%;font-family:arial;" align="left"><strong>{{'select_data_set' | translate}}</strong></h3></td>
+                    <td class="col-md-2">
+                       
+                            <select  class="form-control margin-base-vertical input-small" style="width:100%" ng-required="true" ng-model="currentSelection.dataSet"
+                                    ng-options="dataSet.id as dataSet.name for dataSet in dataSets" id ="dataSetId" ng-change = "showHideButtons()" multiple>
+                                   
+                            </select>
+                          
+                      
+                </td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <td> 
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button  ng-click="getValues(currentSelection.dataSet)" > →</button>
+                    <button  ng-click="col(dataSetArray)"> ← </button>
+                </td>
+              
+                
+                <td  class="col-md-3">
+                   
+                        <select  class="form-control margin-base-vertical input-small" id="multipleSelect"   ng-model="currentSelection.dataSetArray" multiple>
+                            <option ng-model="selectedOption" ng-repeat="x in dataSetArray" >{{x.name}}</option>
+                    </select>
+                    
+                </td>
+               
+                    
+                </tr>
+
+
+
+                <tr>
+                    <td class="col-md-3" style="vertical-align: middle;"><h3 style="color:#8A0868; font-size:125%;font-family:arial;" align="left"><strong>{{'select_start_period' | translate}}</strong></h3></td>
                     <td>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <select class="form-control input-small" style="width:100%" ng-model="currentSelection.startPeriodMonth" ng-change = "showHideButtons()" placeholder="{{'please_select_month' | translate}}"
                                     ng-options="month.id as month.name for month in monthList">
-                                    <option value="">{{'please_select'| translate}}</option>
+                                    
                             </select>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <select class="form-control " style="width:100%" ng-model="currentSelection.startPeriodYear" ng-change = "showHideButtons()" placeholder="{{'please_select_year' | translate}}"
                                     ng-options="year as year for year in yearList">
-                                    <option value="">{{'please_select'| translate}}</option>
+                                    
                             </select>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <td style="vertical-align: middle;"><h3 style="color:#8A0868; font-size:125%;font-family:arial;" align="left"><strong>{{'select_end_period' | translate}}</strong></h3></td>
+                    <td class="col-md-3" style="vertical-align: middle;"><h3 style="color:#8A0868; font-size:125%;font-family:arial;" align="left"><strong>{{'select_end_period' | translate}}</strong></h3></td>
                     <td>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <select class="form-control input-small" style="width:100%" ng-model="currentSelection.endPeriodMonth" ng-change = "showHideButtons()" placeholder="{{'please_select_month' | translate}}"
                                     ng-options="month.id as month.name for month in monthList">
-                                    <option value="">{{'please_select'| translate}}</option>
+                                    
                             </select>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <select class="form-control " style="width:100%" ng-model="currentSelection.endPeriodYear" ng-change = "showHideButtons()" placeholder="{{'please_select_year' | translate}}"
                                     ng-options="year as year for year in yearList">
-                                    <option value="">{{'please_select'| translate}}</option>
+                                    
                             </select>
                         </div>
                     </td>
