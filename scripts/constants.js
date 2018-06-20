@@ -45,6 +45,16 @@ const SQLQUERY_DS_App_Periods = "select startdate from period  \
 where startdate >= '${startDate}' and startdate <='${endDate}' and periodtypeid in ( select periodtypeid from dataset where uid = '${dataSetUidForLevel}' ) \
 order by startdate ASC";
 
+const SQLQUERY_DS_App_Data_Status_Data_Set_Wise = "SELECT  P .periodid, P .startdate ,dv.sourceid, ou.uid ou_uid, ds.uid ds_uid ,ds.name, COUNT (VALUE) entered FROM datavalue dv  INNER JOIN datasetelement  dsm ON dv.dataelementid = dsm.dataelementid  INNER JOIN dataset ds ON ds.datasetid = dsm.datasetid INNER JOIN organisationunit ou ON dv.sourceid = ou.organisationunitid   INNER JOIN period P ON dv.periodid = P .periodid WHERE ou.uid='${orgUnitUid}'and ds.uid= '${dataSetUid}'  AND dv.periodid IN ( SELECT periodid FROM period WHERE periodtypeid IN ( SELECT periodtypeid from dataset where uid= '${dataSetUid}' ) AND startdate >='${startDate}' AND enddate <='${endDate}') GROUP BY ou.uid, P .periodid, P .startdate ,dv.sourceid, ou.uid, ds.uid, ds.name ORDER BY ou.uid ASC";
+const SQLQUERY_DS_App_Data_Status_Data_Set_Wise_NAME = "DS_App_Data_Status_Data_Set_Wise";
+
+const SQLQUERY_DS_App_Data_Summary_Data_Set_Wise = "SELECT  P .periodid, P .startdate,dv.sourceid, ou.uid ou_uid, ds.uid ds_uid ,ds.name, COUNT (VALUE) entered FROM datavalue dv  INNER JOIN datasetelement dsm ON dv.dataelementid = dsm.dataelementid  INNER JOIN organisationunit ou ON dv.sourceid = ou.organisationunitid  INNER JOIN period P ON dv.periodid = P .periodid  INNER JOIN dataset ds ON dsm.datasetid = ds.datasetid  WHERE dv.periodid IN ( SELECT periodid FROM period WHERE periodtypeid IN   ( SELECT periodtypeid FROM dataset WHERE uid = '${dataSetUid}') AND startdate >= '${startDate}'  AND enddate <= '${endDate}' )    AND ds.uid =  '${dataSetUid}' AND  ou.uid ='${orgUnitUid}'GROUP BY ou.uid, P .periodid, P .startdate ,dv.sourceid, ou.uid, ds.uid, ds.name ORDER BY ou.uid ASC";
+
+const SQLQUERY_DS_App_Data_Summary_Data_Set_Wise_NAME = "DS_App_Data_Summary_Data_Set_Wise";
+
+
+
+
 const SQLQUERY_DS_App_Periods_NAME = "DS_App_Periods";
 
 const SQLQUERY_DS_App_User_Details = "SELECT ou.uid,p.startdate, dv.storedby, max(dv.lastupdated) FROM datavalue  \
@@ -107,5 +117,21 @@ const SQLView_Init = [
         query :SQLQUERY_DS_App_GetOrgUnitId,
         desc : "",
         type : "QUERY"
+    },
+    {
+        name : SQLQUERY_DS_App_Data_Status_Data_Set_Wise_NAME,
+        query :SQLQUERY_DS_App_Data_Status_Data_Set_Wise,
+        desc : "",
+        type : "QUERY"
+    },
+    
+    {
+        name : SQLQUERY_DS_App_Data_Summary_Data_Set_Wise_NAME,
+        query :SQLQUERY_DS_App_Data_Summary_Data_Set_Wise,
+        desc : "",
+        type : "QUERY"
     }
+
+
+
 ];

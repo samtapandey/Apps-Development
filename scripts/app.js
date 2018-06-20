@@ -49,6 +49,9 @@ var DataStatusApp = angular.module('DataStatusApp',['ui.bootstrap',
             requiredViews[SQLQUERY_DS_App_User_Details_NAME] = false;
             requiredViews[SQLQUERY_DS_App_GetDataSetId_NAME] = false;
             requiredViews[SQLQUERY_DS_App_GetOrgUnitId_NAME] = false;
+            requiredViews[SQLQUERY_DS_App_Data_Status_Data_Set_Wise_NAME] = false;
+            requiredViews[SQLQUERY_DS_App_Data_Summary_Data_Set_Wise_NAME] = false;
+
 
 
             for (var i=0;i<sqlViews.length;i++){
@@ -75,6 +78,14 @@ var DataStatusApp = angular.module('DataStatusApp',['ui.bootstrap',
                 else if (sqlViews[i].name == SQLQUERY_DS_App_GetOrgUnitId_NAME){
                     delete requiredViews[SQLQUERY_DS_App_GetOrgUnitId_NAME];
                 }
+                else if (sqlViews[i].name == SQLQUERY_DS_App_Data_Status_Data_Set_Wise_NAME){
+                    delete requiredViews[SQLQUERY_DS_App_Data_Status_Data_Set_Wise_NAME];
+                }
+                
+                else if (sqlViews[i].name == SQLQUERY_DS_App_Data_Summary_Data_Set_Wise_NAME){
+                    delete requiredViews[SQLQUERY_DS_App_Data_Summary_Data_Set_Wise_NAME];
+                }
+
             }
     
             createRequiredViews(requiredViews);

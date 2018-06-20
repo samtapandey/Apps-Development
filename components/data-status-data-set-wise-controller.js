@@ -58,7 +58,15 @@ sqlviewservice.getAll().then(function(data)
         {
             $scope.getDataSetid=$scope.sqlViews[i].id;
         }
-
+        
+        if($scope.sqlViews[i].name=="DS_App_Data_Status_Data_Set_Wise")
+        {
+            $scope.getDataSetid=$scope.sqlViews[i].id;
+        }
+        if($scope.sqlViews[i].name=="DS_App_Data_Summary_Data_Set_Wise")
+            {
+                $scope.getDataSetid=$scope.sqlViews[i].id;
+			}
     }
 
 });
