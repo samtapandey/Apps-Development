@@ -162,6 +162,8 @@ sqlviewservice.getAll().then(function(data)
             $scope.arrayds = "";
             $scope.returnValue = [];
         $scope.peType = "";
+        $scope.dataSets1 = [];
+        $scope.dataArray = [];
     
         
             
@@ -188,16 +190,17 @@ sqlviewservice.getAll().then(function(data)
                          $scope.a = "";
                     $scope.a = $scope.dataSets[j];
                     //console.log("arr==" + $scope.a);
-                    $scope.dataSetArray.push($scope.a);
+                    $scope.dataSetArray.push($scope.a); // 2nd dropdown value store
 
 
             for(var i = 0 ; i < $scope.dataSetArray.length; i++)
             {
                $scope.dataSetid = $scope.dataSetArray[i].id;
-               $scope.dsId.push($scope.dataSetid);
+              
                console.log("$scope.dsId" + $scope.dsId);
                
             }
+            $scope.dsId.push($scope.dataSetid);
                     
             
                         }
@@ -215,12 +218,12 @@ sqlviewservice.getAll().then(function(data)
             
     }
     
-    Array.prototype.remove = function(dataSetArray){
-            var args = Array.apply(null, dataSetArray);
-            console.log(dataSetArray);
-            var indices = [];
-            for(var i = 0; i < args.length; i++){
-                var arg = args[i];
+    Array.prototype.remove = function(dataSetArray1){ // selected array
+            var args = Array.apply(null, dataSetArray1); //selected array
+            console.log(dataSetArray1);
+            var indices = []; //index 0,1,2
+            for(var i = 0; i < args.length; i++){ // selected length
+                var arg = args[i]; //selected array
                 console.log("arg =" + arg)
                 var index = this.indexOf(arg);
                 console.log(index);
@@ -234,14 +237,16 @@ sqlviewservice.getAll().then(function(data)
             for(var i = 0; i < indices.length; i++){
                 var index = indices[i] - i;
                 this.splice(index, 1);
-                console.log("ds" + $scope.dataSets.length);
+                
+                
             }    
         }
+     
     
         
     
     
-        $scope.dataSets1 = [];
+      
     
         $scope.col = function(dataSetArray) {
           
@@ -270,23 +275,28 @@ sqlviewservice.getAll().then(function(data)
         //	var strUser = x.options[x.selectedIndex].text;
             console.log("struer" + $scope.struer);
     
-    
+    $scope.val = [];
+    $scope.value = [];
     
             for(var i=0; i<$scope.dataArray.length;i++)
             {
     
                     if($scope.dataArray[i].name == $scope.struer)
                     {
-                        $scope.a =$scope.dataArray[i];
+                        $scope.val = $scope.dataArray[i];
                         break;
                     }	
+                    // $scope.a =$scope.dataArray[i];
             }
     
         //x.remove(x.selectedIndex);
-        
-        $scope.dataSets.push($scope.a);
-        $scope.dataSetArray.remove($scope.dataSets);
+        $scope.dataSets.push($scope.val);
+        $scope.value.push($scope.val);
+        $scope.dataArray.remove($scope.value);
+      
+      //  $scope.dataArray.remove($scope.a);
     console.log("ds1" + $scope.dataSets);
+    console.log("ds1" + $scope.dataArray);
         //	console.log("struer" + $scope.strUser);
             $("#multipleSelect").find('option:selected').remove();
         }
