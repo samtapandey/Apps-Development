@@ -12,12 +12,18 @@ var DataStatusApp = angular.module('DataStatusApp',['ui.bootstrap',
     'reportServices'
 ])
 .config(function($routeProvider,$translateProvider){
-        $routeProvider.when('/', {
+    $routeProvider.when('/', {
+        templateUrl:'components/home.html',
+        controller: 'HomeController'
+        }).when('/data-status', {
             templateUrl:'components/data-status.html',
             controller: 'DataStatusController'
         }).when('/data-status-result',{
             templateUrl:'components/data-status-result.html',
             controller: 'DataStatusResultController'
+        }).when('/data-status-data-set-wise',{
+            templateUrl:'components/data-status-data-set-wise.html',
+            controller: 'DataStatusDataSetWiseController'
         }).otherwise({
             redirectTo : '/'
         });
@@ -43,6 +49,9 @@ var DataStatusApp = angular.module('DataStatusApp',['ui.bootstrap',
             requiredViews[SQLQUERY_DS_App_User_Details_NAME] = false;
             requiredViews[SQLQUERY_DS_App_GetDataSetId_NAME] = false;
             requiredViews[SQLQUERY_DS_App_GetOrgUnitId_NAME] = false;
+            requiredViews[SQLQUERY_DS_App_Data_Status_Data_Set_Wise_NAME] = false;
+            requiredViews[SQLQUERY_DS_App_Data_Summary_Data_Set_Wise_NAME] = false;
+
 
 
             for (var i=0;i<sqlViews.length;i++){
@@ -69,6 +78,14 @@ var DataStatusApp = angular.module('DataStatusApp',['ui.bootstrap',
                 else if (sqlViews[i].name == SQLQUERY_DS_App_GetOrgUnitId_NAME){
                     delete requiredViews[SQLQUERY_DS_App_GetOrgUnitId_NAME];
                 }
+                else if (sqlViews[i].name == SQLQUERY_DS_App_Data_Status_Data_Set_Wise_NAME){
+                    delete requiredViews[SQLQUERY_DS_App_Data_Status_Data_Set_Wise_NAME];
+                }
+                
+                else if (sqlViews[i].name == SQLQUERY_DS_App_Data_Summary_Data_Set_Wise_NAME){
+                    delete requiredViews[SQLQUERY_DS_App_Data_Summary_Data_Set_Wise_NAME];
+                }
+
             }
     
             createRequiredViews(requiredViews);
