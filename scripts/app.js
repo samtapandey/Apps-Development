@@ -19,9 +19,6 @@ var ExportCSVApp = angular.module('ExportCSVApp',['ui.bootstrap',
         $routeProvider.when('/', {
             templateUrl:'components/home.html',
             controller: 'homeController'
-        }).when('/report',{
-            templateUrl:'components/report.html',
-            controller: 'reportController'
         }).otherwise({
             redirectTo : '/'
         });
