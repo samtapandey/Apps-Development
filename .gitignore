@@ -1,33 +1,21 @@
-target
-*.log
-*.log.*
-./taret
-./target
-./target/classes
-target/**
-*.settings
-.metadata
-build.sh
-.springBeans
-nbactions.xml
-.classpath
-.project
-.mtj
-.idea
-.swp
-*.iml
-*.ipr
-*.ids
-*.iws
-overlays/
-./dhis-2/atlassian-ide-plugin.xml
-./atlassian-ide-plugin.xml
-./.git
-./.gitattributes
-./.gitignore
-./.travis.yml
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
 .DS_Store
-dhis-2/projectFilesBackup
-coverage
-node_modules
-**/rebel.xml
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
