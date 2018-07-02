@@ -1,0 +1,20 @@
+{
+  "launch_path": "index.html",
+  "default_locale": "en",
+  "activities": {
+    "dhis": {
+      "href": "*"
+    }
+  },
+  "appType": "APP",
+  "name": "Explore Dictionary",
+  "version": "2.1.0",
+  "description": "Search with UID or name in the whole system",
+  "developer": {
+    "name": "Sidhanshu Monga",
+    "email": "sidhanshumonga28@gmail.com"
+  },
+  "icons": {
+    "48": "s.png"
+  }
+}

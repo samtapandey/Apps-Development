@@ -1,14 +1,9 @@
-# Apps-Development
-HISP INDIA External Apps Development
+# Explore-Dictionary For DHIS2
 
+Stuck with a UID and don't know what Meta data is stands for? Use this app to find out.
 
- # Link of other external Apps developed:
+Voila !! Now you can search with name also. Search for any name in the whole system.
 
- 1# Tracker data approval app developed for UPHMIS
-    https://github.com/hispindia/dhis-tracker-data-approval-app
+NOTE : More updates will be coming soon !
+INSTALLATION : Upload the zip file into DHIS2 through app manager module.
 
- 2# e-Aushadhi Stock Data Import App developed for malaria
-    https://github.com/hispindia/dhis-app-excel-import/tree/Aggrigate-Data-Excel-Import-App-Without-Mapping
-	
- 3# Aggregate data excel import app developed for maharashtra with multiple OU and multiple Data Element
-    https://github.com/hispindia/dhis-app-excel-import/tree/Aggregate-Data-Excel-Import-App-MultipleOU-MultipleDE
