@@ -1,9 +1,23 @@
-# Explore-Dictionary For DHIS2
+# IndicatorsApp
 
-Stuck with a UID and don't know what Meta data is stands for? Use this app to find out.
+External app for dhis2, designed completely in JavaScript, HTML and CSS.
 
-Voila !! Now you can search with name also. Search for any name in the whole system.
+- accumulating 13 reports which are based on some calculations to calculate values for indicators used in dhis2 system.
 
-NOTE : More updates will be coming soon !
-INSTALLATION : Upload the zip file into DHIS2 through app manager module.
+- pushing those calculated values using api (dataSetValues).
 
+- reports included are :
+
+COPDandAsthama,
+HtnMedications,
+activeAndLTFUreport,
+activePatientsEnrolledLastYearSameQuarter,
+activeatendreport,
+creatinineClearance,
+cvStatin,
+cvdpre,
+diabeticsWithHba1c,
+hba1cLessThan8,
+htnControl,
+insulinDiabetics,
+newDiagnosis.
