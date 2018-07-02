@@ -1,0 +1,38 @@
+<!-- selection dropdown for reports -->
+<div class="row no-gutters">
+  <div class="col">
+    <mat-form-field>
+      <mat-select color="primary" placeholder="Select Period" [(ngModel)]="selectedPeriodType" [disabled]="!isthereou" required>
+        <mat-option color="primary" *ngFor="let period of periods" [value]="period" (click)="gotPeriodValue(period)">
+          <!--[disabled]="period=='Weekly'" -->
+          {{ period }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col">
+    <mat-form-field>
+      <mat-select color="primary" placeholder="Select Year" [(ngModel)]="selectedYearModel" [disabled]="!isthereou" required>
+        <mat-option color="primary" *ngFor="let year of years" [value]="year" (click)="getWeeks(selectedPeriodType)">
+          {{ year }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <!-- selection dropdown for datasets -->
+  <div class="col">
+    <mat-form-field>
+      <mat-select color="primary" placeholder="Select an option" [disabled]="selectedPeriodType=='Yearly' || !isthereou" [(ngModel)]="optionvalue" required>
+        <mat-option color="primary" *ngFor="let option of options" [value]="option.value">
+          {{ option.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<!-- <mat-divider></mat-divider><br> -->
+<div class="row">
+  <div class="col">
+    <button mat-raised-button color="primary" (click)="generateReport()">Generate Report</button>
+  </div>
+</div>

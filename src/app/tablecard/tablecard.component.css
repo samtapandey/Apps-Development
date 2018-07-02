@@ -1,0 +1,322 @@
+.row{
+  width:100%;
+}
+table{
+  width:100%;
+  height: 100%;
+}
+.expand-table{
+  transform: scale(1.3);
+}
+
+.ex-element-i{
+  cursor: pointer;
+  display: inline-block;
+  float: left;
+}
+
+.ex-element-p{
+  margin-left: 8px;
+  display: inline-block;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.ex-element-main{
+  display: none;
+}
+#print-preview{
+  display:none !important;
+}
+
+/* loader css */
+.loader-table{
+  width:100%;
+  height:100% !important;
+}
+.dots {
+  margin: 6% 0 0 14% !important;
+  height: 100%;
+  position: absolute;
+}
+i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #000;
+  display: block;
+  position: absolute;
+  top: 100px;
+}
+.dot-1 {
+  background: #303f9f;
+  left: 250px;
+  animation: anim-1 2s linear infinite;
+}
+.dot-2 {
+  background: #D8AE5C;
+  left: 200px;
+  animation: anim-2 2s linear infinite;
+}
+.dot-3 {
+  background: #c2185b;
+  left: 350px;
+  animation: anim-3 2s linear infinite;
+}
+.dot-4 {
+  background: #3f51b5;
+  left: 300px;
+  animation: anim-4 2s linear infinite;
+}
+.dot-5 {
+  background: #17a2b8;
+  left: 450px;
+  animation: anim-5 2s linear infinite;
+}
+.dot-6 {
+  background: #00796b;
+  left: 400px;
+  animation: anim-6 2s linear infinite;
+}
+@keyframes anim-1 {
+  0% {
+    transform: rotate(-180deg) translate(50px);
+  }
+  16% {
+    transform: rotate(0deg) translate(50px);
+  }
+  18% {
+    transform: rotate(24deg) translate(50px);
+  }
+  20% {
+    transform: rotate(0deg) translate(50px);
+  }
+  33% {
+    transform: rotate(0deg) translate(50px);
+  }
+  66% {
+    transform: rotate(0deg) translate(50px);
+  }
+  83% {
+    transform: rotate(0deg) translate(50px);
+  }
+  100% {
+    transform: rotate(180deg) translate(50px);
+  }
+}
+@keyframes anim-2 {
+  0% {
+    transform: rotate(0deg) translate(50px);
+  }
+  16% {
+    transform: rotate(0deg) translate(50px);
+  }
+  33% {
+    transform: rotate(0deg) translate(50px);
+  }
+  66% {
+    transform: rotate(360deg) translate(50px);
+  }
+  68% {
+    transform: rotate(384deg) translate(50px);
+  }
+  70% {
+    transform: rotate(360deg) translate(50px);
+  }
+  100% {
+    transform: rotate(360deg) translate(50px);
+  }
+}
+@keyframes anim-3 {
+  0% {
+    transform: rotate(-180deg) translate(50px);
+  }
+  16% {
+    transform: rotate(-180deg) translate(50px);
+  }
+  33% {
+    transform: rotate(-360deg) translate(50px);
+  }
+  35% {
+    transform: rotate(-384deg) translate(50px);
+  }
+  37% {
+    transform: rotate(-360deg) translate(50px);
+  }
+  66% {
+    transform: rotate(-360deg) translate(50px);
+  }
+  83% {
+    transform: rotate(-540deg) translate(50px);
+  }
+  85% {
+    transform: rotate(-564deg) translate(50px);
+  }
+  87% {
+    transform: rotate(-540deg) translate(50px);
+  }
+  100% {
+    transform: rotate(-540deg) translate(50px);
+  }
+}
+@keyframes anim-4 {
+  0% {
+    transform: rotate(0deg) translate(50px);
+  }
+  16% {
+    transform: rotate(0deg) translate(50px);
+  }
+  33% {
+    transform: rotate(-180deg) translate(50px);
+  }
+  35% {
+    transform: rotate(-204deg) translate(50px);
+  }
+  37% {
+    transform: rotate(-180deg) translate(50px);
+  }
+  66% {
+    transform: rotate(-180deg) translate(50px);
+  }
+  83% {
+    transform: rotate(-360deg) translate(50px);
+  }
+  85% {
+    transform: rotate(-384deg) translate(50px);
+  }
+  87% {
+    transform: rotate(-360deg) translate(50px);
+  }
+  100% {
+    transform: rotate(-360deg) translate(50px);
+  }
+}
+@keyframes anim-5 {
+  0% {
+    transform: rotate(-180deg) translate(50px);
+  }
+  16% {
+    transform: rotate(-180deg) translate(50px);
+  }
+  33% {
+    transform: rotate(-180deg) translate(50px);
+  }
+  66% {
+    transform: rotate(180deg) translate(50px);
+  }
+  68% {
+    transform: rotate(204deg) translate(50px);
+  }
+  70% {
+    transform: rotate(180deg) translate(50px);
+  }
+  100% {
+    transform: rotate(180deg) translate(50px);
+  }
+}
+@keyframes anim-6 {
+  0% {
+    transform: rotate(0deg) translate(50px);
+  }
+  16% {
+    transform: rotate(180deg) translate(50px);
+  }
+  18% {
+    transform: rotate(204deg) translate(50px);
+  }
+  20% {
+    transform: rotate(180deg) translate(50px);
+  }
+  33% {
+    transform: rotate(180deg) translate(50px);
+  }
+  66% {
+    transform: rotate(180deg) translate(50px);
+  }
+  83% {
+    transform: rotate(180deg) translate(50px);
+  }
+  100% {
+    transform: rotate(360deg) translate(50px);
+  }
+}
+.credits {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  padding: 20px;
+  width: 300px;
+  background: rgba(255, 255, 255, 0.1);
+}
+.credits h1 {
+  font-size: 22px;
+  margin: 0 0 15px;
+  color: #fff;
+}
+.credits p {
+  font-size: 14px;
+  color: #fff;
+  margin: 15px 0 0;
+}
+.credits a {
+  text-decoration: none;
+  color: #fff;
+  border-bottom: 1px solid #fff;
+}
+.credits a:hover {
+  border-bottom: none;
+}
+
+
+
+
+/* modal using */
+
+/* div popup style css*//* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 80px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: white;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 90%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  margin:0 0 1% 97%;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+table tr {
+cursor: pointer;
+}
+
+.popupTable{
+text-align: center;
+width:80%;
+margin:auto;
+}

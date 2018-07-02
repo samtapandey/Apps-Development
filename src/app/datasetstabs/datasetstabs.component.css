@@ -1,0 +1,10 @@
+.row{
+    height: 100%;
+    padding:30px 10px 10px 20px;
+  }
+  mat-chip{
+    color:white !important;
+    cursor: pointer;
+    border-radius:5px !important;
+  }
+
