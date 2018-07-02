@@ -38,9 +38,7 @@ var exportServices = angular.module('exportServices', ['ngResource'])
     var open = function(){
         var deferred = $q.defer();
         
-        var request = indexedDB.open("dhis2ou");
-        
-        request.onsuccess = function(e) {
+        var request = indexedDB.openequest.onsuccess = function(e) {
           db = e.target.result;
           deferred.resolve();
         };
@@ -85,4 +83,33 @@ var exportServices = angular.module('exportServices', ['ngResource'])
         open: open,
         get: get
     };    
+})
+
+.service('GetDataValueService',function($window, $q)
+{
+    var get = function(catId,indicator,og,pe){
+        
+        var deferred = $q.defer();
+
+            $.ajax({
+                
+                    type: "GET",
+                    dataType: "json",
+                    contentType: "application/json",
+                    url: "../../analytics.json?dimension=ID3CGIXZNp9:"+catId+";&dimension=dx:"+indicator+";&dimension=ou:OU_GROUP-" + og +"&filter=pe:" +pe+ "&displayProperty=NAME",
+                    success: function (json) {
+                
+                    deferred.resolve(json);
+                },
+                error: function (response) {
+                    deferred.reject(response);
+                    
+                 }
+            });
+        
+        return deferred.promise;
+    };
+    return {
+        get: get
+    }; 
 });

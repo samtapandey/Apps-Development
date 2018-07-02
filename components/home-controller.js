@@ -13,7 +13,8 @@ ExportCSVApp.controller('homeController',
         $sce,
         $timeout,
         OrgUnitService,
-        PeriodService) {
+        PeriodService,
+        GetDataValueService) {
 
         $scope.orgUnitGroups = {};
        
@@ -36,6 +37,7 @@ ExportCSVApp.controller('homeController',
 
                         if(ids == 'FrKiTIjDUxU' || ids =='VnGNfO08w38' || ids =='GhuHmwRnPBs' || ids =='oPJQbzZ20Ff')
                         {
+                            ouid.push(["all","ALL"]);
                             ouid.push([ids,dn]);
                         }
                          }
@@ -76,6 +78,7 @@ ExportCSVApp.controller('homeController',
 
         var jsonData = response.data;
         $scope.jsonObj = jsonData.headers;
+
                            
     });
 
@@ -103,6 +106,9 @@ ExportCSVApp.controller('homeController',
 
     var count = 0;
     var dataArray = [];
+    var dataOrgArray = [];
+    var count = 0;
+    
 
     // Get data from selection
 
@@ -136,8 +142,26 @@ ExportCSVApp.controller('homeController',
 
                 $scope.code = "CB205-0000";
             }
+            if($scope.orgGroupId == "all")
+            {
+                var orgUnitGroupsArray = [
+                    {code  : 'AS205-0000' , orgId : 'FrKiTIjDUxU', period : $scope.periodId},
+                    {code  : 'OU205-0000' , orgId : 'oPJQbzZ20Ff', period : $scope.periodId},
+                    {code  : 'CL205-0000' , orgId : 'VnGNfO08w38', period : $scope.periodId},
+                    {code  : 'CB205-0000' , orgId : 'GhuHmwRnPBs', period : $scope.periodId}
+                ];
 
+                for(var i = 0; i < orgUnitGroupsArray.length ; i++)
+                {
+                     $scope.addJsonData(orgUnitGroupsArray[i].orgId,orgUnitGroupsArray[i].period,orgUnitGroupsArray[i].code);
+            
+                }
+                
+            }
+          else{
             $scope.addJsonData($scope.orgGroupId,$scope.periodId,$scope.code);
+            
+          }
  
     }
 
@@ -158,6 +182,7 @@ ExportCSVApp.controller('homeController',
             var og = orgGroup;
             var pe = period;
             var ce = code;
+            //var value = 0;
 
             if(categoryoptioncombo == "mYU1cpPLbA3")
             {
@@ -168,19 +193,55 @@ ExportCSVApp.controller('homeController',
                 catId = "wzqerAiRUfl"; // >25 years
             }
 
-            var value = getDataValue(catId,indicator,og,pe);
-            
-            var dataObj = { "dataelement": dataelementCode,"period":period,"orgunit":ce, "categoryoptioncombo":categoryoptioncombo,"attributeoptioncombo":attributeoptioncombo,"value":value, "storedby":$scope.me,"lastupdated":$scope.today, "comment" :"false",   "followup":""};
+            var GetPromiseValue = GetDataValueService.get(catId,indicator,og,pe);
 
-            dataArray.push(dataObj);
-    
+            $.when(GetPromiseValue).always(function(response)
+            {
+                var value = 0;
+                var dataResponse = response.$$state.value;
+                for(var i=0; i<dataResponse.rows.length;i++)
+                {
+                   value += parseInt(dataResponse.rows[i][3]);
+                }
+
+                            
+           var dataObj = { "dataelement": dataelementCode,"period":period,"orgunit":ce, "categoryoptioncombo":categoryoptioncombo,"attributeoptioncombo":attributeoptioncombo,"value":value, "storedby":$scope.me,"lastupdated":$scope.today, "comment" :"false",   "followup":""};
+           
+           dataArray.push(dataObj);
+           
+      
+
+            }, function(error)
+            {
+
+            }
+
+        )
+
         }
-        
 
-        Json2CSV(dataArray);
+        if($scope.orgGroupId == "all")
+        {
+            count++;
+            dataOrgArray.push(dataArray);
+            if(count == 4)
+            {
+                Json2CSV(dataArray);
+            }
+           // if(jsonObj1.length == 0)
+           // Json2CSV(dataArray);  
 
+        }
+        else
+        {
+            dataOrgArray.push(dataArray);        
+             Json2CSV(dataArray);            
+        }
+    //    Json2CSV(dataOrgArray);  
 
     }
+   
+
    
        function Json2CSV(objArray)
        {
@@ -217,31 +278,6 @@ ExportCSVApp.controller('homeController',
       return true;
       
     }
-
-
-    function getDataValue(catId,indicator,og,pe)
-    {
-        var value = 0;
-     
-        $.ajax({
-            
-                type: "GET",
-                dataType: "json",
-                contentType: "application/json",
-                url: "../../analytics.json?dimension=ID3CGIXZNp9:"+catId+";&dimension=dx:"+indicator+";&dimension=ou:OU_GROUP-" + og +"&filter=pe:" +pe+ "&displayProperty=NAME",
-                success: function (json) {
-            
-                for(var i=0; i<json.rows.length;i++)
-                {
-                    value += parseInt(json.rows[i][3]);
-                }
-            },
-            error: function (response) { }
-        });
-        return value;
-        
-    }
-
                 
 })
 
