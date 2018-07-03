@@ -259,14 +259,15 @@ sqlviewservice.getAll().then(function(data)
         $scope.col = function(dataSetArray) {
           
            // console.log("col = " + $scope.currentSelection.dataSet);
-            $scope.dataArray = dataSetArray;
-            console.log("dataSetArray = " +  $scope.dataArray);
+            $scope.dataSetArray = dataSetArray;   //dataArray --
+
+            console.log("dataSetArray = " +  $scope.dataSetArray); //--
             $scope.i = $("#multipleSelect").prop('selectedIndex')	
             var conceptName = $('#multipleSelect').find(":selected").text();
             //console.log("vv" + val);console.log("vv" + val);
             
             //$scope.removeArrayIndex ();
-    console.log("dataSet ====" + $scope.dataArray );
+    console.log("dataSet ====" + $scope.dataSetArray ); //--
     
     var x = document.getElementById("multipleSelect");
     var y = document.getElementById("multipleSelect").options;
@@ -286,12 +287,12 @@ sqlviewservice.getAll().then(function(data)
     $scope.val = [];
     $scope.value = [];
     
-            for(var i=0; i<$scope.dataArray.length;i++)
+            for(var i=0; i<$scope.dataSetArray.length;i++)
             {
     
-                    if($scope.dataArray[i].name == $scope.struer)
+                    if($scope.dataSetArray[i].name == $scope.struer)
                     {
-                        $scope.val = $scope.dataArray[i];
+                        $scope.val = $scope.dataSetArray[i];
                         break;
                     }	
                     // $scope.a =$scope.dataArray[i];
@@ -300,11 +301,22 @@ sqlviewservice.getAll().then(function(data)
         //x.remove(x.selectedIndex);
         $scope.dataSets.push($scope.val);
         $scope.value.push($scope.val);
-        $scope.dataArray.remove($scope.value);
+        $scope.dataSetArray.remove($scope.value);
       
       //  $scope.dataArray.remove($scope.a);
     console.log("ds1" + $scope.dataSets);
-    console.log("ds1" + $scope.dataArray);
+    console.log("ds1" + $scope.dataSetArray);
+    
+    $scope.dsId = [];
+    for(var i = 0 ; i < $scope.dataSetArray.length; i++)
+    {
+       $scope.dataSetid = $scope.dataSetArray[i].id;
+       $scope.dsId.push($scope.dataSetid);
+       console.log("$scope.dsId" + $scope.dsId);
+       
+    }
+   
+    // $scope.dsId.push($scope.dataSetid);
         //	console.log("struer" + $scope.strUser);
             $("#multipleSelect").find('option:selected').remove();
         }
@@ -318,6 +330,8 @@ sqlviewservice.getAll().then(function(data)
             $scope.currentSelection.orgUnit = $scope.selectedOrgUnit;
             OrganisationUnitService.getOrgUnitNameAndLevelByUid( $scope.selectedOrgUnit ).then(function(data){
                     $scope.currentSelection.orgUnitName = data.organisationUnits[0].name;
+                    $scope.dataSets = [];
+                    $scope.dataSetArray = [];
                    // $scope.petypeValue ($scope.currentSelection.orgUnit);
               
                     ReportConfigurationService.getAllReportConfiguration().then(function (resultData) {
