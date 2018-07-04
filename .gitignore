@@ -29,5 +29,6 @@ overlays/
 .DS_Store
 dhis-2/projectFilesBackup
 coverage
+dist
 node_modules
 **/rebel.xml

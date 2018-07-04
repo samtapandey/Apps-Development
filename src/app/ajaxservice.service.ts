@@ -54,4 +54,7 @@ export class AjaxserviceService {
     return this.http.get(x.BASE_URL + "organisationUnitGroups.json");
   }
 
+  getExternal(ou,pe): Observable<any>{
+    return this.http.get(x.BASE_URL + "../dhis-web-reporting/generateHtmlReport.action?uid=EUdFQiv0PVK&ou="+ou+"&period="+pe, { responseType: 'arraybuffer' });
+  }
 }

@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
 import { AjaxserviceService } from 'src/app/ajaxservice.service';
+import 'node_modules/text-encoding'; 
 import * as $ from 'jquery';
 import * as x from 'src/app/CONSTANTS';
-// import { UtilityserviceService } from '../utilityservice.service';
 import 'src/app/Jsfiles/sum.js';
 
 declare var cellSumFunction: any;
+declare var TextDecoder: any;
 
 @Component({
   selector: 'app-alltables',
@@ -55,15 +56,27 @@ globalvar : boolean = false;
     this.ajax.getDatasetHTML(ou, pe, this.ds).subscribe(res => {
        if(!this.globalvar) this.modifyReport(res);counter++;
        if(counter == this.dsArray.length-1){
-      //  $('body').not("#alltables").hide(); 
-        setTimeout(this.printFunction,500);
+      //  $('body').not("#alltables").hide();
+        this.getExternalReports(); 
+        setTimeout(this.printFunction,5000);
       }
       });
     }
   }
 
+  getExternalReports(){
+    this.ajax.getExternal(this.ou.split('&')[0], this.pe).subscribe(res => {
+          var enc = new TextDecoder("utf-8");
+          var newenc = enc.decode(res);
+          this.modifyReport(newenc);
+     });
+  }
+
+
   printFunction(){ 
-    if(!this.globalvar)cellSumFunction.sumReportsAll();
+    if(!this.globalvar){
+      cellSumFunction.sumReportsAll();
+    }
       $("#alltables").show();
       window.print();
       this.globalvar = true;     
@@ -103,6 +116,8 @@ globalvar : boolean = false;
     })
 
   }
+
+ 
 }
 
 export interface typearr{

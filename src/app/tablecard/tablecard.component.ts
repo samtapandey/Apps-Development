@@ -3,7 +3,6 @@ import { SharedService } from 'src/app/shared.service';
 import { AjaxserviceService } from 'src/app/ajaxservice.service';
 import * as $ from 'jquery';
 import { MatSnackBar } from '@angular/material';
-import { UtilityserviceService } from '../utilityservice.service';
 import 'src/app/Jsfiles/sum.js';
 
 declare var cellSumFunction: any;
