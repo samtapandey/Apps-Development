@@ -1,11 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AppModule } from 'src/app/app.module';
-import { FormControl } from '@angular/forms';
-import { MatSelectModule, MatSelectChange } from '@angular/material';
+import { Component } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
 import * as arrays from 'src/app/CONSTANTS';
 import { UtilityserviceService } from 'src/app/utilityservice.service';
-import { LoaderComponent } from 'src/app/loader/loader.component';
 import { MatSnackBar } from '@angular/material';
 
 @Component({

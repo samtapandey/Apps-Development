@@ -1,7 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { HeaderselectionsComponent } from 'src/app/headerselections/headerselections.component';
-import { DatasetstabsComponent } from 'src/app/datasetstabs/datasetstabs.component';
 import { Subject } from 'rxjs';
 
 @Injectable({
