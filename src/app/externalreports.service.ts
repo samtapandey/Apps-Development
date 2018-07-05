@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AjaxserviceService } from './ajaxservice.service';
+import * as $ from 'jquery';
 
 @Injectable({
   providedIn: 'root'
@@ -7,9 +8,92 @@ import { AjaxserviceService } from './ajaxservice.service';
 export class ExternalreportsService {
 
   constructor() { }
+ 
+  data = "";
+ 
 
+  er2main(res4,count){
+  
+    var value1 = 0;
+    var temp1_value2 = "";
+    var temp2_value2 = "";
+    var value2 = "";
+    var value3 = "";
+    var value4 = "";
+    var temp1_value567 = '';
+    var value5 = '';
+    var value6 = '';
+    var value7 = '';
+        for(var j = 0; j<res4.dataValues.length; j++)
+        {
 
-  finalvalue(response) {
+            if (res4.dataValues[j].dataElement == 'sm6rhE9y9cn') 
+            {
+                value1 =res4.dataValues[j].value;
+            }
+           else if (res4.dataValues[j].dataElement == 'hDPezniOnwQ') 
+            {
+                temp1_value2 =res4.dataValues[j].value;
+            }
+            else if (res4.dataValues[j].dataElement == 'uimufzGdwwj') 
+            {
+                temp2_value2 =res4.dataValues[j].value;
+            }
+           else if (res4.dataValues[j].dataElement == 'yyn9Xy91k3u') 
+            {
+                value3 =res4.dataValues[j].value;
+            }
+           else if (res4.dataValues[j].dataElement == 'AoDeAFlDyCC') 
+            {
+                value4 =res4.dataValues[j].value;
+            }
+            else if (res4.dataValues[j].dataElement == 'uneKxjdwTQt') 
+            {                    
+                temp1_value567 = res4.dataValues[j].value;                
+            }
+            else if (temp1_value567 == 'Mild') 
+            {                    
+                value5 = 'Yes';   
+                value6 = ''
+                value7 = '';   
+            }
+            else if (temp1_value567 == 'Moderate') 
+            {                    
+                value5 = '';   
+                value6 = 'Yes'
+                value7 = '';   
+            }
+            else if (temp1_value567 == 'Severe') 
+            {                    
+                value5 = '';   
+                value6 = ''
+                value7 = 'Yes';   
+            }
+            else if(temp1_value2 == "" || temp2_value2 != "")
+            {
+                value2 = temp2_value2+" months";
+            }
+            else if(temp1_value2 != "" || temp2_value2 == "")
+            {
+                value2 = temp1_value2+" years";
+            }
+            else if(temp1_value2 == "" || temp2_value2 == "")
+            {
+                value2 = "";
+            }
+            else if(temp1_value2 != "" || temp2_value2 != "")
+            {
+                value2 = temp1_value2+" years"+temp2_value2+" months";
+            }
+            
+        }
+
+       var data = '<td>'+value7+'</td><td>'+value6+'</td><td>'+value5+'</td><td>'+value4+'</td><td>'+value3+'</td><td>'+value2+'</td><td>'+value1+'</td><td>'+count+'</td></tr>';
+       
+          return data;
+  }
+
+  er1(response) {
              
     var value1 = this.datavalue(response,'WtfVifSU2Ai');
     var value2 = this.datavalue(response,'UU8umBgSEQh');
@@ -65,6 +149,10 @@ export class ExternalreportsService {
     }
     return (value1);
   };
+
+  er2(res4) {
+   
+};
 
   arraySorting(a, b) {
     return ((a[1] < b[1]) ? -1 : ((a[1] > b[1]) ? 1 : 0));

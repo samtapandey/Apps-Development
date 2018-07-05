@@ -57,4 +57,12 @@ export class AjaxserviceService {
   extrenalReport1(ou,pe): Observable<any>{
     return this.http.get(x.BASE_URL + "analytics.json?dimension=pe:"+pe+"&dimension=dx:Sg59a7l8SaM;lYlmBU9D1hb;UU8umBgSEQh;EIYAuWcXSQc;MOi1AUjSSEo;ks1EPfFG4xM;eYGVpV4Ozwk;e61NNT1d8QT;BKDoyXKeGN6;Z0k1zEJ1nZQ;G4OYaFJJgjV;zlqokFy4Hax;VFmOJP8mWGL;MoLEI8oADoU;DR1wMYGMdJO;mDXxQD59bW1;rvfNtKKXKdj;mVQ0rggrmem;eMyLXuvjQpY;SOVwX7rreHs;rpgEFkPOzdM;MuKEN1itOv0;rpFCV9LHEHz;z3KodlNdN7q;WtfVifSU2Ai;MGqh8GuU91p;E82SfFcIgOV;DNvxp9a63q2;ShfbN9bWSNR;hPh2Zt2Q3aU;lnk4xZbjb57;RWzaSEzzOFV&filter=ou:"+ou+"&displayProperty=NAME");
   }
+
+  extrenalReport2(ou,pe): Observable<any>{
+    return this.http.get(x.BASE_URL + "analytics/events/query/nR5xtrxFKYI.json?dimension=ou:"+ ou +"&dimension=pe:" + pe + "&dimension=hDPezniOnwQ:LT:5&displayProperty=NAME&outputType=EVENT");
+  }
+
+  extrenalReport2_1(ev): Observable<any>{
+    return this.http.get(x.BASE_URL + "events/"+ev+".json");
+  }
 }

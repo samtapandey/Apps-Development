@@ -36,7 +36,6 @@ export class OrgunitlibraryComponent implements OnInit {
   ngOnInit() {
     this.setOu();
     this.setOugroup();
-
   }
   selectedOrgUnit: string;
   checked: string;

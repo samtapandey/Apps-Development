@@ -6,6 +6,7 @@ import * as $ from 'jquery';
 import * as x from 'src/app/CONSTANTS';
 import 'src/app/Jsfiles/sum.js';
 import { ExternalreportsService } from 'src/app/externalreports.service';
+import { UtilityserviceService } from '../utilityservice.service';
 
 declare var cellSumFunction: any;
 
@@ -20,7 +21,8 @@ pe: any;
 ds: any;
 dsArray: typearr[];
 globalvar : boolean = false;
-
+eventUid = [];
+eLength = 0;
   constructor(private callingBridge: SharedService, private ajax: AjaxserviceService) { 
        //method service which gets selectedOrgUnit from orgunitlibrary
        this.callingBridge.ouandPeServiceMethod.subscribe(
@@ -55,10 +57,10 @@ globalvar : boolean = false;
 
     this.ajax.getDatasetHTML(ou, pe, this.ds).subscribe(res => {
        if(!this.globalvar) this.modifyReport(res);counter++;
-       if(counter == this.dsArray.length-1){
-      //  $('body').not("#alltables").hide();
-       this.getExternalReports(); 
-        setTimeout(this.printFunction,1000);
+       if(counter == this.dsArray.length-1 && !this.globalvar){
+       this.globalvar = true;
+        this.getExternalReports(); 
+        setTimeout(this.printFunction,6000);
       }
       });
     }
@@ -68,11 +70,42 @@ globalvar : boolean = false;
     var data;
     this.ajax.extrenalReport1(this.ou,this.pe).subscribe(res => {
       let utility = new ExternalreportsService();
-      data = utility.finalvalue(res);
+      data = utility.er1(res);
       this.modifyReport(data);
    });
-  }
 
+   this.ajax.extrenalReport2(this.ou,this.pe).subscribe(res5 => {
+      
+    var thead = "<table><thead><tr class='headt'><td colspan='8'>Report on the nutritional status of all children under five years of age registered with the PHC facility</td></tr><tr><td colspan='3'>Degree of Malnutrition</td><td rowspan='2'>Weight</td><td rowspan='2'>Height</td><td rowspan='2'>Age</td><td rowspan='2'>ID</td><td rowspan='2'>S. No.</td></tr><tr><td>C (Severe)</td><td>B (Moderate)</td><td>A (Mild)</td></tr></thead>";
+    var tabledata = thead + "<tr>";
+    var adddata = "";
+    for(var i = 0;i<res5.rows.length;i++)
+     {   
+        var temp = 0; 
+        temp = res5.rows[i][0];
+        this.eventUid.push(temp);
+        this.eLength = this.eventUid.length;
+     }
+     debugger
+  if(this.eLength != 0 && this.eLength != undefined)
+    {
+      var count = 0;
+      var len = this.eLength;
+      var utill = new ExternalreportsService();
+      for(var j = 0; j<this.eventUid.length;j++)
+        {
+          this.ajax.extrenalReport2_1(this.eventUid[j]).subscribe(resp => {
+            count = count + 1;
+          adddata = adddata + utill.er2main(resp,count);
+          if(count==len){
+            console.log(tabledata);
+            this.modifyReport(tabledata + adddata + "</table>");
+          }
+          });
+        }
+      }
+   });
+}
 
   printFunction(){ 
     if(!this.globalvar){
