@@ -90,7 +90,6 @@ DataStatusApp.controller('DataStatusController',
                 "endPeriodYear":""
             }
         };
-		//api/dataSets?filter=attributeValues.attribute.id:eq:XSZbdSOTfDY&filter=attributeValues.value:eq:true
 
 		$scope.dataSetReport = function(){
 			var url = "../../dataSets.json?fields=name,id,attributeValues[attribute[id,name],value]&filter=attributeValues.attribute.id:eq:XSZbdSOTfDY&paging=false"; // data sets based on report app attribute
@@ -124,6 +123,21 @@ DataStatusApp.controller('DataStatusController',
 		};
 		$scope.dataSetMedical = function(){
 			var url = "../../dataSets.json?fields=name,id,attributeValues[attribute[id,name],value]&filter=attributeValues.attribute.id:eq:DG8A7Ha62vY&paging=false"; // data sets based on Muncipalities attribute
+			$.get(url, function(data){
+				for(var i = 0;i<data.dataSets.length;i++)
+				{
+					for(var j =0;j<data.dataSets[i].attributeValues.length;j++)
+					{
+						if(data.dataSets[i].attributeValues[j].value == "true")
+						{
+							$scope.dataSets = data.dataSets;
+						}
+					}
+				}
+			});
+		};
+		$scope.thirdFourthLevel = function(){
+			var url = "../../dataSets.json?fields=name,id,attributeValues[attribute[id,name],value]&filter=attributeValues.attribute.id:eq:XSZbdSOTfDY&paging=false"; // data sets based on report attribute
 			$.get(url, function(data){
 				for(var i = 0;i<data.dataSets.length;i++)
 				{
@@ -174,6 +188,11 @@ DataStatusApp.controller('DataStatusController',
 						if($scope.orgLevel == 2 && $scope.currentSelection.orgUnitName == "Hospitals and Medical Centres")
 						{
 							$scope.dataSetHospital();
+							$scope.updatePeriods();	
+						}
+						if($scope.orgLevel == 3 && $scope.orgLevel == 4)
+						{
+							$scope.thirdFourthLevel();
 							$scope.updatePeriods();	
 						}
                         ReportConfigurationService.getAllReportConfiguration().then(function (resultData) {
