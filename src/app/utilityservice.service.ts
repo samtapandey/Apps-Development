@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as arrays from 'src/app/CONSTANTS'
-import { IfStmt } from '@angular/compiler';
-// import { AjaxserviceService } from 'src/app/ajaxservice.service';
-
+import * as arrays from 'src/app/CONSTANTS';
 
 export interface typearr {
   name: string,
@@ -12,8 +9,6 @@ export interface typearr {
 @Injectable({
   providedIn: 'root'
 })
-
-
 
 export class UtilityserviceService {
 

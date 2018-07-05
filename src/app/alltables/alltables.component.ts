@@ -5,9 +5,9 @@ import 'node_modules/text-encoding';
 import * as $ from 'jquery';
 import * as x from 'src/app/CONSTANTS';
 import 'src/app/Jsfiles/sum.js';
+import { ExternalreportsService } from 'src/app/externalreports.service';
 
 declare var cellSumFunction: any;
-declare var TextDecoder: any;
 
 @Component({
   selector: 'app-alltables',
@@ -57,19 +57,20 @@ globalvar : boolean = false;
        if(!this.globalvar) this.modifyReport(res);counter++;
        if(counter == this.dsArray.length-1){
       //  $('body').not("#alltables").hide();
-        this.getExternalReports(); 
-        setTimeout(this.printFunction,5000);
+       this.getExternalReports(); 
+        setTimeout(this.printFunction,1000);
       }
       });
     }
   }
 
   getExternalReports(){
-    this.ajax.getExternal(this.ou.split('&')[0], this.pe).subscribe(res => {
-          var enc = new TextDecoder("utf-8");
-          var newenc = enc.decode(res);
-          this.modifyReport(newenc);
-     });
+    var data;
+    this.ajax.extrenalReport1(this.ou,this.pe).subscribe(res => {
+      let utility = new ExternalreportsService();
+      data = utility.finalvalue(res);
+      this.modifyReport(data);
+   });
   }
 
 
@@ -101,6 +102,7 @@ globalvar : boolean = false;
     $(".custom-all-tables-div table").removeAttr("height");
     $(".custom-all-tables-div table").removeAttr("width");
     $(".custom-all-tables-div tr td").attr("style", "word-wrap:break-word;");
+    $(".custom-all-tables-div thead tr td").attr("style", "text-align:center");
     $(".custom-all-tables-div table").addClass("table table-bordered");
     
     $(".custom-all-tables-div table").attr("style", "max-width:100% !important;" +
