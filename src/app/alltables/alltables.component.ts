@@ -27,10 +27,12 @@ eLength = 0;
        //method service which gets selectedOrgUnit from orgunitlibrary
        this.callingBridge.ouandPeServiceMethod.subscribe(
         (params) => {
+          if(this.ou != params[0]){
           this.globalvar = false;
           this.ou = params[0];
           this.pe = params[1];
-         
+          $(".custom-all-tables-div").empty();
+          }
          this.displayReport(this.ou, this.pe);
         }
       );
@@ -54,20 +56,22 @@ eLength = 0;
     var counter = 0;
     for(let k=0;k<this.dsArray.length;k++){
      this.ds = this.dsArray[k].id;
-
+     if(!this.globalvar) {
     this.ajax.getDatasetHTML(ou, pe, this.ds).subscribe(res => {
-       if(!this.globalvar) {this.modifyReport(res);counter++;
+       this.modifyReport(res);counter++;
        if(counter == this.dsArray.length-1 && !this.globalvar){
        this.globalvar = true;
         this.getExternalReports(); 
         setTimeout(this.printFunction,6000);
         }
-      }
-      else{
-        this.printFunction();
-      }
+      
       });
     }
+    else{
+      this.printFunction();
+      break;
+    }
+  }
   }
 
   getExternalReports(){
