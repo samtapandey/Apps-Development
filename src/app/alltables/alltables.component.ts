@@ -56,11 +56,15 @@ eLength = 0;
      this.ds = this.dsArray[k].id;
 
     this.ajax.getDatasetHTML(ou, pe, this.ds).subscribe(res => {
-       if(!this.globalvar) this.modifyReport(res);counter++;
+       if(!this.globalvar) {this.modifyReport(res);counter++;
        if(counter == this.dsArray.length-1 && !this.globalvar){
        this.globalvar = true;
         this.getExternalReports(); 
         setTimeout(this.printFunction,6000);
+        }
+      }
+      else{
+        this.printFunction();
       }
       });
     }
