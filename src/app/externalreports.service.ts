@@ -8,11 +8,66 @@ import * as $ from 'jquery';
 export class ExternalreportsService {
 
   constructor() { }
- 
-  data = "";
- 
+    
+  er3(res5,count){
+    var value1 = 0;
+    var value2 = 0;
+    var value3 = 0;
+    var value4 = 0;
+    var temp1_value567 = '';
+    var value5 = '';
+    var value6 = '';
+    var value7 = '';
 
-  er2main(res4,count){
+    for(var j = 0; j<res5.dataValues.length; j++)
+    {
+        if (res5.dataValues[j].dataElement == 'sm6rhE9y9cn') 
+        {
+            value1 =res5.dataValues[j].value;
+        }
+       else if (res5.dataValues[j].dataElement == 'hDPezniOnwQ') 
+        {
+            value2 =res5.dataValues[j].value;
+        }
+       else if (res5.dataValues[j].dataElement == 'yyn9Xy91k3u') 
+        {
+            value3 =res5.dataValues[j].value;
+        }
+       else if (res5.dataValues[j].dataElement == 'AoDeAFlDyCC') 
+        {
+            value4 =res5.dataValues[j].value;
+        }
+        else if (res5.dataValues[j].dataElement == 'aZZMEH6e98h') 
+        {
+            temp1_value567 = res5.dataValues[j].value;
+        }
+        else if (temp1_value567 == 'Obesity') 
+        {                    
+            value5 = 'Yes';   
+            value6 = ''
+            value7 = '';   
+        }
+        else if (temp1_value567 == 'Vitamin Deficiency') 
+        {                    
+            value5 = '';   
+            value6 = 'Yes'
+            value7 = '';   
+        }
+        else if (temp1_value567 == 'Underweight') 
+        {                    
+            value5 = '';   
+            value6 = ''
+            value7 = 'Yes';   
+        }
+        
+    }
+    var data = '<td>'+value7+'</td><td>'+value6+'</td><td>'+value5+'</td><td>'+value4+'</td><td>'+value3+'</td><td>'+value2+'</td><td>'+value1+'</td><td>'+count+'</td></tr>';
+       
+          return data;
+
+  }
+
+  er2(res4,count){
   
     var value1 = 0;
     var temp1_value2 = "";
@@ -149,10 +204,6 @@ export class ExternalreportsService {
     }
     return (value1);
   };
-
-  er2(res4) {
-   
-};
 
   arraySorting(a, b) {
     return ((a[1] < b[1]) ? -1 : ((a[1] > b[1]) ? 1 : 0));

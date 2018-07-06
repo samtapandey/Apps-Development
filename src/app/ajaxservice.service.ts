@@ -62,7 +62,15 @@ export class AjaxserviceService {
     return this.http.get(x.BASE_URL + "analytics/events/query/nR5xtrxFKYI.json?dimension=ou:"+ ou +"&dimension=pe:" + pe + "&dimension=hDPezniOnwQ:LT:5&displayProperty=NAME&outputType=EVENT");
   }
 
-  extrenalReport2_1(ev): Observable<any>{
+  extrenalReportEvents(ev): Observable<any>{
     return this.http.get(x.BASE_URL + "events/"+ev+".json");
+  }
+
+  extrenalReport3(ou,pe): Observable<any>{
+    return this.http.get(x.BASE_URL + "analytics/events/query/nR5xtrxFKYI.json?dimension=ou:"+ ou +"&dimension=pe:" + pe + "&dimension=F2X9dg6yipM:IN:1&displayProperty=NAME&outputType=EVENT");
+  }
+
+  extrenalReport4(ou,pe): Observable<any>{
+    return this.http.get(x.BASE_URL + "analytics/events/query/nR5xtrxFKYI.json?dimension=ou:"+ ou +"&dimension=pe:" + pe + "&dimension=hDPezniOnwQ:LT:5&displayProperty=NAME&outputType=EVENT");
   }
 }

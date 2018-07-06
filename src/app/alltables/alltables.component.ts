@@ -31,6 +31,7 @@ eLength = 0;
           this.globalvar = false;
           this.ou = params[0];
           this.pe = params[1];
+          this.eventUid = [];
           $(".custom-all-tables-div").empty();
           }
          this.displayReport(this.ou, this.pe);
@@ -76,14 +77,17 @@ eLength = 0;
 
   getExternalReports(){
     var data;
+
+    //report 1
     this.ajax.extrenalReport1(this.ou,this.pe).subscribe(res => {
       let utility = new ExternalreportsService();
       data = utility.er1(res);
       this.modifyReport(data);
    });
 
+   //report 2
    this.ajax.extrenalReport2(this.ou,this.pe).subscribe(res5 => {
-      
+      this.eventUid = [];
     var thead = "<table><thead><tr class='headt'><td colspan='8'>Report on the nutritional status of all children under five years of age registered with the PHC facility</td></tr><tr><td colspan='3'>Degree of Malnutrition</td><td rowspan='2'>Weight</td><td rowspan='2'>Height</td><td rowspan='2'>Age</td><td rowspan='2'>ID</td><td rowspan='2'>S. No.</td></tr><tr><td>C (Severe)</td><td>B (Moderate)</td><td>A (Mild)</td></tr></thead>";
     var tabledata = thead + "<tr>";
     var adddata = "";
@@ -102,9 +106,75 @@ eLength = 0;
       var utill = new ExternalreportsService();
       for(var j = 0; j<this.eventUid.length;j++)
         {
-          this.ajax.extrenalReport2_1(this.eventUid[j]).subscribe(resp => {
+          this.ajax.extrenalReportEvents(this.eventUid[j]).subscribe(resp => {
             count = count + 1;
-          adddata = adddata + utill.er2main(resp,count);
+          adddata = adddata + utill.er2(resp,count);
+          if(count==len){
+            console.log(tabledata);
+            this.modifyReport(tabledata + adddata + "</table>");
+          }
+          });
+        }
+      }
+   });
+   
+   //report 3
+   this.ajax.extrenalReport3(this.ou,this.pe).subscribe(res5 => {
+      this.eventUid = [];
+    var thead = "<table><thead><tr class='headt'><td colspan='8'>Report on the nutritional status of all pregnant women registered within the PHC facility</td></tr><tr><td colspan='3'>Malnutrition</td><td rowspan='2'>Weight</td><td rowspan='2'>Height</td><td rowspan='2'>Age</td><td rowspan='2'>ID</td><td rowspan='2'>S. No.</td></tr><tr><td>Underweight</td><td>Vitamin Deficiency</td><td>Obesity</td></tr></thead>";
+    var tabledata = thead + "<tr>";
+    var adddata = "";
+    for(var i = 0;i<res5.rows.length;i++)
+     {   
+        var temp = 0; 
+        temp = res5.rows[i][0];
+        this.eventUid.push(temp);
+        this.eLength = this.eventUid.length;
+     }
+     debugger
+  if(this.eLength != 0 && this.eLength != undefined)
+    {
+      var count = 0;
+      var len = this.eLength;
+      var utill = new ExternalreportsService();
+      for(var j = 0; j<this.eventUid.length;j++)
+        {
+          this.ajax.extrenalReportEvents(this.eventUid[j]).subscribe(resp => {
+            count = count + 1;
+          adddata = adddata + utill.er3(resp,count);
+          if(count==len){
+            console.log(tabledata);
+            this.modifyReport(tabledata + adddata + "</table>");
+          }
+          });
+        }
+      }
+   });
+
+    //report 4
+    this.ajax.extrenalReport4(this.ou,this.pe).subscribe(res5 => {
+      this.eventUid = [];
+    var thead = "<table><thead><tr class='headt'><td colspan='8'>Report on the nutritional status of elderly population registered with the PHC facility</td></tr><tr><td colspan='3'>Malnutrition</td><td rowspan='2'>Weight</td><td rowspan='2'>Height</td><td rowspan='2'>Age</td><td rowspan='2'>ID</td><td rowspan='2'>S. No.</td></tr><tr><td>Underweight</td><td>Vitamin Deficiency</td><td>Obesity</td></tr></thead>";
+    var tabledata = thead + "<tr>";
+    var adddata = "";
+    for(var i = 0;i<res5.rows.length;i++)
+     {   
+        var temp = 0; 
+        temp = res5.rows[i][0];
+        this.eventUid.push(temp);
+        this.eLength = this.eventUid.length;
+     }
+     debugger
+  if(this.eLength != 0 && this.eLength != undefined)
+    {
+      var count = 0;
+      var len = this.eLength;
+      var utill = new ExternalreportsService();
+      for(var j = 0; j<this.eventUid.length;j++)
+        {
+          this.ajax.extrenalReportEvents(this.eventUid[j]).subscribe(resp => {
+            count = count + 1;
+          adddata = adddata + utill.er3(resp,count);
           if(count==len){
             console.log(tabledata);
             this.modifyReport(tabledata + adddata + "</table>");
