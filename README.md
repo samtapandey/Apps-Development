@@ -12,3 +12,14 @@ HISP INDIA External Apps Development
 	
  3# Aggregate data excel import app developed for maharashtra with multiple OU and multiple Data Element
     https://github.com/hispindia/dhis-app-excel-import/tree/Aggregate-Data-Excel-Import-App-MultipleOU-MultipleDE
+ 
+ 4# Excel import app for multiple stages version 2.27
+    https://github.com/hispindia/dhis-app-excel-import/tree/2.27-MWMIS-Odisha-Multistage-Excel-Import 
+	
+ 5# Excel import app for multiple stages version 2.26
+    https://github.com/hispindia/dhis-app-excel-import/tree/2.26-AES-Multistage-Excel-Import
+	
+ 6# Excel import app for aggrigate & tracker data version 2.27
+    https://github.com/hispindia/dhis-app-excel-import/tree/csv-2.27
+	
+	
