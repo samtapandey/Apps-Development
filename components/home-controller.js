@@ -88,7 +88,7 @@ ExportCSVApp.controller('homeController',
         if (mm < 10) {
             mm = '0' + mm
         }
-        $scope.today = "01-01-" + yyyy;
+        $scope.today = dd+"-"+mm+"-" +yyyy;
 
         // Get user
 
