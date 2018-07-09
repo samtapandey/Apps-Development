@@ -27,12 +27,14 @@ eLength = 0;
        //method service which gets selectedOrgUnit from orgunitlibrary
        this.callingBridge.ouandPeServiceMethod.subscribe(
         (params) => {
-          if(this.ou != params[0]){
+          if(this.ou != params[0] || this.pe != params[1]){
           this.globalvar = false;
           this.ou = params[0];
           this.pe = params[1];
           this.eventUid = [];
           $(".custom-all-tables-div").empty();
+          var doc = '<div class="row" style="height:15cm;margin-top:500px;margin-left:170px;width:20cm"><div class="col"><div class="row" style="width:100%;text-align:center;height:30%;"><p style="min-width:100vw;text-align:center;font-size:34px">Information and Documentation Center – Ministry of Health</p></div><div class="row" style="width:100%;height:30%;"><img src="head-icon.png" style="margin-left:43%;height:150px;width:150px"/></div><div class="row" style="width:100%;text-align:center;height:20%;"><p style="min-width:100vw;text-align:center;font-size:28px">Orgunit : '+$("#selected-ou-name").text()+'</p></div><div class="row" style="width:100%;text-align:center;height:5%;"><p style="min-width:100vw;text-align:center;font-size:28px">Period : '+$("#selected-period-name").text()+'</p></div></div></div>';
+        $('.custom-all-tables-div').append(doc);
           }
          this.displayReport(this.ou, this.pe);
         }
@@ -62,7 +64,8 @@ eLength = 0;
        this.modifyReport(res);counter++;
        if(counter == this.dsArray.length-1 && !this.globalvar){
        this.globalvar = true;
-        this.getExternalReports(); 
+        this.getExternalReports();
+         
         setTimeout(this.printFunction,6000);
         }
       
