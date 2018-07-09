@@ -13,7 +13,7 @@ ExportCSVApp.controller('homeController',
 
         $scope.orgUnitGroups = {};
 
-        
+
 		/* **************************************************************************************
 		 **** RETRIEVING ROOT JSON AND NEEDED DATA ***********************************************
 		 ************************************************************************************* **/
@@ -88,7 +88,7 @@ ExportCSVApp.controller('homeController',
         if (mm < 10) {
             mm = '0' + mm
         }
-        $scope.today = dd+"-"+mm+"-" +yyyy;
+        $scope.today = dd + "-" + mm + "-" + yyyy;
 
         // Get user
 
@@ -112,11 +112,11 @@ ExportCSVApp.controller('homeController',
 
             if ($scope.controllerData.orgunit === undefined) {
                 alert("Please select Organisation Unit Group");
-                window.location.assign('#home.html');               
+                window.location.assign('#home.html');
             }
             if ($scope.controllerData.period === undefined) {
                 alert("Please select Period");
-                window.location.assign('#home.html');                
+                window.location.assign('#home.html');
             }
             else {
                 $scope.orgGroupId = $scope.controllerData.orgunit.id;
@@ -193,45 +193,53 @@ ExportCSVApp.controller('homeController',
                     catId = "wzqerAiRUfl"; // >25 years
                 }
 
-                //var GetPromiseValue = GetDataValueService.get(catId, indicator, og, pe);
+                function reqListener() {
+                    this.responseText;
 
-                $.when(
-                    $.getJSON("../../analytics.json?dimension=ID3CGIXZNp9:" + catId + ";&dimension=dx:" + indicator + ";&dimension=ou:OU_GROUP-" + og + "&filter=pe:" + pe + "&displayProperty=NAME", {
-                        format: "json"
-                    })
-                ).then(function (response) {
-                    var value = 0;
-                    //var dataResponse = response.$$state.value;
-                    for (var i = 0; i < response.rows.length; i++) {
-                        value += parseInt(response.rows[i][3]);
-                    }
+                    var response = JSON.parse(this.responseText);
+                        var resUrl = this.responseURL;
+                        var value = 0;
+                        for (var i = 0; i < response.rows.length; i++) {
+                            value += parseInt(response.rows[i][3]);
+                        }
 
-                    var dataObj = { "dataelement": dataelementCode, "period": period, "orgunit": ce, "categoryoptioncombo": categoryoptioncombo, "attributeoptioncombo": attributeoptioncombo, "value": value, "storedby": $scope.userName, "lastupdated": $scope.today, "comment": "false", "followup": "" };
-                    
-                    dataArray.push(dataObj);
-                    
+                        var resUrlList = resUrl.split('&');
 
-                }).done(function(){
+                        var deCode = (resUrlList[5].split(':',2))[1];
+                        var orgCode = (resUrlList[6].split(':',2))[1];
+                        var coc =  (resUrlList[7].split(':',2))[1];
 
+                        var dataObj = { "dataelement": deCode, "period": period, "orgunit": orgCode, "categoryoptioncombo": coc, "attributeoptioncombo": attributeoptioncombo, "value": value, "storedby": $scope.userName, "lastupdated": $scope.today, "comment": "false", "followup": "" };
+ 
+                     dataArray.push(dataObj);
 
-
-                    if($scope.orgGroupId == "all")
-                    {
-                        if (dataArray.length == countNumber*4) {
+                     if ($scope.orgGroupId == "all") {
+                        if (dataArray.length == countNumber * 4) {
                             Json2CSV(dataArray);
-                            
+    
                         }
                     }
-                        else {
-                            if (dataArray.length == countNumber) {
-                                     Json2CSV(dataArray);
-                                
-                            }
+                    else {
+                        if (dataArray.length == countNumber) {
+                            Json2CSV(dataArray);
+    
                         }
+                    }
+                }
 
+                
 
-                })
-
+                var oReq = new XMLHttpRequest();
+                oReq.addEventListener("load", reqListener);
+                oReq.onreadystatechange = function () {
+                    if (oReq.readyState == 4 && oReq.status == 200) {
+                        
+                    }
+                }
+                oReq.open("GET", "../../analytics.json?dimension=ID3CGIXZNp9:" + catId + ";&dimension=dx:" + indicator + ";&dimension=ou:OU_GROUP-" + og + "&filter=pe:" + pe + "&displayProperty=NAME&deCode:" + dataelementCode + "&orgCode:" + ce + "&coc:" + categoryoptioncombo);
+                oReq.send();
+               
+			
             }
 
         }
@@ -272,16 +280,4 @@ ExportCSVApp.controller('homeController',
 
         }
 
-        function sleep(milliseconds) {
-            var start = new Date().getTime();
-            for (var i = 0; i < 1e7; i++) {
-              if ((new Date().getTime() - start) > milliseconds){
-                break;
-              }
-            }
-          }
-
     })
-
-
-
