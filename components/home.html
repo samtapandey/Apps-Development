@@ -1,24 +1,22 @@
 <div>
     <div id="mainPage">
         <h2>Export - Global DHIS2</h2>
-
+        <br/>
         <div ng-app="ExportCSVApp" ng-controller="homeController">
             <form class="form-inline">
-                
-                    <label for="period">Period:</label>
-                    <select class="form-control" data-live-search=true style='width:347px;font-size:12px' name="period" ng-model="controllerData.period"
-                        ng-options="data for data in dateOptions">
-                        <option value="">Please Select</option>
-                    </select>
-                    &nbsp;&nbsp;
-                    &nbsp;&nbsp;
-                    <label for="orgGroup">Organisation Unit Group:</label>
-                    <select class="form-control" style='width:347px;font-size:12px' name="orgunit" ng-options="data.displayName for data in orgUnitGroups"
-                        ng-model="controllerData.orgunit">
-                        <option value="">Please Select</option>
-                    </select>
-                    &nbsp;&nbsp;
-                    &nbsp;&nbsp;
+
+                <label for="period">Period:</label>
+                <select class="form-control" data-live-search=true style='width:147px;font-size:12px' name="period" ng-model="controllerData.period"
+                    ng-options="data for data in dateOptions">
+                    <option value="">Please Select</option>
+                </select>
+                &nbsp;&nbsp; &nbsp;&nbsp;
+                <label for="orgGroup">Organisation Unit Group:</label>
+                <select class="form-control" style='width:147px;font-size:12px' name="orgunit" ng-options="data.displayName for data in orgUnitGroups"
+                    ng-model="controllerData.orgunit">
+                    <option value="">Please Select</option>
+                </select>
+                &nbsp;&nbsp; &nbsp;&nbsp;
                 <button type="button" ng-click="submit()" value="ClickMe" id="click">Submit</button>
 
         </div>
