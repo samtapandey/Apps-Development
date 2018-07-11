@@ -1,10 +1,10 @@
-<mat-slide-toggle class="mat-primary" [(ngModel)]="checkedOug" (click)="sendou()">Filter Org unit groups</mat-slide-toggle>
+<mat-slide-toggle class="mat-primary" [(ngModel)]="checkedOug">Filter Org unit groups</mat-slide-toggle>
 <br>
   <!-- selection dropdown for datasets -->
   <mat-form-field *ngIf="checkedOug">
     <mat-select color="primary" placeholder="Select Organisation unit group"
       [(ngModel)]="selectedvalues">
-      <mat-option color="primary" *ngFor="let dataset of ougroupdropdown"  [value]="dataset.id">
+      <mat-option color="primary" *ngFor="let dataset of ougroupdropdown"  [value]="dataset.id" (click)="sendou(dataset.id)">
         {{ dataset.name }}
       </mat-option>
     </mat-select>

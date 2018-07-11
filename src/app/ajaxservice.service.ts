@@ -51,7 +51,7 @@ export class AjaxserviceService {
   }
 
   getOuGroupsDropdown(): Observable<any>{
-    return this.http.get(x.BASE_URL + "organisationUnitGroups.json");
+    return this.http.get(x.BASE_URL + "organisationUnitGroupSets/fKvKRriTaSv.json?fields=organisationUnitGroups[id,name]");
   }
 
   extrenalReport1(ou,pe): Observable<any>{

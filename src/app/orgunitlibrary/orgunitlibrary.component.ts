@@ -222,16 +222,15 @@ export class OrgunitlibraryComponent implements OnInit {
   this.orgunitService.getOuGroupsDropdown()
   .subscribe(res => {
     for(let p=0;p<res.organisationUnitGroups.length;p++){
-      var obj = {'name':res.organisationUnitGroups[p].displayName, 'id':res.organisationUnitGroups[p].id};
+      var obj = {'name':res.organisationUnitGroups[p].name, 'id':res.organisationUnitGroups[p].id};
       this.ougroupdropdown.push(obj);
     }
   });
  }
 
-sendou(){
+sendou(v){
   //function to send selectedOrgunit to generate function
-  if(!this.checkedOug)this.callingBridge.callMethodToSendOrgUnit(this.selectedOrgUnit + "&selectedOnly=false&dimension=fKvKRriTaSv:"+this.selectedvalues);
-  else this.callingBridge.callMethodToSendOrgUnit(this.selectedOrgUnit + "&selectedOnly=false");
+  this.callingBridge.callMethodToSendOrgUnit(this.selectedOrgUnit + "&selectedOnly=false&dimension=fKvKRriTaSv:"+v);
 }
 
 
