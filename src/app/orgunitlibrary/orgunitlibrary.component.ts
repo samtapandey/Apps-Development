@@ -83,7 +83,7 @@ export class OrgunitlibraryComponent implements OnInit {
       });
     //function to send selectedOrgunit to generate function
     if(this.checkedOug)this.callingBridge.callMethodToSendOrgUnit(this.selectedOrgUnit + "&selectedOnly=false&dimension=fKvKRriTaSv:"+this.selectedvalues);
-    else this.callingBridge.callMethodToSendOrgUnit(this.selectedOrgUnit + "&selectedOnly=false");
+    else this.callingBridge.callMethodToSendOrgUnit(this.selectedOrgUnit);
     //code to change color back to normal on unselect
     if (this.previousSelection.id != element.currentTarget.id) {
       this.previousSelection.classList.value = this.previousSelection.classList.value.split(" ")[0]; 
