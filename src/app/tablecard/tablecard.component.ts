@@ -85,9 +85,13 @@ export class TablecardComponent {
     });
   }
 
-  modifyReport(response) {
-   
+  modifyReport(domstr) {
+    debugger
+    var response = $.parseHTML(domstr);
+    response.splice(0,1);
+    console.log(response);
     $(".custom-table-div").append(response);
+    // $(".custom-table-div p").remove();
     $(".custom-table-div style").remove();
     $(".custom-table-div table").attr("id", "table1");
     $(".custom-table-div table").removeAttr("style");
@@ -106,11 +110,9 @@ export class TablecardComponent {
     $(".custom-table-div table tbody tr td").attr("style", "word-wrap:break-word;");
     // $(".custom-table table").attr("id", "table1");
     $(".custom-table-div table").addClass("table table-bordered table2excel");
-    
-      $(".custom-table-div table").attr("style", "max-width:100% !important;" +
-        "background-color:white !important;" +
-        "box-shadow:0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12) !important;text-align:right;transition: transform .2s;" +
-        "");
+    $(".custom-table-div table").attr("style", "max-width:100% !important;" +
+      "background-color:white !important;" +
+      "box-shadow:0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12) !important;text-align:right;transition: transform .2s;");
     $(".custom-table-div table thead").removeAttr("style");    
     $(".custom-table-div table thead tr").removeAttr("style");
     $(".custom-table-div table thead tr td").removeAttr("style");
