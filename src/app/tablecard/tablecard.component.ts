@@ -2,6 +2,7 @@ import { Component} from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
 import { AjaxserviceService } from 'src/app/ajaxservice.service';
 import * as $ from 'jquery';
+import * as x from 'src/app/CONSTANTS';
 import { MatSnackBar } from '@angular/material';
 import 'src/app/Jsfiles/sum.js';
 
@@ -98,7 +99,7 @@ export class TablecardComponent {
     $(".custom-table-div style").remove();
     $(".custom-table-div table tbody tr td span span").removeAttr("style");
     $(".custom-table-div table tbody tr td span").removeAttr("style");
-    $(".custom-table-div table tbody tr td").removeAttr("style");
+    // $(".custom-table-div table tbody tr td").removeAttr("style");
     $(".custom-table-div table tbody tr").removeAttr("style");
     $(".custom-table-div table tbody").removeAttr("style");
     $(".custom-table-div table tbody tr").removeAttr("height");
@@ -130,7 +131,8 @@ export class TablecardComponent {
     $('table td:has(p)').text(function () {
       return $(this).text()
     })
-    cellSumFunction.sumReports();
+    if(!x.REMOVE_TOTAL.includes(this.ds))cellSumFunction.sumReports();
+    if(x.ADD_TOTAL.includes(this.ds))cellSumFunction.verticalSumReport();
     // this.callingBridge.callMethodToSendOuandPe([this.ou,this.pe]);
   }
 

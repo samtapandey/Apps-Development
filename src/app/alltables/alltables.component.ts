@@ -61,18 +61,18 @@ eLength = 0;
      this.ds = this.dsArray[k].id;
      if(!this.globalvar) {
     this.ajax.getDatasetHTML(ou, pe, this.ds).subscribe(res => {
-       this.modifyReport(res);counter++;
+      this.modifyReport(res,this.dsArray[counter].id);counter++;
        if(counter == this.dsArray.length-1 && !this.globalvar){
-       this.globalvar = true;
+        //this.globalvar = true;
         this.getExternalReports();
          
-        setTimeout(this.printFunction,6000);
+        setTimeout(this.printFunction,6000,1);
         }
       
       });
     }
     else{
-      this.printFunction();
+      this.printFunction(0);
       break;
     }
   }
@@ -85,7 +85,7 @@ eLength = 0;
     this.ajax.extrenalReport1(this.ou,this.pe).subscribe(res => {
       let utility = new ExternalreportsService();
       data = utility.er1(res);
-      this.modifyReport(data);
+      this.modifyReport(data,"0");
    });
 
    //report 2
@@ -114,7 +114,7 @@ eLength = 0;
           adddata = adddata + utill.er2(resp,count);
           if(count==len){
             console.log(tabledata);
-            this.modifyReport(tabledata + adddata + "</table>");
+            this.modifyReport(tabledata + adddata + "</table>", "0");
           }
           });
         }
@@ -147,7 +147,7 @@ eLength = 0;
           adddata = adddata + utill.er3(resp,count);
           if(count==len){
             console.log(tabledata);
-            this.modifyReport(tabledata + adddata + "</table>");
+            this.modifyReport(tabledata + adddata + "</table>", "0");
           }
           });
         }
@@ -180,7 +180,7 @@ eLength = 0;
           adddata = adddata + utill.er3(resp,count);
           if(count==len){
             console.log(tabledata);
-            this.modifyReport(tabledata + adddata + "</table>");
+            this.modifyReport(tabledata + adddata + "</table>", "0");
           }
           });
         }
@@ -188,9 +188,10 @@ eLength = 0;
    });
 }
 
-  printFunction(){ 
-    if(!this.globalvar){
-      cellSumFunction.sumReportsAll();
+  printFunction(i){ 
+    if(!this.globalvar || i == 1){
+     cellSumFunction.sumReportsAll();
+     cellSumFunction.verticalSumReport();
     }
       $("#alltables").show();
       window.print();
@@ -198,11 +199,13 @@ eLength = 0;
       $('#alltables').hide();
      // $('body').not("#alltables").show(); 
   }
-
-  modifyReport(response) {
-   
+    modifyReport(domstr,dsid) {
+      debugger
+      var response = $.parseHTML(domstr);
+      console.log(response[0]);
+      $(response).attr('id' , dsid);
     $(".custom-all-tables-div").append(response);
-    $(".custom-all-tables-div table").attr("id", "table1");
+   // $(".custom-all-tables-div table").attr("id", dsid);
     $(".custom-all-tables-div table").removeAttr("style");
     $(".custom-all-tables-div style").remove();
     $(".custom-all-tables-div table tr td span span").removeAttr("style");

@@ -151,3 +151,10 @@ export const OU_GROUPS_NAME = {
     "pZCH1H9sAO6" : "PHC Report",
     "uvtFGpk1C86" : "Medical Center"
 }
+export const REMOVE_TOTAL = [
+    "bGnNmKSuZlw","ShLvZi45WYv","FN9wO5d2jmN","fyIza2Ggy2G","NVirEUvg4lE","i5doaVaayYN","YcywkvYogw3"
+]
+
+export const ADD_TOTAL = [
+    "bGnNmKSuZlw","fyIza2Ggy2G","NVirEUvg4lE","vQeZkk8Fz2y","TKR665WfTQd","n71AgyCV7gp"
+]
