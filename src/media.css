@@ -15,5 +15,8 @@
     tr    { 
      page-break-inside:avoid;
      page-break-after:auto }
+     td{
+       text-align: center;
+     }
    
   }

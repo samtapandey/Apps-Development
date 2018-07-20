@@ -157,13 +157,16 @@ var cellSumFunction = (function() {
              // console.log(array);
             }
           });
-          console.log(array);
           var newrow = "<tr>";
           for(var k in array){
-          if(array[k] == 0) newrow += "<td></td>";
-          else  newrow += "<td>"+ array[k] + "</td>";
+          if(array.length-1 == k){ newrow += "<td><b>Total<b></td>";}
+          else  {
+            if(array[k]==0) newrow += "<td></td>"; 
+            else newrow += "<td>"+ array[k] + "</td>";
+          
+            }
           }
-          $(this).append(newrow+"<td><b>Total<b></td></tr>");
+          $(this).append(newrow+"</tr>");
         });
       },
 
@@ -225,10 +228,14 @@ var cellSumFunction = (function() {
           console.log(array);
           var newrow = "<tr>";
           for(var k in array){
-          if(array[k] == 0) newrow += "<td></td>";
-          else  newrow += "<td>"+ array[k] + "</td>";
+          if(array.length-1 == k){ newrow += "<td><b>Total<b></td>";}
+          else  {
+            if(array[k]==0) newrow += "<td></td>"; 
+            else newrow += "<td>"+ array[k] + "</td>";
+          
+            }
           }
-          $(this).append(newrow+"<td><b>Total<b></td></tr>");
+          $(this).append(newrow+"</tr>");
         }
         });
       }
