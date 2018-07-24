@@ -21,5 +21,8 @@ HISP INDIA External Apps Development
 	
  6# Excel import app for aggrigate & tracker data version 2.27
     https://github.com/hispindia/dhis-app-excel-import/tree/csv-2.27
+    
+ 7# Tracker and event data exporter app ( generic, msf, tibet branches )  
+    https://github.com/hispindia/tracker-data-exporter-app/
 	
 	
