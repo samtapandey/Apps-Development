@@ -191,7 +191,7 @@ eLength = 0;
   printFunction(i){ 
     if(!this.globalvar || i == 1){
      cellSumFunction.sumReportsAll();
-     cellSumFunction.verticalSumReport();
+     cellSumFunction.verticalSumReportAll();
     }
       $("#alltables").show();
       window.print();
