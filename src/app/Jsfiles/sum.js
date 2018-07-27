@@ -111,8 +111,8 @@ var cellSumFunction = (function() {
       },
 
       verticalSumReport : function(){
-        $(".custom-table-div table").each(function (indexTable) {
-          var arrayLength = $(this).find("tr").last().children("td").length;
+        $(".custom-table-div table tbody").each(function (indexTable) {
+          var arrayLength = $(this).find("tr").first().children("td").length;
           var array = [];
           var countflag = true;
           // console.log(arrayLength);
@@ -180,11 +180,11 @@ var cellSumFunction = (function() {
           var id = $(this).attr('id');
           console.log(id);
           if(ADD_TOTAL.includes(id)){
-          var arrayLength = $(this).find("tr").last().children("td").length;
+          var arrayLength = $(this).children("tbody").children("tr").first().children("td").length;
           var array = [];
           var countflag = true;
           // console.log(arrayLength);
-          $(this).find("tr").each(function (indexRow) {
+          $(this).children("tbody").find("tr").each(function (indexRow) {
             var tdcount = $(this).children("td").length;
             // console.log(arrayLength);
             if(arrayLength == tdcount && countflag){
