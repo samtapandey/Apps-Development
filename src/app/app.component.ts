@@ -40,7 +40,7 @@ hideme(){
       $("#loader").fadeOut(500);
       $("#mainPage").fadeIn(1200);
       $("#sub-header").fadeIn(100);
-    }, 3000);
+    }, 5000);
   }
 
   toggle(){

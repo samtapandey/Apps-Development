@@ -12,7 +12,7 @@ import * as arrays from 'src/app/CONSTANTS';
 })
 
 
-export class OrgunitlibraryComponent implements OnInit {
+export class OrgunitlibraryComponent {
 
   ougroups =  [];
   defaultgroup = [
@@ -33,7 +33,7 @@ export class OrgunitlibraryComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.setOu();
     this.setOugroup();
   }
