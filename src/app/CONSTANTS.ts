@@ -115,9 +115,7 @@ export const DATASETS_ID_PHC = [
     { id: 'i5doaVaayYN', name: "08.PHC Radiology Services Dataset" },
     { id: 'YcywkvYogw3', name: "09.PHC Laboratory Services Dataset" },
     { id: 'n71AgyCV7gp', name: "10.Physiotherapy Services Dataset" },
-    { id: 'Ri1mp3YgF3s', name: "11.PHC Human Resource Dataset" },
-    { id: 'qq8aqH1YPjT', name: "11.Essential Drugs and Consumables Stocks Dataset" },
-    { id: "h1Q03rJqNQr", name: "EWARN Reporting Dataset" }];
+    { id: 'Ri1mp3YgF3s', name: "11.PHC Human Resource Dataset" }];
 
 export const DATASETS_ID_HOSPITAL = [
     { id: 'IgbqlaxE83v', name: "01.Hospital OPD Services Dataset" },
@@ -130,8 +128,7 @@ export const DATASETS_ID_HOSPITAL = [
     { id: 'NVirEUvg4lE', name: "07.Hospital/Medical Centre Infectious Disease and Deaths Dataset" },
     { id: 'TKR665WfTQd', name: "09.Hospital Human Resource Dataset" },
     { id: 'vQeZkk8Fz2y', name: "08.Hospital/Medical Centre Delivery and Birth Services Dataset" },
-    { id: 'n71AgyCV7gp', name: "10.Physiotherapy Services Dataset" },
-    { id: "h1Q03rJqNQr", name: "EWARN Reporting Dataset" }];
+    { id: 'n71AgyCV7gp', name: "10.Physiotherapy Services Dataset" }];
 
 export const DATASETS_ID_MEDICALCENTER = [
     { id: 'tgGyJAaIahr', name: "02.Hospital/Medical Centre Emergency Care Dataset" },
@@ -152,9 +149,9 @@ export const OU_GROUPS_NAME = {
     "uvtFGpk1C86" : "Medical Center"
 }
 export const REMOVE_TOTAL = [
-    "bGnNmKSuZlw","ShLvZi45WYv","FN9wO5d2jmN","fyIza2Ggy2G","NVirEUvg4lE","i5doaVaayYN","YcywkvYogw3"
+    "bGnNmKSuZlw","ShLvZi45WYv","FN9wO5d2jmN","NVirEUvg4lE","i5doaVaayYN","YcywkvYogw3","NL5AxxiJt31"
 ]
 
 export const ADD_TOTAL = [
-    "bGnNmKSuZlw","fyIza2Ggy2G","NVirEUvg4lE","vQeZkk8Fz2y","TKR665WfTQd","n71AgyCV7gp"
+    "bGnNmKSuZlw","fyIza2Ggy2G","NVirEUvg4lE","vQeZkk8Fz2y","TKR665WfTQd","n71AgyCV7gp","IgbqlaxE83v","yY9r5kbus3t","tgGyJAaIahr","CFDWUtgFaSX","sl7pTQ0lY4K","WRzYEN981Nb","jqSaKxtj8IA","Ri1mp3YgF3s","DVEYU2A2aF2"
 ]

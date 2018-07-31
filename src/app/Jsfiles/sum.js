@@ -55,7 +55,7 @@ var cellSumFunction = (function() {
       },
       sumReportsAll: function() {
         var REMOVE_TOTAL = [
-          "bGnNmKSuZlw","ShLvZi45WYv","FN9wO5d2jmN","fyIza2Ggy2G","NVirEUvg4lE","i5doaVaayYN","YcywkvYogw3"
+          "bGnNmKSuZlw","ShLvZi45WYv","FN9wO5d2jmN","NVirEUvg4lE","i5doaVaayYN","YcywkvYogw3"
         ]
        
         var limit = $(".headt").index();
@@ -173,7 +173,7 @@ var cellSumFunction = (function() {
       verticalSumReportAll : function(){
 
         var ADD_TOTAL = [
-          "bGnNmKSuZlw","fyIza2Ggy2G","NVirEUvg4lE","vQeZkk8Fz2y","TKR665WfTQd","n71AgyCV7gp"
+          "bGnNmKSuZlw","fyIza2Ggy2G","NVirEUvg4lE","vQeZkk8Fz2y","TKR665WfTQd","n71AgyCV7gp","IgbqlaxE83v","yY9r5kbus3t","tgGyJAaIahr","CFDWUtgFaSX","sl7pTQ0lY4K","WRzYEN981Nb","jqSaKxtj8IA","Ri1mp3YgF3s"
         ]
 
         $(".custom-all-tables-div table").each(function (indexTable) {
