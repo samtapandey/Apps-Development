@@ -202,7 +202,7 @@ eLength = 0;
     modifyReport(domstr,dsid) {
       debugger
       var response = $.parseHTML(domstr);
-      console.log(response[0]);
+    //  console.log(response[0]);
       $(response).attr('id' , dsid);
     $(".custom-all-tables-div").append(response);
    // $(".custom-all-tables-div table").attr("id", dsid);

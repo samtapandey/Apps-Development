@@ -89,7 +89,7 @@ export class TablecardComponent {
   modifyReport(domstr) {
     debugger
     var response = $.parseHTML(domstr);
-    response.splice(0,1);
+    if(response[0].nodeName == 'P')response.splice(0,1);
     console.log(response);
     $(".custom-table-div").append(response);
     // $(".custom-table-div p").remove();
