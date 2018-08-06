@@ -82,7 +82,7 @@ export class TablecardComponent {
         $(".ex-element-main").show();
         $(".custom-table-div").fadeIn(1000);
         this.modifyReport(res);
-      }, 2500);
+      }, 4500);
     });
   }
 

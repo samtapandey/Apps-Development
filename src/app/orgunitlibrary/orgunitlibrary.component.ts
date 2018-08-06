@@ -194,12 +194,12 @@ export class OrgunitlibraryComponent {
   checkOulevel(orgunit) {
     this.orgunitService.getOuLevel(orgunit)
     .subscribe(response => {
-      if(response.level == "1" || response.level == "2"){
+      // if(response.level == "1" || response.level == "2"){
         this.callingBridge.callMethodToSendOu(this.defaultgroup);
-      }
-      else{
-        this.callOuGroups(orgunit);
-      }
+      // }
+      // else{
+      //   this.callOuGroups(orgunit);
+      // }
     });
   }
 

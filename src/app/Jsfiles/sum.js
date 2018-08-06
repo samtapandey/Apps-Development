@@ -113,13 +113,18 @@ var cellSumFunction = (function() {
       verticalSumReport : function(){
         $(".custom-table-div table tbody").each(function (indexTable) {
           var arrayLength = $(this).find("tr").first().children("td").length;
+          var rowCount = $(this).children("tr").length;
           var array = [];
+          var currentTable = $(this);
           var countflag = true;
           // console.log(arrayLength);
           $(this).find("tr").each(function (indexRow) {
+            // rowCount++;
+            // debugger
             var tdcount = $(this).children("td").length;
-            // console.log(arrayLength);
+            console.log(arrayLength,tdcount);
             if(arrayLength == tdcount && countflag){
+              debugger
               $(this).find("td").each(function (indexCell) {
                 var value = 0;
               // console.log($(this));
@@ -128,12 +133,13 @@ var cellSumFunction = (function() {
                   }
                   
                array.push(value);
-              
+               countflag = false; 
               });  
-              // console.log(array);
-              countflag = false; 
+              console.log(array);
+            
             }
-            else if(arrayLength == tdcount && !countflag){
+            else if((arrayLength == tdcount || arrayLength-1 == tdcount) && !countflag){
+              debugger
               $(this).find("td").each(function (indexCell) {
                 var value = 0;
                 if ($(this)[0].innerText == "") {
@@ -146,6 +152,7 @@ var cellSumFunction = (function() {
                   
                 }
                 if(!isNaN(value)){
+                  // if(indexCell==19)console.log(value);
                   array[indexCell] =   parseInt(array[indexCell]) + value; 
                 }
                 else{
@@ -156,7 +163,9 @@ var cellSumFunction = (function() {
               });   
              // console.log(array);
             }
-          });
+            // console.log(indexRow,)
+            if(rowCount-1 == indexRow){
+              debugger
           var newrow = "<tr>";
           for(var k in array){
           if(array.length-1 == k){ newrow += "<td><b>Total<b></td>";}
@@ -166,7 +175,10 @@ var cellSumFunction = (function() {
           
             }
           }
-          $(this).append(newrow+"</tr>");
+          currentTable.append(newrow+"</tr>");
+            }
+          });
+
         });
       },
 
@@ -177,7 +189,9 @@ var cellSumFunction = (function() {
         ]
 
         $(".custom-all-tables-div table").each(function (indexTable) {
+          var currentTable = $(this);
           var id = $(this).attr('id');
+          var rowCount = $(this).children("tr").length;
           console.log(id);
           if(ADD_TOTAL.includes(id)){
           var arrayLength = $(this).children("tbody").children("tr").first().children("td").length;
@@ -185,6 +199,7 @@ var cellSumFunction = (function() {
           var countflag = true;
           // console.log(arrayLength);
           $(this).children("tbody").find("tr").each(function (indexRow) {
+            // rowCount++;
             var tdcount = $(this).children("td").length;
             // console.log(arrayLength);
             if(arrayLength == tdcount && countflag){
@@ -201,7 +216,7 @@ var cellSumFunction = (function() {
               // console.log(array);
               countflag = false; 
             }
-            else if(arrayLength == tdcount && !countflag){
+            else if((arrayLength == tdcount || arrayLength-1 == tdcount) && !countflag){
               $(this).find("td").each(function (indexCell) {
                 var value = 0;
                 if ($(this)[0].innerText == "") {
@@ -224,8 +239,8 @@ var cellSumFunction = (function() {
               });   
              // console.log(array);
             }
-          });
-          console.log(array);
+            if(rowCount-1 == indexRow){
+              debugger
           var newrow = "<tr>";
           for(var k in array){
           if(array.length-1 == k){ newrow += "<td><b>Total<b></td>";}
@@ -235,7 +250,20 @@ var cellSumFunction = (function() {
           
             }
           }
-          $(this).append(newrow+"</tr>");
+          currentTable.append(newrow+"</tr>");
+            }
+          });
+          // console.log(array);
+          // var newrow = "<tr>";
+          // for(var k in array){
+          // if(array.length-1 == k){ newrow += "<td><b>Total<b></td>";}
+          // else  {
+          //   if(array[k]==0) newrow += "<td></td>"; 
+          //   else newrow += "<td>"+ array[k] + "</td>";
+          
+          //   }
+          // }
+          // $(this).append(newrow+"</tr>");
         }
         });
       }
