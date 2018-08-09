@@ -1,28 +1,27 @@
-# Apps-Development
-HISP INDIA External Apps Development
+# Skeleton App of Angular 6
 
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.0.
 
- # Link of other external Apps developed:
+## Development server
 
- 1# Tracker data approval app developed for UPHMIS
-    https://github.com/hispindia/dhis-tracker-data-approval-app
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
- 2# e-Aushadhi Stock Data Import App developed for malaria
-    https://github.com/hispindia/dhis-app-excel-import/tree/Aggrigate-Data-Excel-Import-App-Without-Mapping
-	
- 3# Aggregate data excel import app developed for maharashtra with multiple OU and multiple Data Element
-    https://github.com/hispindia/dhis-app-excel-import/tree/Aggregate-Data-Excel-Import-App-MultipleOU-MultipleDE
- 
- 4# Excel import app for multiple stages version 2.27
-    https://github.com/hispindia/dhis-app-excel-import/tree/2.27-MWMIS-Odisha-Multistage-Excel-Import 
-	
- 5# Excel import app for multiple stages version 2.26
-    https://github.com/hispindia/dhis-app-excel-import/tree/2.26-AES-Multistage-Excel-Import
-	
- 6# Excel import app for aggrigate & tracker data version 2.27
-    https://github.com/hispindia/dhis-app-excel-import/tree/csv-2.27
-    
- 7# Tracker and event data exporter app ( generic, msf, tibet branches )  
-    https://github.com/hispindia/tracker-data-exporter-app/
-	
-	
+## Code scaffolding
+
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+## Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
