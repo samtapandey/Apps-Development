@@ -1,0 +1,21 @@
+.metadataButton {
+    margin: 0 auto;
+    width: 130px;
+    height: 25px;
+    background: #4E9CAF;
+    padding: 10px 15px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border: 1px solid #000000 ;
+    position: relative;
+}
+.metadataTitle{
+    background-color: rgb(232, 233, 233);
+    margin-bottom: 5%;
+    margin-top: -12px;
+    color: #4E9CAF;
+    padding: 10%;
+}
