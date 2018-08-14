@@ -1,3 +1,58 @@
-<p>
-  metadatareport works!
-</p>
+<div class="heading">
+  <a class="homeButton" routerLink="/">
+    <img src="home.png" width="55px" alt="Home Button" />
+  </a>
+  <h1 class="headingMetadata">Meta Data Report</h1>
+</div>
+
+<div style="text-align: center;">
+  <form novalidate style="border: #dbdbdb solid 1px;margin:2% 30% 0% 30%;box-shadow: 10px 10px 8px #888888;" #myForm>
+    <table style="margin-left: 15%">
+
+      <div class="form-group" style=" margin-top: 4%;">
+        <tr class="table-row">
+          <td class="table-data">
+            <label class=".control-label" for="group" style="text-align: left;">
+              <span>
+                <b>{{ groupSub }}:</b>
+              </span>
+            </label>
+          </td>
+          <td class="table-data">
+            <select class="form-control" required (change)="filterForeCasts($event.target.value)">
+              <option *ngFor="let group of groups" [value]="group.name">
+                {{group.name}}
+              </option>
+            </select>
+          </td>
+        </tr>
+      </div>
+      <div class="form-group">
+        <tr class="table-row">
+          <td class="table-data">
+            <label class="center-block" for="attribute">
+              <span>
+                <b>{{attribute}}:</b>
+              </span>
+            </label>
+          </td>
+          <td class="table-data">
+            <select class="multiselect-ui form-control" id="dates-field2" multiple="multiple" required >
+              <option *ngFor="let attribute of attributes" [value]="attribute">
+                {{attribute.name}}
+              </option>
+            </select>
+          </td>
+        </tr>
+        <br>
+        <tr>
+          <td>
+            <button type="submit" (click)="getReport($event.group)" style="margin-left: 55%; padding: 5% 12%;" class="btn .btn-primary">
+              Get Report
+            </button>
+          </td>
+        </tr>
+      </div>
+    </table>
+  </form>
+</div>

@@ -1,0 +1,18 @@
+.heading{
+    margin: 0 auto;
+    margin-top: -12px;
+    background: #ccf2ff;
+    padding: 10px;
+}
+.homeButton{
+    margin: 0 auto;
+    float: left;
+}
+.headingMetadata{
+    text-align: center;
+    font-size: 220%;
+}
+.table-data{
+    text-align: left;
+    width:200px;
+}
