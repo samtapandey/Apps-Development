@@ -21,6 +21,7 @@
             "assets": [
               "src/favicon.ico",
               "src/home.png",
+              "src/background-image.jpg",
               "src/assets",
               "src/manifest.webapp"
             ],

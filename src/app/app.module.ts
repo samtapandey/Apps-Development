@@ -4,8 +4,25 @@ import { MenuModule } from './modules/menu/menu.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { MetadatareportComponent } from './metadatareport/metadatareport.component';
-import { RouterModule } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+
+
+const appRoutes: Routes = [
+  {
+    path: 'metadatareport',
+    component: MetadatareportComponent
+  },
+  {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: '',
+    component: HomeComponent,
+    pathMatch: 'full'
+  }
+];
 
 @NgModule({
   declarations: [
@@ -17,17 +34,9 @@ import { HomeComponent } from './home/home.component';
     BrowserModule,
     MenuModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot([
-      {
-        path: 'metadatareport',
-        component: MetadatareportComponent
-      },
-      {
-        path: '',
-        component: HomeComponent
-      }
-    ])
+    RouterModule.forRoot(appRoutes, { useHash: true, preloadingStrategy: PreloadAllModules })
   ],
+  exports: [RouterModule],
   providers: [],
   bootstrap: [AppComponent]
 })

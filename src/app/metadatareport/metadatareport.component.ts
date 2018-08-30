@@ -22,7 +22,7 @@ export class MetadatareportComponent implements OnInit {
   ngOnInit() {
   }
 
-  public getReport(event, groups) {
+  public getReport(event) {
     alert('Group ' + event.target);
   }
 
