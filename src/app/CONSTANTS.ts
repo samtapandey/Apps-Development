@@ -3,17 +3,15 @@ export const group = 'Select Meta Data';
 export const attribute = 'Select Attributes';
 export const selection = 'Please Select';
 export const attributes = [
-    { id: 1, name: "All" },
-    { id: 2, name: "uid" },
-    { id: 3, name: "code" },
-    { id: 4, name: "name" },
-    { id: 5, name: "created" },
-    { id: 6, name: "lastupdated" },
-    { id: 7, name: "lastupdatedby" },
-    { id: 8, name: "formName" },
-    { id: 9, name: "valuetype" },
-    { id: 10, name: "domaintype" },
-    { id: 11, name: "publicaccess" }
+    { id: 1, name: "id" },
+    { id: 2, name: "code" },
+    { id: 3, name: "name" },
+    { id: 4, name: "created" },
+    { id: 5, name: "lastUpdated" },
+    { id: 6, name: "formName" },
+    { id: 7, name: "valueType" },
+    { id: 8, name: "domainType" },
+    { id: 9, name: "publicAccess" }
 ];
 export const groups = [
     { id: 1, name: selection },

@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { MetadatareportComponent } from './metadatareport/metadatareport.component';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import {CustomService} from './custom.service';
 
 
 const appRoutes: Routes = [
@@ -33,11 +36,13 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     MenuModule,
+    FormsModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes, { useHash: true, preloadingStrategy: PreloadAllModules })
   ],
   exports: [RouterModule],
-  providers: [],
+  providers: [CustomService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

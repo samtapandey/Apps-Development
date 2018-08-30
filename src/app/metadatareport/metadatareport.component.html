@@ -18,11 +18,14 @@
               </label>
             </td>
             <td class="table-data">
-              <select class="form-control inputstl" required (change)="filterForeCasts($event.target.value)">
+              <select class="form-control inputstl" required [(ngModel)]= "selectedGroup" [ngModelOptions]="{standalone: true}" (change)="filterForeCasts($event.target.value)">
                 <option *ngFor="let group of groups" [value]="group.name">
                   {{group.name}}
                 </option>
               </select>
+            </td>
+            <td>
+              &nbsp;
             </td>
           </tr>
         </div>
@@ -37,11 +40,16 @@
               </label>
             </td>
             <td class="table-data">
-              <select class="multiselect-ui form-control inputstl" id="dates-field2" multiple="multiple" required>
-                <option *ngFor="let attribute of attributes" [value]="attribute">
-                  {{attribute.name}}
-                </option>
-              </select>
+              <input type="radio" name="attribute" value="All" [disabled]="btnDisable" [(ngModel)]= "selectedAttribute" (change)="filterForeCastsNew($event.target.value)" checked>Load All Attributes<br>
+              <input type="radio" name="attribute" value="limited" [disabled]="btnDisable" (change)="filterForeCastsNew($event.target.value)">Load Limited Attributes<br>
+            </td>
+            <td class="table-data">
+              <select class="multiselect-ui form-control inputstl" *ngIf="butDisabled" id="dates-field2" multiple="multiple" [(ngModel)]= "selectedAttribute" [ngModelOptions]="{standalone: true}" (click)="filterForeCastsNew2($event.target.value)"
+             required >
+              <option *ngFor="let attribute of attributes" [value]="attribute.name">
+                {{attribute.name}}
+              </option>
+            </select>
             </td>
           </tr>
           <br>
@@ -50,9 +58,12 @@
               &nbsp;
             </td>
             <td>
-              <button type="submit" (click)="getReport($event.group)" style="padding: 5% 12%; background-color: rgb(39, 102, 150);" class="btn btn-md btn-block btn-info">
+              <button type="submit" [disabled]="btnDisable2" (click)=getReport(selectedGroup,selectedAttribute) style="padding: 5% 12%; background-color: rgb(39, 102, 150);" class="btn btn-md btn-block btn-info">
                 Get Report
               </button>
+            </td>
+            <td>
+              &nbsp;
             </td>
           </tr>
         </div>
@@ -60,3 +71,5 @@
     </form>
   </div>
 </div>
+<br><br><br><br>
+<div id = "reporttable" align="center"></div>
