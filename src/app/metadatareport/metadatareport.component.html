@@ -18,7 +18,8 @@
               </label>
             </td>
             <td class="table-data">
-              <select class="form-control inputstl" required [(ngModel)]="selectedGroup" [ngModelOptions]="{standalone: true}" (change)="filterForeCasts($event.target.value)">
+              <select class="form-control inputstl" required [(ngModel)]="selectedGroup" [ngModelOptions]="{standalone: true}"
+                (change)="filterForeCasts($event.target.value)">
                 <option *ngFor="let group of groups" [value]="group.name">
                   {{group.name}}
                 </option>
@@ -43,12 +44,14 @@
               <input id="allAttributes" type="radio" name="attribute" value="All" [disabled]="btnDisable" [(ngModel)]="selectedAttribute"
                 (change)="filterForeCastsNew($event.target.value)" checked><label for="allAttributes">All Attributes</label>
               <br>
-              <input id="limitedAttributes" type="radio" name="attribute" value="limited" [disabled]="btnDisable" (change)="filterForeCastsNew($event.target.value)"><label
-                for="limitedAttributes">Limited Attributes</label> <br>
+              <input id="limitedAttributes" type="radio" name="attribute" value="limited" [disabled]="btnDisable"
+                (change)="filterForeCastsNew($event.target.value)"><label for="limitedAttributes">Limited Attributes</label>
+              <br>
             </td>
             <td class="table-data">
-              <select class="multiselect-ui form-control inputstl" *ngIf="butDisabled" id="dates-field2" multiple="multiple" [(ngModel)]="selectedAttribute"
-                [ngModelOptions]="{standalone: true}" (click)="filterForeCastsNew2($event.target.value)" required>
+              <select class="multiselect-ui form-control inputstl" *ngIf="butDisabled" id="dates-field2" multiple="multiple"
+                [(ngModel)]="selectedAttribute" [ngModelOptions]="{standalone: true}" (click)="filterForeCastsNew2($event.target.value)"
+                required>
                 <option *ngFor="let attribute of attributes" [value]="attribute.name">
                   {{attribute.name}}
                 </option>
@@ -87,18 +90,36 @@
 <br>
 <div align="center">
   <table id="reporttable" *ngIf="theading" style="border: 2px solid black;background-color: #D6EAF8;border-collapse: collapse;"
-    align="center">
-    <tr>
-      <th style="width: 50px; border: 2px solid black; text-align: center;" *ngIf="expandDisable">
-      </th>
-      <th id="thhead" *ngFor="let field of allFields" style="border: 2px solid black; text-align: center;width: 90px;"> {{field}}</th>
-    </tr>
-    <tr *ngFor="let adata of allPush">
-      <td style="border: 1px solid black;text-align: center;" *ngIf="expandDisable">
-        <button *ngIf="expanded" (click)="Expand(true)" style="width: 50%;">-</button>
-        <button *ngIf="!expanded" (click)="Expand(false)" style="width: 50%;">+</button>
-      </td>
-      <td id="tdh" *ngFor="let col of adata" style="border: 1px solid black;text-align: center;">{{col}}</td>
-    </tr>
+    width="98%" align="center">
+    <thead>
+      <tr style="background-color: rgb(137, 191, 238); height: 50px">
+        <th colspan="1" style="width: 50px; border: 2px solid black; text-align: center;" *ngIf="grpData">
+          <button *ngIf="expanded" data-toggle="collapse" (click)="expanded = !expanded" style="width: 50%;">-</button>
+          <button *ngIf="!expanded" data-toggle="collapse" (click)="expanded = !expanded" style="width: 50%;">+</button>
+        </th>
+        <th colspan="1" id="thhead" *ngFor="let field of allFields" style="border: 2px solid black; text-align: center;">
+          {{field}}</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let adata of allPush; let i = index">
+      <tr id="myBtn" width="100%" style="height:40px; background-color: #D6EAF8">
+        <td colspan="1" style="border: 1px solid black;" *ngIf="grpData">
+
+        </td>
+        <td colspan="1" id="tdh" *ngFor="let col of (adata | slice:0 : allPushDataLength);" style="border: 1px solid black;">{{col}}</td>
+      </tr>
+      <tr [hidden]="!expanded" data-ng-switch-when="true" width="100%">
+        <td [attr.colspan]="allPushDataLength+1">
+          <table id="TFtable" *ngIf="grpData" width="100%">
+            <tr style="background-color: rgb(137, 191, 238);">
+              <th *ngFor="let grfield of allGroupFields" style="border: 2px solid black; text-align: center;">{{grfield}}</th>
+            </tr>
+            <tr *ngFor="let grdata of adata[allPushDataLength]" style="background: rgb(174, 214, 243);">
+              <td *ngFor="let groupcoldata of grdata" style="border: 1px solid black;">{{groupcoldata}}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </tbody>
   </table>
 </div>

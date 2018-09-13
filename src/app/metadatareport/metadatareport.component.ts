@@ -7,24 +7,8 @@ import 'rxjs/add/operator/timeout';
 
 
 // export interface objectDetails {
-//   All: any,
 //   id: any,
-//   code: any,
-//   name: any,
-//   created: any,
-//   lastUpdated: any,
-//   formName: any,
-//   valueType: any,
-//   domainType: any,
-//   publicAccess: any,
-//   dataElementGroups: any,
-//   dataElements: any,
-//   indicatorGroups: any,
-//   indicators: any,
-//   organisationUnits: any,
-//   organisationUnitGroups: any,
-//   userGroups: any,
-//   users: any
+//   code: any
 // }
 
 
@@ -46,21 +30,29 @@ export class MetadatareportComponent implements OnInit {
   public excelbutton: boolean = false;
   public theading: boolean = false;
   public expanded: boolean = false;
-  public expandDisable: boolean = false;
+  public grpData: boolean = false;
   public selectedAttribute;
+  public allPushDataLength = 0;
 
   selectedGroup = "Please Select";
 
   public selectedMetaDataGroup = "";
   public groupObject = "";
   public allFields = [];
+  public allGroupFields = ['id', 'code', 'created', 'shortName', 'lastUpdated', 'name'];
   public allPush = [];
   public allData = [];
+  public allUserObjectData = [];
+  public allUserFinalObjectData = [];
+  public returnedObjectValues = [];
   public responseData;
   public respData;
   public pathData;
   public hierarchy;
   public val;
+  public grpVal;
+  public groupObjectValue = "";
+
 
   constructor(private _customService: CustomService, private http: HttpClient) { }
 
@@ -76,7 +68,7 @@ export class MetadatareportComponent implements OnInit {
   }
 
   public getReport(groupName, attributeName) {
-    this.allPush = []; this.allFields = [];
+    this.allPush = []; this.allFields = []; this.allUserFinalObjectData = [];
     this.theading = false; this.excelbutton = false;
 
     console.log(groupName);
@@ -97,65 +89,61 @@ export class MetadatareportComponent implements OnInit {
     if (groupName == "Data Elements Groups") {
       // getDataElementGroup();
       this.groupObject = "dataElementGroups";
+      this.groupObjectValue = "dataElements";
       console.log("dataElementGroups selected");
-      this.expandDisable = true;
     }
     else if (groupName == "Data Elements") {
       // getDataElement();
       this.groupObject = "dataElements";
-      this.expandDisable = false;
       console.log("dataElements selected");
     }
     else if (groupName == "Indicators Groups") {
       // getIndicatorGroups();
       this.groupObject = "indicatorGroups";
-      this.expandDisable = true;
+      this.groupObjectValue = "indicators";
       console.log("indicatorGroups selected");
     }
     else if (groupName == "Indicators") {
       // getIndicators();
       this.groupObject = "indicators";
-      this.expandDisable = false;
       console.log("indicators selected");
     }
     else if (groupName == "Organisation Units") {
       // getorganisationUnits();
       this.groupObject = "organisationUnits";
       this.allFields.push("path");
-      this.expandDisable = false;
       console.log("organisationUnits selected");
     }
     else if (groupName == "Organisation Unit groups") {
       // getOrgGroup();
       this.groupObject = "organisationUnitGroups";
-      this.expandDisable = true;
+      this.groupObjectValue = "organisationUnits";
       console.log("organisationUnitGroups selected");
     }
     else if (groupName == "Users Groups") {
       // getUserGroup();
       this.groupObject = "userGroups";
-      this.expandDisable = true;
+      this.groupObjectValue = "users";
       console.log("userGroups selected");
     }
     else if (groupName == "Users") {
       // getUsers();
       this.groupObject = "users";
-      this.expandDisable = false;
       console.log("users selected");
     }
     this.getApi();
     return groupName;
   }
 
-  Expand(expand) {
-    if (expand == false) {
-      this.expanded = true;
-    }
-    else {
-      this.expanded = false;
-    }
-    return this.expanded;
-  }
+  // Expand(expand) {
+  //   if (expand == false) {
+  //     this.expanded = true;
+  //   }
+  //   else {
+  //     this.expanded = false;
+  //   }
+  //   return this.expanded;
+  // }
 
   filterForeCasts(value) {
     if (value == "Please Select" || value == "" || value == undefined) {
@@ -186,10 +174,18 @@ export class MetadatareportComponent implements OnInit {
 
   getApi() {
     this.respData = undefined;
-    this.http.get("../../" + this.groupObject + ".json?fields=[" + this.allFields + "]&paging=false").subscribe((res: any[]) => {
-      console.log(res);
-      this.respData = res;
-    });
+    if (this.groupObject == "dataElements" || this.groupObject == "indicators" || this.groupObject == "organisationUnits" || this.groupObject == "users") {
+      this.http.get("../../" + this.groupObject + ".json?fields=[" + this.allFields + "]&paging=false").subscribe((res: any[]) => {
+        console.log(res);
+        this.respData = res;
+      });
+    }
+    else if (this.groupObject == "organisationUnitGroups" || this.groupObject == "userGroups" || this.groupObject == "dataElementGroups" || this.groupObject == "indicatorGroups") {
+      this.http.get("../../" + this.groupObject + ".json?fields=[" + this.allFields + "]," + this.groupObjectValue + "[" + this.allGroupFields + "]&paging=false").subscribe((res: any[]) => {
+        console.log(res);
+        this.respData = res;
+      });
+    }
     setTimeout(() => {
       this.getData();
     }, 1000);
@@ -214,7 +210,7 @@ export class MetadatareportComponent implements OnInit {
   }
 
   getData() {
-
+    this.grpData = false;
     console.log(this.respData + "-" + this.groupObject);
     if (this.respData == undefined || this.respData == null || this.respData == "") {
       this.getApi();
@@ -249,15 +245,59 @@ export class MetadatareportComponent implements OnInit {
         }
         this.allPush.push(this.allData);
         this.allData = [];
+        this.allPushDataLength = this.allPush[0].length;
+      }
+      console.log(this.allPush);
+    }
+    for (var z = 0; z < this.allPush.length; z++) {
+      this.allUserFinalObjectData = [];
+      // this.returnedObjectValues = [];
+      if (this.groupObject == "userGroups" || this.groupObject == "organisationUnitGroups" || this.groupObject == "dataElementGroups" || this.groupObject == "indicatorGroups") {
+        this.grpData = true; this.expanded = false;
+        if (dataRows[z][this.groupObjectValue]) {
+          for (j = 0; j < dataRows[z][this.groupObjectValue].length; j++) {
+            for (let k = 0; k < this.allGroupFields.length; k++) {
+              if (dataRows[z][this.groupObjectValue][j][this.allGroupFields[k]] == undefined || dataRows[z][this.groupObjectValue][j][this.allGroupFields[k]] == null || dataRows[z][this.groupObjectValue][j][this.allGroupFields[k]] == "") {
+                this.grpVal = "--";
+              }
+              else {
+                if (this.allGroupFields[k] == "lastUpdated" || this.allGroupFields[k] == "created") {
+                  var dateValue1 = dataRows[z][this.groupObjectValue][j][this.allGroupFields[k]];
+                  var dateValue2 = dateValue1.split("T");
+                  var dateValue = dateValue2[0];
+                  this.grpVal = dateValue;
+                }
+                else {
+                  this.grpVal = dataRows[z][this.groupObjectValue][j][this.allGroupFields[k]];
+                }
+              }
+              this.allUserObjectData.push(this.grpVal);
+            }
+            
+            this.allUserFinalObjectData.push(this.allUserObjectData);     
+            this.allUserObjectData = [];
+          }
+       var grpMembers = this.getRecordsArray(this.allUserFinalObjectData);
+      this.allPush[z].push(grpMembers);
+
+        }
+
       }
     }
-    console.log(this.allPush);
+
+    
     setTimeout(() => {
       var loader1 = document.getElementById("loader");
       loader1.setAttribute('style', 'visibility:hidden !important');
       this.excelbutton = true;
       this.theading = true;
     }, 1000);
+  }
+
+  getRecordsArray(value){
+    this.returnedObjectValues = value;
+
+    return this.returnedObjectValues;
   }
 
   getPath(pathId) {

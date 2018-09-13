@@ -96,6 +96,10 @@
     background-color: #D6EAF8;
     margin-left: 5px;
   }
+
+#TFtable tr{
+    background: rgb(174, 214, 243);
+}
   
 #thhead{
     border: 2px solid black;
@@ -241,3 +245,5 @@
         transform: rotate(360deg);
     }
 }
+
+body {font-family: Arial, Helvetica, sans-serif;}
