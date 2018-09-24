@@ -1,0 +1,158 @@
+
+#mainPage{
+    margin:auto !important;
+    margin-top: 65px  !important;
+}
+
+.custom-table tr td {
+    text-align: center;
+}
+
+
+/* div popup style css*//* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: white;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    transition: 0.5s;
+}
+
+/* The Close Button */
+.close {
+    color: black;
+    float: right;
+    font-size: 28px;
+    opacity: 1;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* ou tree styles */
+
+div#orgUnitTree {
+    height: 50%;
+    margin-left:30px;
+    font-size: 12pt !important;  
+    border:none !important;
+}
+
+.org-unit-tree {
+    margin-left: -5px;
+    color: #000;
+    text-decoration: none;
+    font-size: 12pt;   
+    background-color: white;
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+ul.tree, ul.tree ul {
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+
+ul.tree ul {
+    margin-left:10px; /* indentation */
+    position:relative;
+}
+
+ul.tree ul:before {
+    content:"";
+    display:block;
+    width:0;
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    border-left:1px dotted;
+}
+
+ul.tree li {
+    margin:0;
+    padding:0 12px; /* indentation + 2 */
+    line-height:20px; /* default list item `line-height` */
+    position:relative;
+}
+
+ul.tree ul li:before {
+    content:"";
+    display:block;
+    width:10px; /* same with indentation */
+    height:0;
+    border-top:1px dotted;
+    position:absolute;
+    top:10px;
+    left:0;
+}
+
+ul.tree ul li:last-child:before {
+    background:white; /* same with body background */
+    height:auto;
+    top:10px; /* (line-height/2) */
+    bottom:0;
+}
+
+.org-unit-tree-button {
+    background:transparent;
+    border:none;
+    outline:none;
+    cursor:pointer;
+}
+
+.selected-org-unit {
+    font-weight: bold;
+    color: #FF8000;
+}
+
+#selected{
+    margin:auto;
+    width:90%;
+    height:30px;
+    border-bottom: 2px solid black;
+    padding-left:20px;
+    font-size: 12pt;
+}
+
+#selection{
+    margin:auto;
+    width:90%;
+    height:180px;
+    font-size: 12pt;
+    border-bottom: 2px solid black;
+}
+
+#SubmitButton{
+    text-align: right;
+    padding:15px 50px 0 0;
+}
+
+.btn-custom{
+    min-width:150px !important;
+}

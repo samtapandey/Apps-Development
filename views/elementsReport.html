@@ -1,0 +1,63 @@
+<div class="loading" id="loader">
+
+</div>
+
+
+<div id="mainPage">
+    <h2 style="text-align:center"> Tracker Elements Report</h2>
+    <table class="table custom-table">
+        <tr>
+            <td>
+                <button class="btn btn-custom" id="ouBtn" ng-click="updatePopup('ou')"><i class="fa fa-plus"></i>
+                    Select orgunits</button>
+            </td>
+            <td>
+                <button class="btn btn-custom" id="prBtn" ng-click="updatePopup('pr')"><i class="fa fa-plus"></i>
+                    Select program</button>
+            </td>
+            <td>
+                <button class="btn btn-custom" id="psBtn" ng-click="updatePopup('ps')"><i class="fa fa-plus"></i>
+                    Select program stages</button>
+            </td>
+            <td>
+                <button class="btn btn-custom" id="deBtn" ng-click="updatePopup('de')"><i class="fa fa-plus"></i>
+                    Select data elements</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Start Date :
+            </td>
+            <td>
+                End Date :
+            </td>
+            <td>
+                <button class="btn btn-primary" ng-click="generateReport()">Generate report</button>
+            </td>
+            <td>
+                <button class="btn btn-success" ng-click="downloadReport()">Export in excel</button>
+            </td>
+        </tr>
+    </table>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+
+            <div id="selected">
+                Selected : <p id="selectedItem" style="display:inline-block"></p>
+            </div>
+            <div id="selection">
+                <div ng-if="popup == 'ou'" ng-include="'views/ou.html'"></div>
+                <div ng-if="popup == 'pr'" ng-include="'views/pr.html'"></div>
+                <div ng-if="popup == 'ps'" ng-include="'views/ps.html'"></div>
+                <div ng-if="popup == 'de'" ng-include="'views/de.html'"></div>
+            </div>
+            <div id="SubmitButton">
+                <button class="btn btn-primary" id="submit" ng-click="params()">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
