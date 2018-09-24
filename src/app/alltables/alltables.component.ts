@@ -6,7 +6,6 @@ import * as $ from 'jquery';
 import * as x from 'src/app/CONSTANTS';
 import 'src/app/Jsfiles/sum.js';
 import { ExternalreportsService } from 'src/app/externalreports.service';
-import { UtilityserviceService } from '../utilityservice.service';
 
 declare var cellSumFunction: any;
 

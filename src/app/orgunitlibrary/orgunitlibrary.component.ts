@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { AjaxserviceService } from 'src/app/ajaxservice.service';
 import { SharedService } from 'src/app/shared.service'
 import * as $ from 'jquery';
