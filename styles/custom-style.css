@@ -34,22 +34,6 @@
     transition: 0.5s;
 }
 
-/* The Close Button */
-.close {
-    color: black;
-    float: right;
-    font-size: 28px;
-    opacity: 1;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
 /* ou tree styles */
 
 div#orgUnitTree {
@@ -143,7 +127,8 @@ ul.tree ul li:last-child:before {
 #selection{
     margin:auto;
     width:90%;
-    height:180px;
+    overflow-y:scroll;
+    height:200px;
     font-size: 12pt;
     border-bottom: 2px solid black;
 }
@@ -156,3 +141,4 @@ ul.tree ul li:last-child:before {
 .btn-custom{
     min-width:150px !important;
 }
+
