@@ -1,1 +1,9 @@
-<h1>Programs</h1>
+<h3>Programs</h3>
+<table class="table table-hover pr-table" style="height:150px;overflow:scroll">
+    <tr ng-repeat="program in programs" style="height:50px;cursor:pointer" ng-click="programSelections($index,program)">
+        <td ng-if="program.withoutRegistration == false"><i class="fa" style="font-size:12pt;margin-right:20px"></i>{{program.name}} <p style="text-align: right;opacity:0.4;font-size:8pt;display:inline-block">
+                with registration</p>
+        </td>
+        <td ng-if="program.withoutRegistration != false"><i class="fa" style="font-size:12pt;margin-right:20px"></i>{{program.name}}</td>
+    </tr>
+</table>
