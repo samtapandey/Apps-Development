@@ -1,1 +1,7 @@
-<h1>Program Stages</h1>
+<h3>Programs Stages</h3>
+<table class="table table-hover ps-table" style="height:150px;overflow-y:scroll">
+    <tr ng-repeat="ps in mappedProgramStages" style="height:50px;cursor:pointer" ng-click="programStageSelections($index,ps)">
+        <td ng-if="ps.name === undefined" style="opacity:0.3;background-color: antiquewhite"><i class="fa" style="font-size:12pt;margin-right:20px"></i>{{ps}}</td>
+        <td ng-if="ps.name !== undefined"><i class="fa" style="font-size:12pt;margin-right:20px"></i>{{ps.name}}</td>
+    </tr>
+</table>
