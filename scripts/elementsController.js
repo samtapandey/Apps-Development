@@ -25,8 +25,13 @@ trackerElementsReport
     //variables using
     $scope.popup = "none";
     $scope.selectedPrograms = [];
-    $scope.selectedPs = [];
-    $scope.selectedDes = []
+    $scope.selectedProgramStages = [];
+    $scope.selectedDes = [];
+
+
+    $('.headerRow').bind('click', function () {
+      return false;
+    });
     //onload functions
     window.onclick = function (event) {
       var modal = document.getElementById("myModal");
@@ -75,8 +80,12 @@ trackerElementsReport
     function getAllProgramStages() {
       MetadataService.getProgramStages().then(function (stages) {
         $scope.programStages = [];
+        $scope.programStagesDataElements = [];
         for (var j = 0; j < stages.programStages.length; j++) {
           $scope.programStages.push(stages.programStages[j]);
+          // for (var g = 0; g < stages.programStages[j].programStageDataElements.length; g++) {
+          $scope.programStagesDataElements[stages.programStages[j].id] = stages.programStages[j].programStageDataElements;
+          // }
         }
       });
     };
@@ -95,12 +104,21 @@ trackerElementsReport
           if (totalPrograms != 0) {
             var firstProgram = $scope.selectedPrograms[Object.keys($scope.selectedPrograms)[0]].name;
             (totalPrograms == 1) ? $('#selectedItem').text(firstProgram): $('#selectedItem').text(firstProgram + ", +" + (totalPrograms - 1));
+
           } else {
             $('#selectedItem').text("");
           }
           break;
 
         case "ps":
+          var totalProgramStages = Object.keys($scope.selectedProgramStages).length;
+          if (totalProgramStages != 0) {
+            var firstProgramStage = $scope.selectedProgramStages[Object.keys($scope.selectedProgramStages)[0]].name;
+            (totalProgramStages == 1) ? $('#selectedItem').text(firstProgramStage): $('#selectedItem').text(firstProgramStage + ", +" + (totalProgramStages - 1));
+
+          } else {
+            $('#selectedItem').text("");
+          }
           break;
 
         case "de":
@@ -115,31 +133,48 @@ trackerElementsReport
     $scope.updatePopup = function (v) {
       if (v == 'ou') {
         $scope.popup = 'ou';
+        $('#modalContent').removeClass('modal-content-custom');
+        $('#selection').removeClass('selection-custom');
         $('#selectedItem').text($scope.selectedOrgUnit === undefined ? "" : $scope.selectedOrgUnit.name);
         selection.load();
       }
       if (v == 'pr') {
         $scope.popup = 'pr';
+        $('#modalContent').removeClass('modal-content-custom');
+        $('#selection').removeClass('selection-custom');
         var totalPrograms = Object.keys($scope.selectedPrograms).length;
         if (totalPrograms != 0) {
           var firstProgram = $scope.selectedPrograms[Object.keys($scope.selectedPrograms)[0]].name;
           (totalPrograms == 1) ? $('#selectedItem').text(firstProgram): $('#selectedItem').text(firstProgram + ", +" + (totalPrograms - 1));
+          // $scope.updateSelectionIcons($scope.selectedPrograms);
         } else {
           $('#selectedItem').text("");
         }
       }
       if (v == 'ps') {
         $scope.popup = 'ps';
-        $('#selectedItem').text(($scope.selectedPs[0] === undefined ? "" : $scope.selectedPs[0] + ", +") + $scope.selectedPs.length == 0 ? "" : $scope.selectedPs.length);
+        $('#modalContent').removeClass('modal-content-custom');
+        $('#selection').removeClass('selection-custom');
+        var totalProgramStages = Object.keys($scope.selectedProgramStages).length;
+        if (totalProgramStages != 0) {
+          var firstProgramStage = $scope.selectedProgramStages[Object.keys($scope.selectedProgramStages)[0]].name;
+          (totalProgramStages == 1) ? $('#selectedItem').text(firstProgramStage): $('#selectedItem').text(firstProgramStage + ", +" + (totalProgramStages - 1));
+          // $scope.updateSelectionIcons($scope.selectedProgramStages);
+        } else {
+          $('#selectedItem').text("");
+        }
       }
       if (v == 'de') {
         $scope.popup = 'de';
-        $('#selectedItem').text(($scope.selectedDes[0] === undefined ? "" : $scope.selectedDes[0] + ", +") + $scope.selectedDes.length == 0 ? "" : $scope.selectedDes.length);
+        $('#modalContent').addClass('modal-content-custom');
+        $('#selection').addClass('selection-custom');
       }
       document.getElementById('loader').style.display = "block";
       $timeout(function () {
         document.getElementById('myModal').style.display = 'block';
         document.getElementById('loader').style.display = "none";
+        if (v == 'pr')$scope.updateSelectionIcons($scope.selectedPrograms);
+        if (v == 'ps')$scope.updateSelectionIcons($scope.selectedProgramStages);
       }, 1000);
 
     };
@@ -164,6 +199,13 @@ trackerElementsReport
           break;
 
         case "ps":
+          var totalProgramStages = Object.keys($scope.selectedProgramStages).length;
+          if (totalProgramStages != 0) {
+            var firstProgramStage = $scope.selectedProgramStages[Object.keys($scope.selectedProgramStages)[0]].name;
+            (totalProgramStages == 1) ? $('#psBtn').html("<i class='fa fa-plus'></i> " + firstProgramStage): $('#psBtn').html("<i class='fa fa-plus'></i> " + (firstProgramStage + ", +" + (totalProgramStages - 1)));
+            $("#psBtn").addClass("btn-success");
+            $scope.updateDataElements($scope.selectedProgramStages);
+          }
           break;
 
         case "de":
@@ -187,6 +229,17 @@ trackerElementsReport
       $scope.updateSelections("pr");
     };
 
+    $scope.programStageSelections = function (index, ps) {
+      var $this = $('.ps-table tr').eq(index).children('td:first').find('i');
+      if (!$this.hasClass('selected')) {
+        $scope.selectedProgramStages[ps.id] = ps;
+        $this.addClass('selected fa-check');
+      } else {
+        delete $scope.selectedProgramStages[ps.id];
+        $this.removeClass('selected fa-check');
+      }
+      $scope.updateSelections("ps");
+    };
 
     $scope.updateProgramStages = function (arr) {
       $scope.mappedProgramStages = [];
@@ -198,6 +251,37 @@ trackerElementsReport
             $scope.mappedProgramStages.push($scope.programStages[i]);
           }
         }
+      }
+    };
+
+    $scope.updateDataElements = function (arr) {
+      $scope.mappedDataElements = [];
+      for (var k = 0; k < Object.keys(arr).length; k++) {
+        $scope.mappedDataElements.push({
+          'pr': arr[Object.keys(arr)[k]].program.name,
+          'ps': arr[Object.keys(arr)[k]].name
+        });
+        var psde = arr[Object.keys(arr)[k]].programStageDataElements;
+        for (var i = 0; i < psde.length; i++) {
+          // console.log(Object.keys(arr)[k] + "---"  + $scope.programStages[i].program.name);
+          $scope.mappedDataElements.push({
+            'pr': arr[Object.keys(arr)[k]].program.name,
+            'ps': arr[Object.keys(arr)[k]].name,
+            'dename': psde[i].dataElement.name,
+            'deid': psde[i].dataElement.id
+          });
+        }
+      }
+      console.log($scope.mappedDataElements);
+    };
+
+    $scope.updateSelectionIcons = function (arr) {
+      for (var k = 0; k < Object.keys(arr).length; k++) {
+        var varr = "#" + Object.keys(arr)[k];
+
+        // var element = document.getElementById(varr);
+        // element.classList.add("selected fa-check");
+        $(varr).addClass('selected fa-check');
       }
     };
   });
