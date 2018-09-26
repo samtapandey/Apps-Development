@@ -66,7 +66,7 @@ var trackerReportsAppServices = angular.module('trackerReportsAppServices', [])
                    type: "GET",
                    dataType: "json",
                    contentType: "application/json",
-                   url: "../../programStages.json?fields=name,id,program[id,name]",
+                   url: "../../programStages.json?fields=name,id,program[id,name],programStageDataElements[dataElement[id,name]]",
                    success: function (data) {
                        def.resolve(data);
                    }
