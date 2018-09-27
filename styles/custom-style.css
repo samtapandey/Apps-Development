@@ -35,7 +35,7 @@
 }
 
 .modal-content-custom{
-    width:90%;
+    /* width:90%; */
     height:90%;
 }
 
@@ -158,4 +158,13 @@ ul.tree ul li:last-child:before {
     opacity:0.5;
     background-color: lightgray;
     cursor:default;
+}
+
+#selectAll{
+    cursor:pointer;
+    display:block;
+    background-color: azure;
+}
+.selected{
+    opacity:1 !important;
 }

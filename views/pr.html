@@ -1,9 +1,9 @@
 <h3>Programs</h3>
 <table class="table table-striped pr-table" style="height:150px;overflow:scroll">
     <tr ng-repeat="program in programs" style="height:50px;cursor:pointer" ng-click="programSelections($index,program)">
-        <td ng-if="program.withoutRegistration == false"><i class="fa" id="{{program.id}}" style="font-size:12pt;margin-right:20px"></i>{{program.name}} <p style="text-align: right;opacity:0.4;font-size:8pt;display:inline-block">
+        <td ng-if="program.withoutRegistration == false"><i class="fa fa-check" id="{{program.id}}" style="font-size:12pt;margin-right:20px;opacity:0.2"></i>{{program.name}} <p style="text-align: right;opacity:0.4;font-size:8pt;display:inline-block">
                 with registration</p>
         </td>
-        <td ng-if="program.withoutRegistration != false"><i class="fa" id="{{program.id}}" style="font-size:12pt;margin-right:20px"></i>{{program.name}}</td>
+        <td ng-if="program.withoutRegistration != false"><i class="fa fa-check" id="{{program.id}}" style="font-size:12pt;margin-right:20px;opacity:0.2"></i>{{program.name}}</td>
     </tr>
 </table>

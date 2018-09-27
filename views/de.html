@@ -1,13 +1,17 @@
 <h3>Data Elements</h3>
+<span id="selectAll" ng-click="toggleSelectAll();"><i class="fa fa-check" id="{{de.deid}}" style="font-size:12pt;margin-right:20px;opacity:0.2"></i>Select
+    All</span>
 <table class="table table-striped de-table" style="height:300px;overflow-y:scroll">
-    <!-- <tr ng-repeat="de in mappedDataElements"  ng-click="dataElementsSelections($index,de)">
-        
+    <!-- <tr style="height:50px;cursor:pointer">
+        <td ng-click="toggleSelectAll()">Select All</td>
     </tr> -->
-    <tr ng-repeat="de in mappedDataElements | limitTo:mappedDataElements.length/3" style="height:50px;cursor:pointer">
-        <td ng-if="de.dename===undefined" ng-repeat="de in mappedDataElements | limitTo:1:$index*1"  colspan="3" class="headerRow">Program: {{de.pr}}
+    <tr ng-repeat="de in mappedDataElements | limitTo:mappedDataElements.length" style="height:50px;cursor:pointer"
+        ng-click="dataElementsSelections($index,de)">
+        <td ng-if="de.dename===undefined" ng-repeat="de in mappedDataElements | limitTo:1:$index*1" colspan="1" class="headerRow">Program:
+            {{de.pr}}
             | Program Stage: {{de.ps}}</td>
-        <td ng-if="de.dename!==undefined">
-            <span ng-repeat="de in mappedDataElements | limitTo:3:$index*3" ng-click="dataElementsSelections($index,de)"
-                style="display:inline-block;width:32%">{{de.dename}}</span></td>
+        <td ng-if="de.dename!==undefined" ng-repeat="de in mappedDataElements | limitTo:1:$index*1"><i class="fa fa-check" id="{{de.deid}}"
+                style="font-size:12pt;margin-right:20px;opacity:0.2"></i>
+            {{de.dename}}</td>
     </tr>
 </table>

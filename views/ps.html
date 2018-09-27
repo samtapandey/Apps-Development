@@ -2,6 +2,6 @@
 <table class="table table-striped ps-table" style="height:150px;overflow-y:scroll">
     <tr ng-repeat="ps in mappedProgramStages" style="height:50px;cursor:pointer" ng-click="programStageSelections($index,ps)">
         <td ng-if="ps.name === undefined" class="headerRow">{{ps}}</td>
-        <td ng-if="ps.name !== undefined"><i class="fa" id="{{ps.id}}" style="font-size:12pt;margin-right:20px"></i>{{ps.name}}</td>
+        <td ng-if="ps.name !== undefined"><i class="fa fa-check" id="{{ps.id}}" style="font-size:12pt;margin-right:20px;opacity:0.2"></i>{{ps.name}}</td>
     </tr>
 </table>
