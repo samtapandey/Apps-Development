@@ -27,7 +27,7 @@ trackerElementsReport
     $scope.selectedPrograms = [];
     $scope.selectedProgramStages = [];
     $scope.selectedDes = [];
-
+    $scope.selectalldes = false;
 
     $('.headerRow').bind('click', function () {
       return false;
@@ -96,7 +96,7 @@ trackerElementsReport
     $scope.updateSelections = function (value) {
       switch (value) {
         case "ou":
-          $('#selectedItem').text($scope.selectedOrgUnit.name);
+          $('#selectedItem').text($scope.selectedOrgUnit === undefined ? "" : $scope.selectedOrgUnit.name);
           break;
 
         case "pr":
@@ -122,6 +122,13 @@ trackerElementsReport
           break;
 
         case "de":
+          var totalDes = Object.keys($scope.selectedDes).length;
+          if (totalDes != 0) {
+            var firstDe = $scope.selectedDes[Object.keys($scope.selectedDes)[0]].name;
+            (totalDes == 1) ? $('#selectedItem').text(firstDe): $('#selectedItem').text(firstDe + ", +" + (totalDes - 1));
+          } else {
+            $('#selectedItem').text("");
+          }
           break;
 
         default:
@@ -135,46 +142,34 @@ trackerElementsReport
         $scope.popup = 'ou';
         $('#modalContent').removeClass('modal-content-custom');
         $('#selection').removeClass('selection-custom');
-        $('#selectedItem').text($scope.selectedOrgUnit === undefined ? "" : $scope.selectedOrgUnit.name);
+
         selection.load();
       }
       if (v == 'pr') {
         $scope.popup = 'pr';
         $('#modalContent').removeClass('modal-content-custom');
         $('#selection').removeClass('selection-custom');
-        var totalPrograms = Object.keys($scope.selectedPrograms).length;
-        if (totalPrograms != 0) {
-          var firstProgram = $scope.selectedPrograms[Object.keys($scope.selectedPrograms)[0]].name;
-          (totalPrograms == 1) ? $('#selectedItem').text(firstProgram): $('#selectedItem').text(firstProgram + ", +" + (totalPrograms - 1));
-          // $scope.updateSelectionIcons($scope.selectedPrograms);
-        } else {
-          $('#selectedItem').text("");
-        }
+        $scope.updateSelections("pr");
       }
       if (v == 'ps') {
         $scope.popup = 'ps';
         $('#modalContent').removeClass('modal-content-custom');
         $('#selection').removeClass('selection-custom');
-        var totalProgramStages = Object.keys($scope.selectedProgramStages).length;
-        if (totalProgramStages != 0) {
-          var firstProgramStage = $scope.selectedProgramStages[Object.keys($scope.selectedProgramStages)[0]].name;
-          (totalProgramStages == 1) ? $('#selectedItem').text(firstProgramStage): $('#selectedItem').text(firstProgramStage + ", +" + (totalProgramStages - 1));
-          // $scope.updateSelectionIcons($scope.selectedProgramStages);
-        } else {
-          $('#selectedItem').text("");
-        }
+        $scope.updateSelections("ps");
       }
       if (v == 'de') {
         $scope.popup = 'de';
         $('#modalContent').addClass('modal-content-custom');
         $('#selection').addClass('selection-custom');
+        $scope.updateSelections("de");
       }
       document.getElementById('loader').style.display = "block";
       $timeout(function () {
         document.getElementById('myModal').style.display = 'block';
         document.getElementById('loader').style.display = "none";
-        if (v == 'pr')$scope.updateSelectionIcons($scope.selectedPrograms);
-        if (v == 'ps')$scope.updateSelectionIcons($scope.selectedProgramStages);
+        if (v == 'pr') $scope.updateSelectionIcons($scope.selectedPrograms);
+        if (v == 'ps') $scope.updateSelectionIcons($scope.selectedProgramStages);
+        if (v == 'de') $scope.updateSelectionIcons($scope.selectedDes);
       }, 1000);
 
     };
@@ -195,6 +190,9 @@ trackerElementsReport
             (totalPrograms == 1) ? $('#prBtn').html("<i class='fa fa-plus'></i> " + firstProgram): $('#prBtn').html("<i class='fa fa-plus'></i> " + (firstProgram + ", +" + (totalPrograms - 1)));
             $("#prBtn").addClass("btn-success");
             $scope.updateProgramStages($scope.selectedPrograms);
+          } else {
+            $('#prBtn').html("<i class='fa fa-plus'></i> Select Program");
+            $("#prBtn").removeClass("btn-success");
           }
           break;
 
@@ -205,10 +203,23 @@ trackerElementsReport
             (totalProgramStages == 1) ? $('#psBtn').html("<i class='fa fa-plus'></i> " + firstProgramStage): $('#psBtn').html("<i class='fa fa-plus'></i> " + (firstProgramStage + ", +" + (totalProgramStages - 1)));
             $("#psBtn").addClass("btn-success");
             $scope.updateDataElements($scope.selectedProgramStages);
+          } else {
+            $('#psBtn').html("<i class='fa fa-plus'></i> Select Program Stage");
+            $("#psBtn").removeClass("btn-success");
           }
           break;
 
         case "de":
+          var totalDes = Object.keys($scope.selectedDes).length;
+          if (totalDes != 0) {
+            var firstDe = $scope.selectedDes[Object.keys($scope.selectedDes)[0]].name;
+            (totalDes == 1) ? $('#deBtn').html("<i class='fa fa-plus'></i> " + firstDe): $('#deBtn').html("<i class='fa fa-plus'></i> " + (firstDe + ", +" + (totalDes - 1)));
+            $("#deBtn").addClass("btn-success");
+           console.log($scope.selectedDes);
+          } else {
+            $('#deBtn').html("<i class='fa fa-plus'></i> Select Data Elements");
+            $("#deBtn").removeClass("btn-success");
+          }
           break;
 
         default:
@@ -221,10 +232,11 @@ trackerElementsReport
       var $this = $('.pr-table tr').eq(index).children('td:first').find('i');
       if (!$this.hasClass('selected')) {
         $scope.selectedPrograms[pr.id] = pr;
-        $this.addClass('selected fa-check');
+        $this.addClass('selected');
       } else {
         delete $scope.selectedPrograms[pr.id];
-        $this.removeClass('selected fa-check');
+        $scope.selectedProgramStages = [];
+        $this.removeClass('selected');
       }
       $scope.updateSelections("pr");
     };
@@ -233,12 +245,24 @@ trackerElementsReport
       var $this = $('.ps-table tr').eq(index).children('td:first').find('i');
       if (!$this.hasClass('selected')) {
         $scope.selectedProgramStages[ps.id] = ps;
-        $this.addClass('selected fa-check');
+        $this.addClass('selected');
       } else {
         delete $scope.selectedProgramStages[ps.id];
-        $this.removeClass('selected fa-check');
+        $this.removeClass('selected');
       }
       $scope.updateSelections("ps");
+    };
+
+    $scope.dataElementsSelections = function (index, de) {
+      var $this = $('.de-table tr').eq(index).children('td:first').find('i');
+      if (!$this.hasClass('selected')) {
+        $scope.selectedDes[de.id] = de;
+        $this.addClass('selected');
+      } else {
+        delete $scope.selectedDes[de.id];
+        $this.removeClass('selected');
+      }
+      $scope.updateSelections("de");
     };
 
     $scope.updateProgramStages = function (arr) {
@@ -275,13 +299,37 @@ trackerElementsReport
       console.log($scope.mappedDataElements);
     };
 
-    $scope.updateSelectionIcons = function (arr) {
-      for (var k = 0; k < Object.keys(arr).length; k++) {
-        var varr = "#" + Object.keys(arr)[k];
-
-        // var element = document.getElementById(varr);
-        // element.classList.add("selected fa-check");
-        $(varr).addClass('selected fa-check');
+    $scope.updateSelectionIcons = function (arr, type) {
+      if (type == "deadd") {
+        for (var k = 0; k < arr.length; k++) {
+          var varr = "#" + arr[k].deid;
+          $(varr).addClass('selected');
+        }
+      } else if (type == "deremove") {
+        for (var k = 0; k < arr.length; k++) {
+          var varr = "#" + arr[k].deid;
+          $(varr).removeClass('selected');
+        }
+      } else {
+        for (var k = 0; k < Object.keys(arr).length; k++) {
+          var varr = "#" + Object.keys(arr)[k];
+          $(varr).addClass('selected');
+        }
       }
     };
+
+    $scope.toggleSelectAll = function () {
+      if (!$scope.selectalldes) {
+        $("#selectAll").find("i").addClass("selected");
+        $scope.selectedDes = [];
+        $scope.selectedDes = $scope.mappedDataElements;
+        $scope.updateSelectionIcons($scope.selectedDes, "deadd");
+      } else {
+        $("#selectAll").find("i").removeClass("selected");
+        $scope.selectedDes = [];
+        $scope.updateSelectionIcons($scope.mappedDataElements, "deremove");
+
+      }
+      $scope.selectalldes = !$scope.selectalldes;
+    }
   });
