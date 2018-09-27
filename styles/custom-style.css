@@ -168,3 +168,7 @@ ul.tree ul li:last-child:before {
 .selected{
     opacity:1 !important;
 }
+
+tr:empty, td:empty{
+    display: none;
+}
