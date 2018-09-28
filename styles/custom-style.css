@@ -164,6 +164,7 @@ ul.tree ul li:last-child:before {
     cursor:pointer;
     display:block;
     background-color: azure;
+    height: 30px;
 }
 .selected{
     opacity:1 !important;

@@ -34,14 +34,20 @@ trackerElementsReport
     });
     //onload functions
     window.onclick = function (event) {
-      var modal = document.getElementById("myModal");
-      var span = document.getElementsByClassName("closeit")[0];
-      if (event.target == span) {
-        modal.style.display = "none";
-      }
-
       $(".selected").addClass("fa-check");
     }
+
+    //date load
+    $(function () {
+      $('input[name="daterange"]').daterangepicker({
+        opens: 'left'
+      }, function (start, end, label) {
+        $scope.startdate = start.format('YYYY-MM-DD');
+        $scope.enddate = end.format('YYYY-MM-DD');
+        console.log("A new date selection was made: " + +' to ' + end.format('YYYY-MM-DD'));
+      });
+
+    });
 
     //initially load tree
     selection.load();
@@ -56,12 +62,12 @@ trackerElementsReport
 
     loadOus = function () {
       MetadataService.getOrgUnit($scope.selectedOrgUnitUid).then(function (orgUnit) {
-        $timeout(function () {
-          $scope.selectedOrgUnit = orgUnit;
-          if ($scope.popup == 'ou') {
-            $scope.updateSelections("ou");
-          }
-        });
+        // $timeout(function () {
+        $scope.selectedOrgUnit = orgUnit;
+        if ($scope.popup == 'ou') {
+          $scope.updateSelections("ou");
+        }
+        // });
       });
     }
 
@@ -124,7 +130,7 @@ trackerElementsReport
         case "de":
           var totalDes = Object.keys($scope.selectedDes).length;
           if (totalDes != 0) {
-            var firstDe = $scope.selectedDes[Object.keys($scope.selectedDes)[0]].name;
+            var firstDe = $scope.selectedDes[Object.keys($scope.selectedDes)[0]].dename;
             (totalDes == 1) ? $('#selectedItem').text(firstDe): $('#selectedItem').text(firstDe + ", +" + (totalDes - 1));
           } else {
             $('#selectedItem').text("");
@@ -179,7 +185,7 @@ trackerElementsReport
       switch ($scope.popup) {
 
         case "ou":
-          $('#ouBtn').html("<i class='fa fa-plus'></i> " + $scope.selectedOrgUnit === undefined ? "" : $scope.selectedOrgUnit.name);
+          $('#ouBtn').html("<i class='fa fa-plus'></i> " + ($scope.selectedOrgUnit === undefined ? "" : $scope.selectedOrgUnit.name));
           $("#ouBtn").addClass("btn-success");
           break;
 
@@ -212,10 +218,10 @@ trackerElementsReport
         case "de":
           var totalDes = Object.keys($scope.selectedDes).length;
           if (totalDes != 0) {
-            var firstDe = $scope.selectedDes[Object.keys($scope.selectedDes)[0]].name;
+            var firstDe = $scope.selectedDes[Object.keys($scope.selectedDes)[0]].dename;
             (totalDes == 1) ? $('#deBtn').html("<i class='fa fa-plus'></i> " + firstDe): $('#deBtn').html("<i class='fa fa-plus'></i> " + (firstDe + ", +" + (totalDes - 1)));
             $("#deBtn").addClass("btn-success");
-           console.log($scope.selectedDes);
+            console.log($scope.selectedDes);
           } else {
             $('#deBtn').html("<i class='fa fa-plus'></i> Select Data Elements");
             $("#deBtn").removeClass("btn-success");
@@ -256,10 +262,10 @@ trackerElementsReport
     $scope.dataElementsSelections = function (index, de) {
       var $this = $('.de-table tr').eq(index).children('td:first').find('i');
       if (!$this.hasClass('selected')) {
-        $scope.selectedDes[de.id] = de;
+        $scope.selectedDes[de.deid] = de;
         $this.addClass('selected');
       } else {
-        delete $scope.selectedDes[de.id];
+        delete $scope.selectedDes[de.deid];
         $this.removeClass('selected');
       }
       $scope.updateSelections("de");
@@ -301,8 +307,8 @@ trackerElementsReport
 
     $scope.updateSelectionIcons = function (arr, type) {
       if (type == "deadd") {
-        for (var k = 0; k < arr.length; k++) {
-          var varr = "#" + arr[k].deid;
+        for (var k = 0; k < Object.keys(arr).length; k++) {
+          var varr = "#" + Object.keys(arr)[k];
           $(varr).addClass('selected');
         }
       } else if (type == "deremove") {
@@ -322,14 +328,22 @@ trackerElementsReport
       if (!$scope.selectalldes) {
         $("#selectAll").find("i").addClass("selected");
         $scope.selectedDes = [];
-        $scope.selectedDes = $scope.mappedDataElements;
+        for (var l = 0; l < $scope.mappedDataElements.length; l++) {
+          if ($scope.mappedDataElements[l].deid !== undefined) {
+            $scope.selectedDes[$scope.mappedDataElements[l].deid] = $scope.mappedDataElements[l];
+          }
+        }
         $scope.updateSelectionIcons($scope.selectedDes, "deadd");
       } else {
         $("#selectAll").find("i").removeClass("selected");
         $scope.selectedDes = [];
         $scope.updateSelectionIcons($scope.mappedDataElements, "deremove");
-
       }
+      $scope.updateSelections("de");
       $scope.selectalldes = !$scope.selectalldes;
     }
+
+    $scope.generateReport = function () {
+      console.log($scope.startdate + " - -- -- - " + $scope.enddate);
+    };
   });

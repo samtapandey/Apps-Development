@@ -26,13 +26,13 @@
         </tr>
         <tr>
             <td>
-                Start Date :
+                <input id="daterange" type="text" name="daterange" value="" />
             </td>
             <td>
-                End Date :
+                <button class="btn btn-primary" ng-click="generateReport()">Generate report (enrollments)</button>
             </td>
             <td>
-                <button class="btn btn-primary" ng-click="generateReport()">Generate report</button>
+                <button class="btn btn-primary" ng-click="generateReport()">Generate report (events)</button>
             </td>
             <td>
                 <button class="btn btn-success" ng-click="downloadReport()">Export in excel</button>
@@ -57,7 +57,6 @@
             </div>
             <div id="SubmitButton">
                 <button class="btn btn-primary" id="submit" ng-click="params()">Done</button>
-                <button class="btn closeit">Close</button>
             </div>
         </div>
     </div>
