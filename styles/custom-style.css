@@ -173,3 +173,33 @@ ul.tree ul li:last-child:before {
 tr:empty, td:empty{
     display: none;
 }
+
+.custom-data-table tr th, .custom-data-table tr td{
+    text-align:center;
+}
+
+.custom-data-table thead {
+    background-color: #276696;
+    border:none;
+}
+
+.custom-data-table thead tr{
+    border: none;
+}
+.custom-data-table thead tr th{
+    border-bottom-width: 1px !important;
+    color:white;
+}
+.custom-data-table {
+    width:80%;
+    margin:auto;
+    background-color: white;
+    box-shadow:0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12)
+}
+
+.icon-table{
+    float:right;
+    margin-right:10px;
+    font-size: 20px !important;
+    cursor: pointer;
+}
