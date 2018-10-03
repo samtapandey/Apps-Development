@@ -34,7 +34,12 @@ trackerElementsReport
     });
 
     $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
+      $('[data-toggle="tooltip"]').tooltip();
+
+      $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+        $('#content').toggleClass('active');
+      });
     })
     //onload functions
     window.onclick = function (event) {
@@ -44,11 +49,11 @@ trackerElementsReport
     //date load
     $(function () {
       $('input[name="daterange"]').daterangepicker({
-        opens: 'left'
+        opens: 'right'
       }, function (start, end, label) {
         $scope.startdate = start.format('YYYY-MM-DD');
         $scope.enddate = end.format('YYYY-MM-DD');
-        console.log("A new date selection was made: " + +' to ' + end.format('YYYY-MM-DD'));
+        $scope.loadMetaData();
       });
 
     });
@@ -100,6 +105,24 @@ trackerElementsReport
       });
     };
 
+    //function to download excel
+    fnExcelReport = function (id) {
+
+      // var blob = new Blob([id], {
+      //   type: 'text/plain;charset=utf-8'
+      // });
+      // saveAs(blob, "Tracker Rate Report.xls");
+
+        //getting data from our table
+        var data_type = 'data:application/vnd.ms-excel';
+        var table_div = id;
+        var table_html = table_div.outerHTML.replace(/ /g, '%20');
+        var a = document.createElement('a');
+        a.href = data_type + ', ' + table_html;
+        a.download = 'Tracker Rate Report.xls';
+        a.click();
+
+    };
 
     //function to change selections in popup
 
@@ -189,21 +212,20 @@ trackerElementsReport
       switch ($scope.popup) {
 
         case "ou":
-          $('#ouBtn').html("<i class='fa fa-plus'></i> " + ($scope.selectedOrgUnit === undefined ? "" : $scope.selectedOrgUnit.name));
-          $("#ouBtn").addClass("btn-success");
+          $('#ouBtn').text($scope.selectedOrgUnit === undefined ? "" : $scope.selectedOrgUnit.name);
+          $("#ouBtn").toggleClass('active');
           break;
 
         case "pr":
           var totalPrograms = Object.keys($scope.selectedPrograms).length;
           if (totalPrograms != 0) {
             var firstProgram = $scope.selectedPrograms[Object.keys($scope.selectedPrograms)[0]].name;
-            (totalPrograms == 1) ? $('#prBtn').html("<i class='fa fa-plus'></i> " + firstProgram): $('#prBtn').html("<i class='fa fa-plus'></i> " + (firstProgram + ", +" + (totalPrograms - 1)));
-            $("#prBtn").addClass("btn-success");
+            (totalPrograms == 1) ? $('#prBtn').text(firstProgram): $('#prBtn').text((firstProgram + ", +" + (totalPrograms - 1)));
+            $("#prBtn").addClass('active');
             $scope.updateProgramStages($scope.selectedPrograms);
-            console.log($scope.selectedPrograms);
           } else {
-            $('#prBtn').html("<i class='fa fa-plus'></i> Select Program");
-            $("#prBtn").removeClass("btn-success");
+            $('#prBtn').text("Np program selecteds");
+            $("#prBtn").removeClass('active');
           }
           break;
 
@@ -211,12 +233,12 @@ trackerElementsReport
           var totalProgramStages = Object.keys($scope.selectedProgramStages).length;
           if (totalProgramStages != 0) {
             var firstProgramStage = $scope.selectedProgramStages[Object.keys($scope.selectedProgramStages)[0]].name;
-            (totalProgramStages == 1) ? $('#psBtn').html("<i class='fa fa-plus'></i> " + firstProgramStage): $('#psBtn').html("<i class='fa fa-plus'></i> " + (firstProgramStage + ", +" + (totalProgramStages - 1)));
-            $("#psBtn").addClass("btn-success");
+            (totalProgramStages == 1) ? $('#psBtn').text(firstProgramStage): $('#psBtn').text(firstProgramStage + ", +" + (totalProgramStages - 1));
+            $("#psBtn").addClass('active');
             $scope.updateDataElements($scope.selectedProgramStages);
           } else {
-            $('#psBtn').html("<i class='fa fa-plus'></i> Select Program Stage");
-            $("#psBtn").removeClass("btn-success");
+            $('#psBtn').text("No program stage selected");
+            $("#psBtn").removeClass('active');
           }
           break;
 
@@ -224,12 +246,11 @@ trackerElementsReport
           var totalDes = Object.keys($scope.selectedDes).length;
           if (totalDes != 0) {
             var firstDe = $scope.selectedDes[Object.keys($scope.selectedDes)[0]].dename;
-            (totalDes == 1) ? $('#deBtn').html("<i class='fa fa-plus'></i> " + firstDe): $('#deBtn').html("<i class='fa fa-plus'></i> " + (firstDe + ", +" + (totalDes - 1)));
-            $("#deBtn").addClass("btn-success");
-            console.log($scope.selectedDes);
+            (totalDes == 1) ? $('#deBtn').text(firstDe): $('#deBtn').text(firstDe + ", +" + (totalDes - 1));
+            $("#deBtn").addClass('active');
           } else {
-            $('#deBtn').html("<i class='fa fa-plus'></i> Select Data Elements");
-            $("#deBtn").removeClass("btn-success");
+            $('#deBtn').text("No data element selected");
+            $("#deBtn").removeClass('active');
           }
           break;
 
@@ -284,7 +305,7 @@ trackerElementsReport
       for (var k = 0; k < Object.keys(arr).length; k++) {
         $scope.mappedProgramStages.push(arr[Object.keys(arr)[k]].name);
         for (var i = 0; i < $scope.programStages.length; i++) {
-          // console.log(Object.keys(arr)[k] + "---"  + $scope.programStages[i].program.name);
+
           if (Object.keys(arr)[k] == $scope.programStages[i].program.id) {
             $scope.mappedProgramStages.push($scope.programStages[i]);
           }
@@ -301,7 +322,7 @@ trackerElementsReport
         });
         var psde = arr[Object.keys(arr)[k]].programStageDataElements;
         for (var i = 0; i < psde.length; i++) {
-          // console.log(Object.keys(arr)[k] + "---"  + $scope.programStages[i].program.name);
+
           $scope.mappedDataElements.push({
             'pr': arr[Object.keys(arr)[k]].program.name,
             'prid': arr[Object.keys(arr)[k]].program.id,
@@ -312,7 +333,6 @@ trackerElementsReport
           });
         }
       }
-      console.log($scope.mappedDataElements);
     };
 
     $scope.updateSelectionIcons = function (arr, type) {
@@ -354,39 +374,85 @@ trackerElementsReport
     }
 
     $scope.generateReport = function () {
-      console.log($scope.startdate + " - -- -- - " + $scope.enddate);
-      console.log($scope.selectedPrograms);
-      console.log($scope.selectedProgramStages);
-      console.log($scope.selectedDes);
 
-      $scope.generateHeader();
-    };
-
-    $scope.generateHeader = function () {
       $('.data-table').empty();
       for (var i = 0; i < Object.keys($scope.selectedPrograms).length; i++) {
         for (var j = 0; j < Object.keys($scope.selectedPrograms[Object.keys($scope.selectedPrograms)[i]].selectedPS).length; j++) {
           var prid = $scope.selectedPrograms[Object.keys($scope.selectedPrograms)[i]].id;
-          var table = "<table class='table table-hovered table-bordered table-striped custom-data-table' id='table_" + prid + "'>";
 
-          var programHeaderRow = "<thead><tr><th colspan='3'>Program : " + $scope.selectedPrograms[Object.keys($scope.selectedPrograms)[i]].name + "<i class='fa fa-download icon-table' data-toggle='tooltip' data-placement='top' title='Export this table in excel'></i><i class='fa fa-bar-chart icon-table' data-toggle='tooltip' data-placement='top' title='Switch to graph'></i></th></tr>";
-         
           var selectedPsId = Object.keys($scope.selectedPrograms[Object.keys($scope.selectedPrograms)[i]].selectedPS)[j];
 
-          var programStageHeaderRow = "<tr><th colspan='3'>" + $scope.selectedPrograms[Object.keys($scope.selectedPrograms)[i]].selectedPS[selectedPsId] + "</th></tr>";
+          var table = "<div id='div_" + selectedPsId + "' class='container'><table class='table table-hovered table-bordered table-striped custom-data-table' id='table_" + selectedPsId + "'>";
 
-          var deHeaderRow = "<tr><th>Data Elements</th><th>Count</th><th>Percentage</th></tr></thead>"
+          var programHeaderRow = "<thead><tr><th colspan='3'>Program:  " + $scope.selectedPrograms[Object.keys($scope.selectedPrograms)[i]].name + "<span class='icon-div' onClick='fnExcelReport(table_" + selectedPsId + ")'><i class='fa fa-download icon-table' data-toggle='tooltip' data-placement='top' title='Export this table in excel'></i></span><span class='icon-div'><i class='fa fa-bar-chart icon-table' data-toggle='tooltip' data-placement='top' title='Switch to graph'></i></span></th></tr>";
+
+          var programStageHeaderRow = "<tr><th colspan='3'>Program Stage:  " + $scope.selectedPrograms[Object.keys($scope.selectedPrograms)[i]].selectedPS[selectedPsId] + "<p style='float:right;color:white'>Total Events : " + $scope.elementsMap[selectedPsId] + "</p></th></tr>";
+
+          var deHeaderRow = "<tr><th>Data Elements</th><th>Count</th><th>Percentage (%)</th></tr></thead>"
           var selectedDeRow = "";
           for (var k = 0; k < Object.keys($scope.selectedDes).length; k++) {
             var DePsId = $scope.selectedDes[Object.keys($scope.selectedDes)[k]].psid;
+            var value = "";
+            ($scope.elementsMap[selectedPsId + "_" + deid] === undefined) ? value = 0: value = $scope.elementsMap[selectedPsId + "_" + deid];
             if (selectedPsId == DePsId) {
-              selectedDeRow = selectedDeRow + "<tr><td>" + $scope.selectedDes[Object.keys($scope.selectedDes)[k]].dename + "</td><td id='" + $scope.selectedDes[Object.keys($scope.selectedDes)[k]].deid + "'>&nbsp;</td><td>&nbsp;</td></tr>";
+              var deid = $scope.selectedDes[Object.keys($scope.selectedDes)[k]].deid;
+              selectedDeRow = selectedDeRow + "<tr><td>" + $scope.selectedDes[Object.keys($scope.selectedDes)[k]].dename + "</td><td id='" + deid + "'>" +
+                value +
+                "</td><td>" + ((value / $scope.elementsMap[selectedPsId]) * 100).toFixed(2) + "</td></tr>";
             }
           }
-          var tableAppend = table + programHeaderRow + programStageHeaderRow + deHeaderRow + selectedDeRow + "</table><br><br>";
+          var tableAppend = table + programHeaderRow + programStageHeaderRow + deHeaderRow + selectedDeRow + "</table></div><br><br>";
           $(".data-table").append(tableAppend);
         }
 
       }
     };
+
+
+    $scope.loadMetaData = function () {
+      $scope.elementsMap = [];
+      document.getElementById('loader2').style.display = "block";
+      document.getElementById("loadtext").innerHTML = "loading metadata.."
+      MetadataService.getEvents($scope.selectedOrgUnit.id, $scope.startdate, $scope.enddate).then(function (data) {
+        var events = data.events;
+        for (var p = 0; p < events.length; p++) {
+          var perc = ((p / events.length - 1) / 100).toFixed(2);
+          document.getElementById("loadtext").innerHTML = perc + "% metadata loaded!";
+          if (events[p].eventDate !== undefined) {
+            var date = events[p].eventDate;
+            var first = date.split('T')[0];
+            var evdate = new Date(first);
+            if (evdate <= new Date($scope.enddate) && evdate >= new Date($scope.startdate)) {
+              var ps = events[p].programStage;
+              $scope.generateEventsMap(ps);
+              for (var q = 0; q < events[p].dataValues.length; q++) {
+                var de = events[p].dataValues[q].dataElement;
+                $scope.generateElementsMap(ps, de);
+              }
+            }
+          }
+          if (p == events.length - 1) {
+            document.getElementById('loader2').style.display = "none";
+          }
+        }
+      });
+    };
+
+    $scope.generateElementsMap = function (ps, de) {
+      if ($scope.elementsMap[ps + "_" + de] === undefined) {
+        $scope.elementsMap[ps + "_" + de] = 1;
+      } else {
+        $scope.elementsMap[ps + "_" + de] += 1;
+      }
+    };
+
+    $scope.generateEventsMap = function (ps) {
+      if ($scope.elementsMap[ps] === undefined) {
+        $scope.elementsMap[ps] = 1;
+      } else {
+        $scope.elementsMap[ps] += 1;
+      }
+    };
+
+
   });

@@ -1,27 +1,33 @@
-
-#mainPage{
-    margin:auto !important;
-    margin-top: 65px  !important;
+#mainPage {
+    margin: auto !important;
 }
 
-.custom-table tr td {
+.custom-table tr td{
     text-align: center;
 }
-
-
-/* div popup style css*//* The Modal (background) */
+/* div popup style css*/
+/* The Modal (background) */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
 }
 
 /* Modal Content */
@@ -34,25 +40,25 @@
     transition: 0.5s;
 }
 
-.modal-content-custom{
+.modal-content-custom {
     /* width:90%; */
-    height:90%;
+    height: 90%;
 }
 
 /* ou tree styles */
 
 div#orgUnitTree {
     height: 50%;
-    margin-left:30px;
-    font-size: 12pt !important;  
-    border:none !important;
+    margin-left: 30px;
+    font-size: 12pt !important;
+    border: none !important;
 }
 
 .org-unit-tree {
     margin-left: -5px;
     color: #000;
     text-decoration: none;
-    font-size: 12pt;   
+    font-size: 12pt;
     background-color: white;
     overflow: auto;
     width: 100%;
@@ -61,58 +67,65 @@ div#orgUnitTree {
     white-space: nowrap;
 }
 
-ul.tree, ul.tree ul {
-    list-style:none;
-    margin:0;
-    padding:0;
+ul.tree,
+ul.tree ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 ul.tree ul {
-    margin-left:10px; /* indentation */
-    position:relative;
+    margin-left: 10px;
+    /* indentation */
+    position: relative;
 }
 
 ul.tree ul:before {
-    content:"";
-    display:block;
-    width:0;
-    position:absolute;
-    top:0;
-    bottom:0;
-    left:0;
-    border-left:1px dotted;
+    content: "";
+    display: block;
+    width: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    border-left: 1px dotted;
 }
 
 ul.tree li {
-    margin:0;
-    padding:0 12px; /* indentation + 2 */
-    line-height:20px; /* default list item `line-height` */
-    position:relative;
+    margin: 0;
+    padding: 0 12px;
+    /* indentation + 2 */
+    line-height: 20px;
+    /* default list item `line-height` */
+    position: relative;
 }
 
 ul.tree ul li:before {
-    content:"";
-    display:block;
-    width:10px; /* same with indentation */
-    height:0;
-    border-top:1px dotted;
-    position:absolute;
-    top:10px;
-    left:0;
+    content: "";
+    display: block;
+    width: 10px;
+    /* same with indentation */
+    height: 0;
+    border-top: 1px dotted;
+    position: absolute;
+    top: 10px;
+    left: 0;
 }
 
 ul.tree ul li:last-child:before {
-    background:white; /* same with body background */
-    height:auto;
-    top:10px; /* (line-height/2) */
-    bottom:0;
+    background: white;
+    /* same with body background */
+    height: auto;
+    top: 10px;
+    /* (line-height/2) */
+    bottom: 0;
 }
 
 .org-unit-tree-button {
-    background:transparent;
-    border:none;
-    outline:none;
-    cursor:pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
 }
 
 .selected-org-unit {
@@ -120,86 +133,102 @@ ul.tree ul li:last-child:before {
     color: #FF8000;
 }
 
-#selected{
-    margin:auto;
-    width:90%;
-    height:30px;
+#selected {
+    margin: auto;
+    width: 90%;
+    height: 30px;
     border-bottom: 2px solid black;
-    padding-left:20px;
+    padding-left: 20px;
     font-size: 12pt;
 }
 
-#selection{
-    margin:auto;
-    width:90%;
-    overflow-y:scroll;
-    height:200px;
+#selection {
+    margin: auto;
+    width: 90%;
+    overflow-y: scroll;
+    height: 200px;
     font-size: 12pt;
     border-bottom: 2px solid black;
 }
 
-.selection-custom{
-    height:300px !important;
+.selection-custom {
+    height: 300px !important;
 }
 
-#SubmitButton{
+#SubmitButton {
     text-align: right;
-    padding:15px 50px 0 0;
+    padding: 15px 50px 0 0;
 }
 
-.btn-custom{
-    min-width:150px !important;
+.btn-custom {
+    min-width: 150px !important;
 }
 
-.headerRow{
+.headerRow {
     height: 35px;
-    display:block;
-    font-size:10px;
-    opacity:0.5;
+    display: block;
+    font-size: 10px;
+    opacity: 0.5;
     background-color: lightgray;
-    cursor:default;
+    cursor: default;
 }
 
-#selectAll{
-    cursor:pointer;
-    display:block;
+#selectAll {
+    cursor: pointer;
+    display: block;
     background-color: azure;
     height: 30px;
 }
-.selected{
-    opacity:1 !important;
+
+.selected {
+    opacity: 1 !important;
 }
 
-tr:empty, td:empty{
+tr:empty,
+td:empty {
     display: none;
 }
 
-.custom-data-table tr th, .custom-data-table tr td{
-    text-align:center;
-}
 
 .custom-data-table thead {
-    background-color: #276696;
-    border:none;
-}
-
-.custom-data-table thead tr{
+    background-color: #6d7fcc;
     border: none;
 }
-.custom-data-table thead tr th{
-    border-bottom-width: 1px !important;
-    color:white;
+
+.custom-data-table thead tr {
+    border: none;
 }
+
+.custom-data-table thead tr th {
+    border-bottom-width: 1px !important;
+    color: white;
+}
+
 .custom-data-table {
-    width:80%;
-    margin:auto;
+    width: 80%;
+    margin: auto;
     background-color: white;
-    box-shadow:0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12)
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12)
+}
+
+.icon-div {
+    float: right;
+    margin-right: 10px;
+    font-size: 20px !important;
+    cursor: pointer;
 }
 
 .icon-table{
-    float:right;
-    margin-right:10px;
-    font-size: 20px !important;
-    cursor: pointer;
+    font-size:20px !important;
+}
+.btn-primary {
+    background-color: #6d7fcc !important;
+    border: #6d7fcc !important;
+}
+
+#daterange {
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    height: 30px;
+    padding-left: 15px;
 }
