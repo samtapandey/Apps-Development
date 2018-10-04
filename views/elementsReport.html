@@ -11,7 +11,7 @@
     <nav id="sidebar">
         <div class="sidebar-header">
             <h2>Selections</h2>
-            <strong> <i class="fa fa-percent"></i></strong>
+            <strong> <img src='images/img.png' style='width:45px;height:45px;margin-left:-8px' /></strong>
         </div>
 
         <ul class="list-unstyled components">
@@ -54,7 +54,7 @@
                 <div style="width: 33%">
                     <h2 style="text-align:center">Tracker Reporting Rate</h2>
                 </div>
-                <div style="width: 33%"></div>
+                <div style="width: 33%"><i class="fa fa-home" style="float: right;font-size: 32px;color:#6d7fcc;cursor: pointer" ng-click="home()"></i></div>
             </div>
         </nav>
         <div id="mainPage">
@@ -74,16 +74,16 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td width="25%">
                         <input id="daterange" type="text" name="daterange" value="" />
                     </td>
-                    <td>
-                        <button class="btn btn-primary" ng-click="generateReport()">Generate report (enrollments)</button>
+                    <td width="25%">
+                        <button class="btn btn-primary" ng-click="generateReport('en')">Generate report (enrollments)</button>
                     </td>
-                    <td>
-                        <button class="btn btn-primary" ng-click="generateReport()">Generate report (events)</button>
+                    <td width="25%">
+                        <button class="btn btn-primary" ng-click="generateReport('ev')">Generate report (events)</button>
                     </td>
-                    <td>
+                    <td width="25%">
                         <button class="btn btn-success" ng-click="downloadReport()">Export in excel</button>
                     </td>
                 </tr>
