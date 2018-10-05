@@ -43,7 +43,7 @@ trackerElementsReport
     })
     //onload functions
     window.onclick = function (event) {
-      $(".selected").addClass("fa-check");
+      $(".selectedd").addClass("fa-check");
     }
 
     //date load
@@ -104,15 +104,8 @@ trackerElementsReport
       });
     };
 
-    //function to download excel
+    //function to download excel single table
     fnExcelReport = function (id) {
-
-      // var blob = new Blob([id], {
-      //   type: 'text/plain;charset=utf-8'
-      // });
-      // saveAs(blob, "Tracker Rate Report.xls");
-
-      //getting data from our table
       var data_type = 'data:application/vnd.ms-excel';
       var table_div = id;
       var table_html = table_div.outerHTML.replace(/ /g, '%20');
@@ -120,7 +113,17 @@ trackerElementsReport
       a.href = data_type + ', ' + table_html;
       a.download = 'Tracker Rate Report.xls';
       a.click();
+    };
 
+    //function to download excel complete
+    $scope.fnExcelReportAll = function () {
+      var data_type = 'data:application/vnd.ms-excel';
+      var table_div = document.getElementById('alltables');
+      var table_html = table_div.outerHTML.replace(/ /g, '%20');
+      var a = document.createElement('a');
+      a.href = data_type + ', ' + table_html;
+      a.download = 'Tracker Rate Report.xls';
+      a.click();
     };
 
     //function to change selections in popup
@@ -261,40 +264,40 @@ trackerElementsReport
 
     $scope.programSelections = function (index, pr) {
       var $this = $('.pr-table tr').eq(index).children('td:first').find('i');
-      if (!$this.hasClass('selected')) {
+      if (!$this.hasClass('selectedd')) {
         $scope.selectedPrograms[pr.id] = pr;
         $scope.selectedPrograms[pr.id].selectedPS = [];
-        $this.addClass('selected');
+        $this.addClass('selectedd');
       } else {
         delete $scope.selectedPrograms[pr.id];
         $scope.selectedProgramStages = [];
-        $this.removeClass('selected');
+        $this.removeClass('selectedd');
       }
       $scope.updateSelections("pr");
     };
 
     $scope.programStageSelections = function (index, ps) {
       var $this = $('.ps-table tr').eq(index).children('td:first').find('i');
-      if (!$this.hasClass('selected')) {
+      if (!$this.hasClass('selectedd')) {
         $scope.selectedProgramStages[ps.id] = ps;
         $scope.selectedPrograms[ps.program.id].selectedPS[ps.id] = ps.name;
-        $this.addClass('selected');
+        $this.addClass('selectedd');
       } else {
         delete $scope.selectedProgramStages[ps.id];
         delete $scope.selectedPrograms[ps.program.id].selectedPS[ps.id];
-        $this.removeClass('selected');
+        $this.removeClass('selectedd');
       }
       $scope.updateSelections("ps");
     };
 
     $scope.dataElementsSelections = function (index, de) {
       var $this = $('.de-table tr').eq(index).children('td:first').find('i');
-      if (!$this.hasClass('selected')) {
-        $scope.selectedDes[de.deid] = de;
-        $this.addClass('selected');
+      if (!$this.hasClass('selectedd')) {
+        $scope.selectedDes[de.deid + "_" + de.psid] = de;
+        $this.addClass('selectedd');
       } else {
-        delete $scope.selectedDes[de.deid];
-        $this.removeClass('selected');
+        delete $scope.selectedDes[de.deid + "_" + de.psid];
+        $this.removeClass('selectedd');
       }
       $scope.updateSelections("de");
     };
@@ -338,33 +341,33 @@ trackerElementsReport
       if (type == "deadd") {
         for (var k = 0; k < Object.keys(arr).length; k++) {
           var varr = "#" + Object.keys(arr)[k];
-          $(varr).addClass('selected');
+          $(varr).addClass('selectedd');
         }
       } else if (type == "deremove") {
         for (var k = 0; k < arr.length; k++) {
           var varr = "#" + arr[k].deid;
-          $(varr).removeClass('selected');
+          $(varr).removeClass('selectedd');
         }
       } else {
         for (var k = 0; k < Object.keys(arr).length; k++) {
           var varr = "#" + Object.keys(arr)[k];
-          $(varr).addClass('selected');
+          $(varr).addClass('selectedd');
         }
       }
     };
 
     $scope.toggleSelectAll = function () {
       if (!$scope.selectalldes) {
-        $("#selectAll").find("i").addClass("selected");
+        $("#selectAll").find("i").addClass("selectedd");
         $scope.selectedDes = [];
         for (var l = 0; l < $scope.mappedDataElements.length; l++) {
           if ($scope.mappedDataElements[l].deid !== undefined) {
-            $scope.selectedDes[$scope.mappedDataElements[l].deid] = $scope.mappedDataElements[l];
+            $scope.selectedDes[$scope.mappedDataElements[l].deid + "_" + $scope.mappedDataElements[l].psid] = $scope.mappedDataElements[l];
           }
         }
         $scope.updateSelectionIcons($scope.selectedDes, "deadd");
       } else {
-        $("#selectAll").find("i").removeClass("selected");
+        $("#selectAll").find("i").removeClass("selectedd");
         $scope.selectedDes = [];
         $scope.updateSelectionIcons($scope.mappedDataElements, "deremove");
       }
@@ -373,8 +376,13 @@ trackerElementsReport
     }
 
     $scope.generateReport = function (type) {
-      if (type == "ev") $scope.loadMetaDataEv();
-      else $scope.loadMetaDataEn();
+      var returnvalue = $scope.validate();
+      if (returnvalue == 1) {
+        if (type == "ev") $scope.loadMetaDataEv();
+        else $scope.loadMetaDataEn();
+      } else {
+        return;
+      }
     };
 
     $scope.generateReportByEvents = function () {
@@ -450,12 +458,12 @@ trackerElementsReport
     $scope.loadMetaDataEv = function () {
       $scope.elementsMap = [];
       document.getElementById('loader2').style.display = "block";
-      document.getElementById("loadtext").innerHTML = "loading metadata.."
+      document.getElementById("loadtext").innerHTML = "loading data.."
       MetadataService.getEvents($scope.selectedOrgUnit.id, $scope.startdate, $scope.enddate).then(function (data) {
         var events = data.events;
         for (var p = 0; p < events.length; p++) {
           var perc = ((p / events.length - 1) * 100).toFixed(2);
-          document.getElementById("loadtext").innerHTML = perc + "% metadata loaded!";
+          // document.getElementById("loadtext").innerHTML = perc + "% data loaded!";
           if (events[p].eventDate !== undefined) {
             var date = events[p].eventDate;
             var first = date.split('T')[0];
@@ -472,6 +480,39 @@ trackerElementsReport
           if (p == events.length - 1) {
             document.getElementById('loader2').style.display = "none";
             $scope.generateReportByEvents();
+          }
+        }
+      });
+    };
+
+    $scope.loadMetaDataEn = function () {
+      $scope.elementsMap = [];
+      $scope.teiMap = [];
+      document.getElementById('loader2').style.display = "block";
+      document.getElementById("loadtext").innerHTML = "loading data.."
+      MetadataService.getEvents($scope.selectedOrgUnit.id, $scope.startdate, $scope.enddate).then(function (data) {
+        var events = data.events;
+        for (var p = 0; p < events.length; p++) {
+          var perc = ((p / events.length - 1) * 100).toFixed(2);
+          // document.getElementById("loadtext").innerHTML = perc + "% data loaded!";
+          if (events[p].eventDate !== undefined) {
+            var date = events[p].eventDate;
+            var first = date.split('T')[0];
+            var evdate = new Date(first);
+            if (evdate <= new Date($scope.enddate) && evdate >= new Date($scope.startdate)) {
+              var tei = events[p].trackedEntityInstance;
+              var ps = events[p].programStage;
+              $scope.generateElementsMapTei(ps, tei);
+              for (var q = 0; q < events[p].dataValues.length; q++) {
+                var de = events[p].dataValues[q].dataElement;
+                $scope.generateElementsMapTei(ps, tei, de);
+              }
+
+            }
+          }
+          if (p == events.length - 1) {
+            document.getElementById('loader2').style.display = "none";
+            $scope.generateReportByEnrollments();
           }
         }
       });
@@ -494,11 +535,47 @@ trackerElementsReport
       }
     };
 
+    $scope.generateElementsMapTei = function (ps, tei, de) {
+
+      if (de === undefined) {
+        if ($scope.teiMap[tei + "_" + ps] === undefined) {
+          if ($scope.elementsMap[ps] === undefined) $scope.elementsMap[ps] = 1;
+          else $scope.elementsMap[ps] += 1;
+          $scope.teiMap[tei + "_" + ps] = true;
+        }
+      } else {
+        if ($scope.teiMap[tei + "_" + ps + "_" + de] === undefined) {
+          if ($scope.elementsMap[ps + "_" + de] === undefined) $scope.elementsMap[ps + "_" + de] = 1;
+          else $scope.elementsMap[ps + "_" + de] += 1;
+          $scope.teiMap[tei + "_" + ps + "_" + de] = true;
+        }
+      }
+    };
+
     $scope.home = function () {
       var host = $window.location.href;
       var newLocation = host.split('api')[0] + "dhis-web-dashboard-integration/index.html";
       $window.location.href = newLocation;
     }
 
-
+    $scope.validate = function () {
+      if ($scope.selectedOrgUnit === undefined) {
+        alert("Select Orgunit!");
+        return 0;
+      } else if (Object.keys($scope.selectedPrograms).length == 0) {
+        alert("Select at least one program!");
+        return 0;
+      } else if (Object.keys($scope.selectedProgramStages).length == 0) {
+        alert("Select at least one program stage!");
+        return 0;
+      } else if (Object.keys($scope.selectedDes).length == 0) {
+        alert("Select at least one data element!");
+        return 0;
+      } else if ($scope.startdate === undefined || $scope.enddate === undefined) {
+        alert("Select date range!");
+        return 0;
+      } else {
+        return 1;
+      }
+    };
   });

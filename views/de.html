@@ -20,7 +20,7 @@
         <td ng-if="de.dename===undefined" colspan="1" class="headerRow">Program:
             {{de.pr}}
             | Program Stage: {{de.ps}}</td>
-        <td ng-if="de.dename!==undefined"><i class="fa fa-check" id="{{de.deid}}" style="font-size:12pt;margin-right:20px;opacity:0.2"></i>
+        <td ng-if="de.dename!==undefined"><i class="fa fa-check" id="{{de.deid}}_{{de.psid}}" style="font-size:12pt;margin-right:20px;opacity:0.2"></i>
             {{de.dename}}</td>
     </tr>
 </table>

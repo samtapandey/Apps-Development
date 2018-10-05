@@ -79,7 +79,7 @@ var trackerReportsAppServices = angular.module('trackerReportsAppServices', [])
                     type: "GET",
                     dataType: "json",
                     contentType: "application/json",
-                    url: "../../events.json?orgUnit=" + ou + "&ouMode=DESCENDANTS&fields=dataValues,programStage,eventDate&startDate=" + sd + "&endDate=" + ed + "&skipPaging=true",
+                    url: "../../events.json?orgUnit=" + ou + "&ouMode=DESCENDANTS&fields=dataValues,programStage,eventDate,trackedEntityInstance&startDate=" + sd + "&endDate=" + ed + "&skipPaging=true",
                     success: function (data) {
                         def.resolve(data);
                     }
