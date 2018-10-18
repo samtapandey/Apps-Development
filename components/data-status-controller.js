@@ -206,7 +206,7 @@ DataStatusApp.controller('DataStatusController',
 				url=  $scope.basicUrl + $scope.orgUnitSV + "/data.json?var=orgUnitId:"+$scope.selectedOrgUnit +"";			
 				$.get(url, function(data){
 				
-				$scope.organisationunitid_1=data.rows[0];				
+				$scope.organisationunitid_1=data.listGrid.rows[0];				
 				
 				});
 
@@ -307,7 +307,7 @@ DataStatusApp.controller('DataStatusController',
             url+= "var=compulsoryDECount:" + $scope.compulsoryDECount + ",dataSetUid:" + selDataSetUid + ",orgUnitUid:" + selOrgUnit + ",startDate:" + selStartPeriod + ",endDate:" + selEndPeriod + ",orgUnitUids:" +$scope.organisationunitid_1[0] ;
 			
 			$.get(url, function(data){
-				var summaryData = data.rows;
+				var summaryData = data.listGrid.rows;
 				
 				var totPeriods = $scope.allPeriods.length + 2 ;
 				
@@ -484,14 +484,14 @@ DataStatusApp.controller('DataStatusController',
 
             $.get(newurl1, function(data){
 
-                $scope.dataSetID=data.rows[0];
+                $scope.dataSetID=data.listGrid.rows[0];
 
 
             });
 			var newurl=$scope.basicUrl+$scope.CategoryComboId+"/data.json?var=datasetelementid:"+$scope.dataSetID[0]+"";
             $.get(newurl ,function(json) {
 
-                $scope.compulsoryDECount=json.height;
+                $scope.compulsoryDECount=json.listGrid.height;
 
 
 			});
@@ -522,7 +522,7 @@ DataStatusApp.controller('DataStatusController',
 			url+= "var=compulsoryDECount:" + $scope.compulsoryDECount + ",dataSetUid:" + selDataSetUid + ",orgUnitUids:" +$scope.organisationunitid_1[0] + ",startDate:" + selStartPeriod + ",endDate:" + selEndPeriod;	;	
 						
 			$.get(url, function(data){
-				var summaryData = data.rows;
+				var summaryData = data.listGrid.rows;
 				
 				var totPeriods = $scope.allPeriods.length + 2 ;
 				
@@ -883,7 +883,7 @@ DataStatusApp.controller('DataStatusController',
 					var selEndPeriod = $scope.currentSelection.endPeriodYear + "" + $scope.currentSelection.endPeriodMonth + "01";
 					
 					$.get("../../sqlViews/"+ $scope.periodsSV +"/data.json?var=startDate:"+ selStartPeriod +",endDate:" + selEndPeriod +",dataSetUidForLevel:" + $scope.currentSelection.dataSet , function(pr){						
-						$scope.allPeriods = pr.rows;
+						$scope.allPeriods = pr.listGrid.rows;
 						
 						$("#btn1").fadeIn();
 						$("#btn2").fadeIn();
