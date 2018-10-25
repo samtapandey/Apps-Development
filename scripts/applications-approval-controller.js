@@ -1,21 +1,6 @@
 /**
  * Created by wasib & gourav on 31/12/17.
  */
-dataApprovalApp.directive('calendar', function () {
-    return {
-        require: 'ngModel',
-        link: function (scope, el, attr, ngModel) {
-            $(el).datepicker({
-                dateFormat: 'yy-mm-dd',
-                onSelect: function (dateText) {
-                    scope.$apply(function () {
-                        ngModel.$setViewValue(dateText);
-                    });
-                }
-            });
-        }
-    };
-});
 dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootScope,
     $scope,
     $timeout,
@@ -23,28 +8,17 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
 
     $scope.programStages = [];
 
-    jQuery(document).ready(function () {
-        hideLoad();
-    });
-
-
-    $timeout(function () {
-        $scope.date = {};
-        $scope.date.startDate = new Date();
-        $scope.date.endDate = new Date();
-    }, 0);
-
     //initially load tree
     selection.load();
 
     $timeout(function () {
         $('#loader').hide();
-    },1000);
+    }, 1000);
 
     // Listen for OU changes
     selection.setListenerFunction(function () {
         $scope.selectedOrgUnitUid = selection.getSelected();
-        loadPrograms();  
+        loadPrograms();
     }, false);
 
     loadPrograms = function () {
@@ -92,11 +66,6 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
     };
 
     $scope.fnExcelReport = function () {
-
-        //   var blob = new Blob([document.getElementById('divId').innerHTML], {
-        //        type: 'text/plain;charset=utf-8'
-        //      });
-        //        saveAs(blob, "Report.xls");
         $("#divId").tableExport({
             formats: ["xlsx", "xls"],
             filename: "Report"
@@ -104,9 +73,7 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
     };
 
     $scope.exportData = function (program) {
-        //   exportData($scope.date.startDate,$scope.date.endDate,program,$scope.selectedOrgUnit);
         exportData($scope.startdateSelected, $scope.enddateSelected, program, $scope.selectedOrgUnit);
-
     }
 
     $scope.resubmitData = function (program) {
@@ -159,7 +126,7 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
                 $timeout(function () {
                     $('#loader').show();
                     $scope.generateReport(program);
-                  },1000);
+                }, 1000);
             }
         })
     }
@@ -214,114 +181,16 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
                             if (response.events[j].status === "COMPLETED") {
                                 $scope.tei = response.events[j].trackedEntityInstance;
                                 $scope.eventId = response.events[j].event;
-                                $scope.eventDV = response.events[j].dataValues;                              
+                                $scope.eventDV = response.events[j].dataValues;
                                 $scope.ifApproved = $scope.checkApproved($scope.eventDV);
-                                if($scope.ifApproved == true){
-                                }
-                                else{
-                                $scope.eventOrgUnit = response.events[j].orgUnitName; 
-                                $scope.eventOrgUnitId = response.events[j].orgUnit;                                                           
-                                var heirarchyLevel = getheirarchy($scope.eventOrgUnitId);
-                                for (var a = 0; a < $scope.eventDV.length; a++) {
-                                     if ($scope.eventDV[a].value == 'Re-submitted') {
-                                        $scope.colorName = "rgba(210, 85, 85, 0.85)";
-                                    }
-                                }
-                                if (response.events[j].eventDate) {
-                                    $scope.event_Date1 = response.events[j].eventDate;
-                                    $scope.event_Date = $scope.event_Date1.split("T")[0];
-                                }
-
-                                if ($scope.eventDV.length != 0) {
-                                    for (var z = 1; z < $scope.psDEs.length; z++) {
-                                        $scope.eventDataValues.push(eventLoop($scope.psDEs[z].dataElement.id));
-                                    }
+                                if ($scope.ifApproved == true) {
                                 }
                                 else {
-                                    for (var z = 1; z < $scope.psDEs.length; z++) {
-                                        $scope.eventDataValues.push("");
-                                    }
-                                }
-
-                                function eventLoop(idHeader) {
-                                    var event_Values = '';
-                                    for (var y = 0; y < $scope.eventDV.length; y++) {
-                                        if (idHeader == $scope.eventDV[y].dataElement) {
-                                            event_Values = $scope.eventDV[y].value;
-                                        }
-
-                                    }
-                                    return event_Values;
-                                }
-
-                                $.ajax({
-                                    async: false,
-                                    type: "GET",
-                                    url: "../../trackedEntityInstances/" + $scope.tei + ".json?fields=trackedEntityInstance,orgUnit,created,attributes[attribute,displayName,value]&ou=" + $scope.selectedOrgUnit.id + "&ouMode=DESCENDANTSprogram=" + $scope.selectedProgramID + "&programStage=" + $scope.selectedPSID + "&skipPaging=true",
-                                    success: function (response1) {
-                                        for (var k = 0; k < response1.attributes.length; k++) {
-                                            if (response1.attributes[k].displayName == 'Name of Fee for Service specialist') {
-                                                $scope.attributeValues[0] = response1.attributes[k].value;
-                                            }
-                                        }
-                                    }
-                                })
-
-                                var displayingValues = {
-                                    currentProgram: $scope.program,
-                                    attributeValues0: $scope.attributeValues[0],
-                                    eventOrgUnitName: heirarchyLevel,
-                                    eventDate: $scope.event_Date,
-                                    allEventDataValues: $scope.eventDataValues,
-                                    eventId: $scope.eventId,
-                                    color: $scope.colorName,
-                                }
-                                $scope.valuesToDisplay.push(displayingValues);
-                                console.log($scope.valuesToDisplay);
-                                $scope.program = '';
-                                $scope.attributeValues[0] = '';
-                                $scope.eventOrgUnit = '';
-                                $scope.event_Date = '';
-                                $scope.eventDataValues = [];
-                                $scope.eventId = '';
-                                $scope.colorName = '';
-                            }
-                        }
-                        }
-                    }
-                })
-            }
-            else {
-                if ((!$scope.startdateSelected) || (!$scope.enddateSelected)) {
-                    window.alert("Please select the dates correctly");
-                }
-                else if (moment($scope.enddateSelected).isBefore(moment($scope.startdateSelected))) {
-                    window.alert('Please select end date Accordingly');
-                }
-                else {
-                    $.ajax({
-                        async: false,
-                        type: "GET",
-                        url: "../../events.json?orgUnit=" + $scope.selectedOrgUnit.id + "&ouMode=DESCENDANTS&program=" + $scope.selectedProgramID + "&programStage=" + $scope.selectedPSID + "&startDate=" + $scope.startdateSelected + "&endDate=" + $scope.enddateSelected + "&skipPaging=true",
-                        success: function (response) {
-
-                            $scope.existingEvents = [];
-                            $scope.numberOfEvents.push(response.events.length);
-
-                            for (var j = 0; j < response.events.length; j++) {
-                                if (response.events[j].status === "COMPLETED") {
-                                    $scope.tei = response.events[j].trackedEntityInstance;
-                                    $scope.eventId = response.events[j].event;
-                                    $scope.eventDV = response.events[j].dataValues;
-                                    $scope.ifApproved = $scope.checkApproved($scope.eventDV);
-                                    if($scope.ifApproved == true){
-                                    }
-                                    else{
-                                    $scope.eventOrgUnit = response.events[j].orgUnitName;                                
-                                    $scope.eventOrgUnitId = response.events[j].orgUnit;                                                           
-                                   var heirarchyLevel = getheirarchy($scope.eventOrgUnitId);
+                                    $scope.eventOrgUnit = response.events[j].orgUnitName;
+                                    $scope.eventOrgUnitId = response.events[j].orgUnit;
+                                    var heirarchyLevel = getheirarchy($scope.eventOrgUnitId);
                                     for (var a = 0; a < $scope.eventDV.length; a++) {
-                                         if ($scope.eventDV[a].value == 'Re-submitted') {
+                                        if ($scope.eventDV[a].value == 'Re-submitted') {
                                             $scope.colorName = "rgba(210, 85, 85, 0.85)";
                                         }
                                     }
@@ -355,7 +224,7 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
                                     $.ajax({
                                         async: false,
                                         type: "GET",
-                                        url: "../../trackedEntityInstances/" + $scope.tei + ".json?fields=trackedEntityInstance,orgUnit,created,attributes[attribute,displayName,value]&ou=" + $scope.selectedOrgUnit.id + "&ouMode=DESCENDANTSprogram=" + $scope.selectedProgramID + "&programStage=" + $scope.selectedPSID + "&startDate=" + $scope.startdateSelected + "&endDate=" + $scope.enddateSelected + "&skipPaging=true",
+                                        url: "../../trackedEntityInstances/" + $scope.tei + ".json?fields=trackedEntityInstance,orgUnit,created,attributes[attribute,displayName,value]&ou=" + $scope.selectedOrgUnit.id + "&ouMode=DESCENDANTSprogram=" + $scope.selectedProgramID + "&programStage=" + $scope.selectedPSID + "&skipPaging=true",
                                         success: function (response1) {
                                             for (var k = 0; k < response1.attributes.length; k++) {
                                                 if (response1.attributes[k].displayName == 'Name of Fee for Service specialist') {
@@ -363,7 +232,7 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
                                                 }
                                             }
                                         }
-                                    });
+                                    })
 
                                     var displayingValues = {
                                         currentProgram: $scope.program,
@@ -385,16 +254,114 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
                                     $scope.colorName = '';
                                 }
                             }
-                          }
+                        }
+                    }
+                })
+            }
+            else {
+                if ((!$scope.startdateSelected) || (!$scope.enddateSelected)) {
+                    window.alert("Please select the dates correctly");
+                }
+                else if (moment($scope.enddateSelected).isBefore(moment($scope.startdateSelected))) {
+                    window.alert('Please select end date Accordingly');
+                }
+                else {
+                    $.ajax({
+                        async: false,
+                        type: "GET",
+                        url: "../../events.json?orgUnit=" + $scope.selectedOrgUnit.id + "&ouMode=DESCENDANTS&program=" + $scope.selectedProgramID + "&programStage=" + $scope.selectedPSID + "&startDate=" + $scope.startdateSelected + "&endDate=" + $scope.enddateSelected + "&skipPaging=true",
+                        success: function (response) {
+
+                            $scope.existingEvents = [];
+                            $scope.numberOfEvents.push(response.events.length);
+
+                            for (var j = 0; j < response.events.length; j++) {
+                                if (response.events[j].status === "COMPLETED") {
+                                    $scope.tei = response.events[j].trackedEntityInstance;
+                                    $scope.eventId = response.events[j].event;
+                                    $scope.eventDV = response.events[j].dataValues;
+                                    $scope.ifApproved = $scope.checkApproved($scope.eventDV);
+                                    if ($scope.ifApproved == true) {
+                                    }
+                                    else {
+                                        $scope.eventOrgUnit = response.events[j].orgUnitName;
+                                        $scope.eventOrgUnitId = response.events[j].orgUnit;
+                                        var heirarchyLevel = getheirarchy($scope.eventOrgUnitId);
+                                        for (var a = 0; a < $scope.eventDV.length; a++) {
+                                            if ($scope.eventDV[a].value == 'Re-submitted') {
+                                                $scope.colorName = "rgba(210, 85, 85, 0.85)";
+                                            }
+                                        }
+                                        if (response.events[j].eventDate) {
+                                            $scope.event_Date1 = response.events[j].eventDate;
+                                            $scope.event_Date = $scope.event_Date1.split("T")[0];
+                                        }
+
+                                        if ($scope.eventDV.length != 0) {
+                                            for (var z = 1; z < $scope.psDEs.length; z++) {
+                                                $scope.eventDataValues.push(eventLoop($scope.psDEs[z].dataElement.id));
+                                            }
+                                        }
+                                        else {
+                                            for (var z = 1; z < $scope.psDEs.length; z++) {
+                                                $scope.eventDataValues.push("");
+                                            }
+                                        }
+
+                                        function eventLoop(idHeader) {
+                                            var event_Values = '';
+                                            for (var y = 0; y < $scope.eventDV.length; y++) {
+                                                if (idHeader == $scope.eventDV[y].dataElement) {
+                                                    event_Values = $scope.eventDV[y].value;
+                                                }
+
+                                            }
+                                            return event_Values;
+                                        }
+
+                                        $.ajax({
+                                            async: false,
+                                            type: "GET",
+                                            url: "../../trackedEntityInstances/" + $scope.tei + ".json?fields=trackedEntityInstance,orgUnit,created,attributes[attribute,displayName,value]&ou=" + $scope.selectedOrgUnit.id + "&ouMode=DESCENDANTSprogram=" + $scope.selectedProgramID + "&programStage=" + $scope.selectedPSID + "&startDate=" + $scope.startdateSelected + "&endDate=" + $scope.enddateSelected + "&skipPaging=true",
+                                            success: function (response1) {
+                                                for (var k = 0; k < response1.attributes.length; k++) {
+                                                    if (response1.attributes[k].displayName == 'Name of Fee for Service specialist') {
+                                                        $scope.attributeValues[0] = response1.attributes[k].value;
+                                                    }
+                                                }
+                                            }
+                                        });
+
+                                        var displayingValues = {
+                                            currentProgram: $scope.program,
+                                            attributeValues0: $scope.attributeValues[0],
+                                            eventOrgUnitName: heirarchyLevel,
+                                            eventDate: $scope.event_Date,
+                                            allEventDataValues: $scope.eventDataValues,
+                                            eventId: $scope.eventId,
+                                            color: $scope.colorName,
+                                        }
+                                        $scope.valuesToDisplay.push(displayingValues);
+                                        console.log($scope.valuesToDisplay);
+                                        $scope.program = '';
+                                        $scope.attributeValues[0] = '';
+                                        $scope.eventOrgUnit = '';
+                                        $scope.event_Date = '';
+                                        $scope.eventDataValues = [];
+                                        $scope.eventId = '';
+                                        $scope.colorName = '';
+                                    }
+                                }
+                            }
                         }
                     })
                 }
             }
-            $('#loader').hide();   
+            $('#loader').hide();
         })
     }
 
-    $scope.checkApproved = function(eventDV){
+    $scope.checkApproved = function (eventDV) {
         for (var a = 0; a < eventDV.length; a++) {
             if ($scope.eventDV[a].value == 'Approved' || $scope.eventDV[a].value == 'Auto-Approved') {
                 return true;
@@ -417,7 +384,7 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
             }
         }
         else if ($scope.appr_reject == 'Reject') {
-            var retVal = prompt("Why do you want to Reject? (Name: " + eventData.attributeValues0 + ", Event Date: " + eventData.eventDate + "), Specify the reason:"), pattern="^(?:(\w)(?!\1\1))+$";
+            var retVal = prompt("Why do you want to Reject? (Name: " + eventData.attributeValues0 + ", Event Date: " + eventData.eventDate + "), Specify the reason:"), pattern = "^(?:(\w)(?!\1\1))+$";
             if (retVal === "") {
                 alert('Unable to Reject, Reason required!');
                 return false;
@@ -546,250 +513,55 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
         }
     };
 
-    getheirarchy = function(org){
-        $scope.hierarchy="";
-        var myMap=[];
-        var parent=""
-        
-    $.ajax({
-        async : false,
-        type: "GET",
-        url: "../../organisationUnits/"+ org +".json?fields=name,level,parent[name,level,parent[id,name,level,parent[name,level,parent[name,level,parent[name,level,parent[name,level,parent[name,level,parent[name,level]",
-        success: function(data){
-        if(data.level==2)
-        {
-        myMap.push(data.name);
-        myMap.push(data.parent.name)
-        }
-        if(data.level==3)
-        {
-        myMap.push(data.name);
-        myMap.push(data.parent.name)
-        myMap.push(data.parent.parent.name)
-        }
-        if(data.level==4)
-        {
-        myMap.push(data.name);
-        myMap.push(data.parent.name)
-        myMap.push(data.parent.parent.name)
-        myMap.push(data.parent.parent.parent.name)
-        }
-        if(data.level==5)
-        {
-        myMap.push(data.name);
-        myMap.push(data.parent.name)
-        myMap.push(data.parent.parent.name)
-        myMap.push(data.parent.parent.parent.name)
-        myMap.push(data.parent.parent.parent.parent.name)
-        }
-        if(data.level==6)
-        {
-        myMap.push(data.name);
-        myMap.push(data.parent.name)
-        myMap.push(data.parent.parent.name)
-        myMap.push(data.parent.parent.parent.name)
-        myMap.push(data.parent.parent.parent.parent.name)
-        myMap.push(data.parent.parent.parent.parent.parent.name)
-        }
-        // $scope.programs.push({name:"",id:""});
-      }
+    getheirarchy = function (org) {
+        $scope.hierarchy = "";
+        var myMap = [];
+        var parent = ""
+
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: "../../organisationUnits/" + org + ".json?fields=name,level,parent[name,level,parent[id,name,level,parent[name,level,parent[name,level,parent[name,level,parent[name,level,parent[name,level,parent[name,level]",
+            success: function (data) {
+                if (data.level == 2) {
+                    myMap.push(data.name);
+                    myMap.push(data.parent.name)
+                }
+                if (data.level == 3) {
+                    myMap.push(data.name);
+                    myMap.push(data.parent.name)
+                    myMap.push(data.parent.parent.name)
+                }
+                if (data.level == 4) {
+                    myMap.push(data.name);
+                    myMap.push(data.parent.name)
+                    myMap.push(data.parent.parent.name)
+                    myMap.push(data.parent.parent.parent.name)
+                }
+                if (data.level == 5) {
+                    myMap.push(data.name);
+                    myMap.push(data.parent.name)
+                    myMap.push(data.parent.parent.name)
+                    myMap.push(data.parent.parent.parent.name)
+                    myMap.push(data.parent.parent.parent.parent.name)
+                }
+                if (data.level == 6) {
+                    myMap.push(data.name);
+                    myMap.push(data.parent.name)
+                    myMap.push(data.parent.parent.name)
+                    myMap.push(data.parent.parent.parent.name)
+                    myMap.push(data.parent.parent.parent.parent.name)
+                    myMap.push(data.parent.parent.parent.parent.parent.name)
+                }
+                // $scope.programs.push({name:"",id:""});
+            }
         });
 
-        for(var i=myMap.length-1;i>=0;i--)
-        {
-        $scope.hierarchy+=myMap[i]+"/";
+        for (var i = myMap.length - 1; i >= 0; i--) {
+            $scope.hierarchy += myMap[i] + "/";
         }
-      
+
         return $scope.hierarchy;
-     }
-
-    function showLoad() {// alert( "inside showload method 1" );
-        setTimeout(function () {
-        }, 1000);
-
-        //     alert( "inside showload method 2" );
-    }
-    function hideLoad() {
-
-    }
-
-    function arrangeDataX(stageData, attrData, allattr) {
-
-        var report = [{
-            teiuid: ""
-        }]
-
-        var teiWiseAttrMap = [];
-        $scope.attrMap = [];
-        $scope.teiList = [];
-        $scope.eventList = [];
-        $scope.maxEventPerTei = [];
-
-        $scope.teiEnrollOrgMap = [];
-        $scope.teiEnrollMap = [];
-
-        var teiPsMap = [];
-        var teiPsEventMap = [];
-        var teiPsEventDeMap = [];
-        var teiEventMap = [];
-        var metaAttrArr = [];
-
-        // For attribute
-        const index_tei = 0;
-        const index_attruid = 2;
-        const index_attrvalue = 3;
-        // const index_attrname = 4;
-        const index_ouname = 4;
-        const index_enrollmentDate = 6;
-
-        // For Data values
-        const index_deuid = 5;
-        const index_devalue = 7;
-        const index_ps = 1;
-        const index_ev = 3;
-        const index_evDate = 4;
-        const index_ou = 8;
-
-
-        for (var i = 0; i < attrData.height; i++) {
-
-            var teiuid = attrData.rows[i][index_tei];
-            var attruid = attrData.rows[i][index_attruid];
-            var attrvalue = attrData.rows[i][index_attrvalue];
-            var ouname = attrData.rows[0][index_ouname];
-            var enrollDate = attrData.rows[i][index_enrollmentDate]; // enrollment date
-            enrollDate = enrollDate.substring(0, 10);
-
-            for (var m = 0; m < allattr.trackedEntityAttributes.length; m++) {
-
-                if (attruid == "qak2Z7cCMpD" || attruid == "FzXnQEnYFa5") {
-                    attrvalue = 'PRIVATE';
-                }
-            }
-
-            if (teiWiseAttrMap[teiuid] == undefined) {
-                teiWiseAttrMap[teiuid] = [];
-            }
-            teiWiseAttrMap[teiuid].push(attrData.rows[i]);
-            // $scope.attrMap[teiuid+"-"+attruid] = ouname;
-            $scope.attrMap[teiuid + "-" + attruid] = attrvalue;
-
-            $scope.teiEnrollMap[teiuid + "-enrollDate"] = enrollDate;
-            $scope.teiEnrollOrgMap[teiuid + "-ouname"] = ouname;
-
-            for (m in $scope.Options) {
-
-                if (attrvalue + '_index' == m) {
-
-                    $scope.attrMap[teiuid + "-" + attruid] = $scope.Options[m];
-                }
-
-            }
-
-        }
-
-        for (key in teiWiseAttrMap) {
-            $scope.teiList.push({ teiuid: key });
-            //    $scope.attrMap =$scope.attrMap;
-        }
-
-        $timeout(function () {
-            $scope.teiList = $scope.teiList;
-        })
-        $scope.teis = prepareListFromMap(teiWiseAttrMap);
-
-        var teiPerPsEventListMap = [];
-        var teiToEventListMap = [];
-        var eventToMiscMap = [];
-        eventToMiscMap["dummy"] = { ou: "", evDate: "" };
-        var teiList = [];
-        for (var i = 0; i < stageData.height; i++) {
-            var teiuid = stageData.rows[i][index_tei];
-            var psuid = stageData.rows[i][index_ps];
-            var evuid = stageData.rows[i][index_ev];
-            var evDate = stageData.rows[i][index_evDate];
-            evDate = evDate.substring(0, 10);
-            var deuid = stageData.rows[i][index_deuid];
-            var devalue = stageData.rows[i][index_devalue];
-            var ou = stageData.rows[i][index_ou];
-
-            if (!teiList[teiuid]) {
-                teiList[teiuid] = true;
-            }
-            if (!teiPerPsEventListMap[teiuid]) {
-                teiPerPsEventListMap[teiuid] = [];
-                teiPerPsEventListMap[teiuid].max = 0;
-            }
-
-            if (!teiPerPsEventListMap[teiuid][psuid]) {
-                teiPerPsEventListMap[teiuid][psuid] = [];
-
-            }
-
-            if (!teiToEventListMap[evuid]) {
-                teiToEventListMap[evuid] = true;
-                teiPerPsEventListMap[teiuid][psuid].push(evuid);
-                if (teiPerPsEventListMap[teiuid][psuid].length > teiPerPsEventListMap[teiuid].max) {
-                    teiPerPsEventListMap[teiuid].max = teiPerPsEventListMap[teiuid][psuid].length;
-                }
-            }
-
-            if (!teiPsEventMap[teiuid + "-" + psuid + "-" + evuid]) {
-                teiPsEventMap[teiuid + "-" + psuid + "-" + evuid] = [];
-            }
-
-            eventToMiscMap[evuid] = { ou: ou, evDate: evDate };
-            teiPsEventDeMap[teiuid + "-" + evuid + "-" + deuid] = devalue;
-        }
-        var TheRows = [];
-        var psDes = $scope.psDEs;
-
-        for (key in teiList) {
-            var teiuid = key;
-            $scope.eventList[teiuid] = [];
-
-            var maxEventCount = teiPerPsEventListMap[teiuid].max;
-
-            if (maxEventCount == 0) { debugger }
-            for (var y = 0; y < maxEventCount; y++) {
-
-                TheRows = [];
-                for (var x = 0; x < psDes.length; x++) {
-                    var psuid = psDes[x].dataElement.ps;
-                    var deuid = psDes[x].dataElement.id;
-                    var evuid = undefined;
-                    if (teiPerPsEventListMap[teiuid][psuid]) {
-                        evuid = teiPerPsEventListMap[teiuid][psuid][y];
-                    }
-                    if (!evuid) {
-                        evuid = "dummy";
-                    }
-                    var val = teiPsEventDeMap[teiuid + "-" + evuid + "-" + deuid];
-                    if (deuid == "orgUnit") {
-                        val = eventToMiscMap[evuid].ou;//debugger
-                    } else if (deuid == "eventDate") {
-                        val = eventToMiscMap[evuid].evDate;//debugger
-                    }
-                    if ($scope.psDEs[x].dataElement.optionSet != undefined) {
-
-                        if ($scope.psDEs[x].dataElement.optionSet.options != undefined) {
-
-                            val = $scope.Options[val + '_index'];
-                            if (!val)
-                                val = "";
-                            //  dataValues.push(value);
-
-                        }
-                    }
-                    TheRows.push(val ? val : "");
-                }
-                $scope.eventList[teiuid].push(TheRows);
-            }
-        }
-
-        $scope.teiPerPsEventListMap = teiPerPsEventListMap;
-        $scope.teiList = Object.keys(teiList);
-        hideLoad();
     }
 });
 
