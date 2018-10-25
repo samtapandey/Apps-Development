@@ -15,10 +15,11 @@
                 <tr>
                     <td>{{'orgUnitLabel' | translate}}</td>
                     <td>
-                        <input type="text" class="form-control" value="{{selectedOrgUnit.name|| 'please_select'| translate}}" ng-disabled="true">
+                        <input type="text" class="form-control" value="{{selectedOrgUnit.name|| 'please_select'| translate}}"
+                            ng-disabled="true">
                     </td>
                 </tr>
-    
+                
                 <tr>
                     <td>
                         {{'programs'| translate}}
@@ -53,34 +54,34 @@
                         <label ng-show="checked">Start Date </label>
                     </td>
                     <td>
-                        <input calendar ng-model='startdate' id="startDate" ng-show="checked" class="form-control" ng-change="updateStartDate(startdate);"
-                            required />
+                        <input calendar ng-model='startdate' id="startDate" ng-show="checked" class="form-control"
+                            ng-change="updateStartDate(startdate);" required />
                     </td>
                     <td>
                         <label ng-show="checked">End Date </label>
                     </td>
                     <td>
-                        <input calendar ng-model='enddate' id="endDate" ng-show="checked" class="form-control" ng-change="updateEndDate(enddate);"
-                            required/>
+                        <input calendar ng-model='enddate' id="endDate" ng-show="checked" class="form-control"
+                            ng-change="updateEndDate(enddate);" required />
                     </td>
                 </tr>
-    
+
             </table>
-    
+
             <div class="col-md-12 trim">
                 <button type="button" class="btn btn-primary center-block" ng-click="resubmitData(selectedProgram, report, selectedOuMode);showLoad();"
                     ng-disabled="!selectedProgram">{{'fetch_records'| translate}}</button>
             </div>
-    
+
         </div>
-    
+
         <div class="loading" id="loader">Loading&#8230;</div>
         <div id="divId" class="container" style="margin-left: 2px">
             <table id="tableid" border="1" class="table table-hover">
                 <tr>
                     <th colspan="{{3}}">{{attribute}}</th>
                     <th ng-repeat="ps in selectedPS" colspan="{{ps.programStageDataElements.length+3}}">{{ps.name}}</th>
-    
+
                 </tr>
                 <tr style="background-color:rgb(211, 207, 201)">
                     <th>
@@ -94,8 +95,8 @@
                         {{approved_reject}}
                     </th>
                 </tr>
-    
-    
+
+
                 <tbody>
                     <tr ng-repeat="event in valuesToDisplay" class="rowClass" ng-style="{'background-color': event.color}">
                         <td>
@@ -107,19 +108,19 @@
                         <td>
                             {{event.eventOrgUnitName}}
                         </td>
-                        
+
                         <td ng-repeat="eventValue in event.allEventDataValues track by $index">{{eventValue}}</td>
                         <td>
                             <button style="font-size:10pt;color:white;
                             background-color:green;border:2px solid #336600;padding:3px;width: 75px; margin-top: 1.5%; height: 40px; text-align: center;"
-                                id={{event.eventId}}_Approved ng-click="confirmPush($event,event.eventId,selectedProgram,event);">Approve</button>
+                                id={{event.eventId}} _Approved ng-click="confirmPush($event,event.eventId,selectedProgram,event);">Approve</button>
                             <button style="font-size:10pt;color:white;
                             background-color:red;border:2px solid #336600;padding:3px;width: 75px; margin-top: 1.5%; height: 40px; text-align: center;"
-                                id={{event.eventId}}_Reject ng-click="confirmPush($event,event.eventId,selectedProgram,event);">Reject</button>
+                                id={{event.eventId}} _Reject ng-click="confirmPush($event,event.eventId,selectedProgram,event);">Reject</button>
                         </td>
                     </tr>
                 </tbody>
-    
+
             </table>
         </div>
     </div>

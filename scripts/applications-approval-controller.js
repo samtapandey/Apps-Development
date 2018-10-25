@@ -1,6 +1,21 @@
 /**
  * Created by wasib & gourav on 31/12/17.
  */
+dataApprovalApp.directive('calendar', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, el, attr, ngModel) {
+            $(el).datepicker({
+                dateFormat: 'yy-mm-dd',
+                onSelect: function (dateText) {
+                    scope.$apply(function () {
+                        ngModel.$setViewValue(dateText);
+                    });
+                }
+            });
+        }
+    };
+});
 dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootScope,
     $scope,
     $timeout,
@@ -564,4 +579,3 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
         return $scope.hierarchy;
     }
 });
-

@@ -15,7 +15,8 @@
                 <tr>
                     <td>{{'orgUnitLabel' | translate}}</td>
                     <td>
-                        <input type="text" class="form-control" value="{{selectedOrgUnit.name|| 'please_select'| translate}}" ng-disabled="true">
+                        <input type="text" class="form-control" value="{{selectedOrgUnit.name|| 'please_select'| translate}}"
+                            ng-disabled="true">
                     </td>
                 </tr>
 
@@ -45,13 +46,15 @@
                         <label>Start Date </label>
                     </td>
                     <td>
-                        <input calendar ng-model='startdate' class="form-control" ng-change="updateStartDate(startdate);" required />
+                        <input calendar ng-model='startdate' class="form-control" ng-change="updateStartDate(startdate);"
+                            required />
                     </td>
                     <td>
                         <label>End Date </label>
                     </td>
                     <td>
-                        <input calendar ng-model='enddate' class="form-control" ng-change="updateEndDate(enddate);" required/>
+                        <input calendar ng-model='enddate' class="form-control" ng-change="updateEndDate(enddate);"
+                            required />
                     </td>
                 </tr>
 

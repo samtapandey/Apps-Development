@@ -37,7 +37,7 @@ dataApprovalApp.controller('ApprovedListController', function ($rootScope,
 
     $timeout(function () {
         $('#loader').hide();
-    },1000);
+    }, 1000);
 
     // Listen for OU changes
     selection.setListenerFunction(function () {
@@ -112,7 +112,7 @@ dataApprovalApp.controller('ApprovedListController', function ($rootScope,
         $timeout(function () {
             $('#loader').show();
             $scope.generateReport(program);
-          }, 1000);
+        }, 1000);
     }
 
     $scope.generateReport = function (program) {
@@ -131,7 +131,7 @@ dataApprovalApp.controller('ApprovedListController', function ($rootScope,
             $scope.attributeValues = [''];
             $scope.numberOfEvents = [];
             $scope.attribute1 = "Name of Fee for Service specialist";
-            $scope.approved_reject = "Approved/Rejected";      
+            $scope.approved_reject = "Approved/Rejected";
             $scope.event_date = "Event Date";
             var options = [];
             $scope.eventDataValues = [];
@@ -165,7 +165,7 @@ dataApprovalApp.controller('ApprovedListController', function ($rootScope,
                         $scope.eventId = response.events[j].event;
                         $scope.eventDV = response.events[j].dataValues;
                         $scope.eventOrgUnit = response.events[j].orgUnitName;
-                        $scope.eventOrgUnitId = response.events[j].orgUnit;                                                           
+                        $scope.eventOrgUnitId = response.events[j].orgUnit;
                         var heirarchyLevel = getheirarchy($scope.eventOrgUnitId);
                         for (var a = 0; a < $scope.eventDV.length; a++) {
                             if ($scope.eventDV[a].value == 'Approved' || $scope.eventDV[a].value == 'Auto-Approved') {
@@ -248,64 +248,58 @@ dataApprovalApp.controller('ApprovedListController', function ($rootScope,
         $scope.show = true;
     }
 
-    getheirarchy = function(org){
-        $scope.hierarchy="";
-        var myMap=[];
-        var parent=""
-        
-    $.ajax({
-        async : false,
-        type: "GET",
-        url: "../../organisationUnits/"+ org +".json?fields=name,level,parent[name,level,parent[id,name,level,parent[name,level,parent[name,level,parent[name,level,parent[name,level,parent[name,level,parent[name,level]",
-        success: function(data){
-        if(data.level==2)
-        {
-        myMap.push(data.name);
-        myMap.push(data.parent.name)
-        }
-        if(data.level==3)
-        {
-        myMap.push(data.name);
-        myMap.push(data.parent.name)
-        myMap.push(data.parent.parent.name)
-        }
-        if(data.level==4)
-        {
-        myMap.push(data.name);
-        myMap.push(data.parent.name)
-        myMap.push(data.parent.parent.name)
-        myMap.push(data.parent.parent.parent.name)
-        }
-        if(data.level==5)
-        {
-        myMap.push(data.name);
-        myMap.push(data.parent.name)
-        myMap.push(data.parent.parent.name)
-        myMap.push(data.parent.parent.parent.name)
-        myMap.push(data.parent.parent.parent.parent.name)
-        }
-        if(data.level==6)
-        {
-        myMap.push(data.name);
-        myMap.push(data.parent.name)
-        myMap.push(data.parent.parent.name)
-        myMap.push(data.parent.parent.parent.name)
-        myMap.push(data.parent.parent.parent.parent.name)
-        myMap.push(data.parent.parent.parent.parent.parent.name)
-        }
-        // $scope.programs.push({name:"",id:""});
-      }
+    getheirarchy = function (org) {
+        $scope.hierarchy = "";
+        var myMap = [];
+        var parent = ""
+
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: "../../organisationUnits/" + org + ".json?fields=name,level,parent[name,level,parent[id,name,level,parent[name,level,parent[name,level,parent[name,level,parent[name,level,parent[name,level,parent[name,level]",
+            success: function (data) {
+                if (data.level == 2) {
+                    myMap.push(data.name);
+                    myMap.push(data.parent.name)
+                }
+                if (data.level == 3) {
+                    myMap.push(data.name);
+                    myMap.push(data.parent.name)
+                    myMap.push(data.parent.parent.name)
+                }
+                if (data.level == 4) {
+                    myMap.push(data.name);
+                    myMap.push(data.parent.name)
+                    myMap.push(data.parent.parent.name)
+                    myMap.push(data.parent.parent.parent.name)
+                }
+                if (data.level == 5) {
+                    myMap.push(data.name);
+                    myMap.push(data.parent.name)
+                    myMap.push(data.parent.parent.name)
+                    myMap.push(data.parent.parent.parent.name)
+                    myMap.push(data.parent.parent.parent.parent.name)
+                }
+                if (data.level == 6) {
+                    myMap.push(data.name);
+                    myMap.push(data.parent.name)
+                    myMap.push(data.parent.parent.name)
+                    myMap.push(data.parent.parent.parent.name)
+                    myMap.push(data.parent.parent.parent.parent.name)
+                    myMap.push(data.parent.parent.parent.parent.parent.name)
+                }
+                // $scope.programs.push({name:"",id:""});
+            }
         });
 
-        for(var i=myMap.length-1;i>=0;i--)
-        {
-        $scope.hierarchy+=myMap[i]+"/";
+        for (var i = myMap.length - 1; i >= 0; i--) {
+            $scope.hierarchy += myMap[i] + "/";
         }
-      
+
         return $scope.hierarchy;
-     }
-    
-     $scope.exportExcel = function() {
+    }
+
+    $scope.exportExcel = function () {
         var a = document.createElement('a');
         var data_type = 'data:application/vnd.ms-excel';
         var table_div = document.getElementById('tableid');
