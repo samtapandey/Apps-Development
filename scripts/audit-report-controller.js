@@ -53,8 +53,11 @@ dataApprovalApp.controller('AuditReportController', function ($rootScope,
                 $scope.programs = [];
                 $scope.programStages = [];
                 for (var i = 0; i < orgUnit.programs.length; i++) {
-                    if (orgUnit.programs[i].name == "Gynaecologist - PBR monitoring" || orgUnit.programs[i].name == "Anaesthetist - PBR monitoring" || orgUnit.programs[i].name == "Paediatric - PBR monitoring" || orgUnit.programs[i].name == "Paediatrician _PICU_ monitoring tool") {
-                        $scope.programs.push(orgUnit.programs[i]);
+                    for (var j = 0; j < orgUnit.programs[i].attributeValues.length; j++) {
+                        if (orgUnit.programs[i].attributeValues[j].attribute.code === 'forapproval' && orgUnit.programs[i].attributeValues[j].value === 'true') {
+                            $scope.isValidProgram = true;
+                            $scope.programs.push(orgUnit.programs[i]);
+                        }
                     }
                 }
             });
