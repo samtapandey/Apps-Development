@@ -518,13 +518,13 @@ excelUpload.controller('ImportFacilitywiseController',
         $scope.importData = function (orgUnit, index, callbackfunct) {
             var selectedTemp = $scope.getTemplate($scope.confirmedUploads.TempVal);
             var dataValues = [];
-            //				$("#loader").fadeIn();
+            				$("#loader").fadeIn();
             $("#templateProgress").html(orgUnit.name + " -> preparing data values to import");
 
-            //				if( selectedTemp != "" )
-            //				{
+            				if( selectedTemp != "" )
+            				{
 
-			/* MOU - MDE is not used in new requirement
+			
 			 // MOU - MDE
 			 if( selectedTemp.typeId == 1 )
 			 {
@@ -578,7 +578,7 @@ excelUpload.controller('ImportFacilitywiseController',
 			 }
 			 }
 			 }
-			 */
+			 
             // SOU - MDE
             if (selectedTemp.typeId == 2) {
                 $scope.dp = [];
@@ -597,38 +597,362 @@ excelUpload.controller('ImportFacilitywiseController',
                     dataValue.categoryOptionCombo = selectedTemp.DEMappings[x].metadata.split("-")[1];
                     dataValue.orgUnit = orgUnit.id;
                     orgName = orgUnit.name;
-                    // $.ajax({
+                     $.ajax({
 
-                    //     type: "GET",
-                    //     dataType: "json",
-                    //     contentType: "application/json",
-                    //     url: "../../../api/organisationUnits/" + orgUnit.id + ".json?fields=comment",
-                    //     success: function (data5) {
+                         type: "GET",
+                         dataType: "json",
+                         contentType: "application/json",
+                        url: "../../../api/organisationUnits/" + orgUnit.id + ".json?fields=comment",
+                         success: function (data5) {
 
 
-                    //         factype = data5.comment;
-                    //         factype = factype.substring(factype.indexOf(":") + 1);
-                    //         console.log(factype);
+                             factype = data5.comment;
+                             factype = factype.substring(factype.indexOf(":") + 1);
+                            console.log(factype);
 
-                    //     },
-                    //     error: function (response) { }
-                    // });
+                         },
+                         error: function (response) { }
+                    });
+                    /************************************* FOR SC ************************************************************/
+                    if (factype == "SC") {
+    
+                        if (dataValue.dataElement == "FIaGENXR3c5" || dataValue.dataElement == "fqM6fGLUqVD") {
+
+                            dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
+                            $scope.dp.push(dataValue.value);
+
+                            for (var i = 0; i < $scope.dp.length; i++) {
+
+                                value1 = $scope.dp[0];
+                                value2 = $scope.dp[1];
+
+                            }
+                            if (value1 == "") {
+                                alert("For " + orgName + " organisation Delivery Point value is empty");
+                                window.location.reload();
+                                break;
+
+                            }
+
+                            if (value1 == "true") {
+                                if (value2 == "") {
+                                    alert("For " + orgName + " If Delivery point value is true then please select Level of Delivery point");
+                                    window.location.reload();
+                                    break;
+                                }
+                                else {
+                                    dataValue.categoryOptionCombo = selectedTemp.DEMappings[x].metadata.split("-")[1];
+                                    dataValue.orgUnit = orgUnit.id;
+                                    dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
+                                    dataValue.value = dataValue.value == "" ? "omit" : dataValue.value;
+                                    if (dataValue.orgUnit != "" && dataValue.value != "omit") {
+                                        dataValues.push(dataValue);
+                                    }
+                                }
+                            }
+                            if (value1 == "false") {
+                                if (value2 == "") {
+                                    dataValue.categoryOptionCombo = selectedTemp.DEMappings[x].metadata.split("-")[1];
+                                    dataValue.orgUnit = orgUnit.id;
+                                    dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
+                                    dataValue.value = dataValue.value == "" ? "omit" : dataValue.value;
+                                    if (dataValue.orgUnit != "" && dataValue.value != "omit") {
+                                        dataValues.push(dataValue);
+                                    }
+                                }
+                                else if (value2 == undefined) {
+                                    dataValue.categoryOptionCombo = selectedTemp.DEMappings[x].metadata.split("-")[1];
+                                    dataValue.orgUnit = orgUnit.id;
+                                    dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
+                                    dataValue.value = dataValue.value == "" ? "omit" : dataValue.value;
+                                    if (dataValue.orgUnit != "" && dataValue.value != "omit") {
+                                        dataValues.push(dataValue);
+                                    }
+                                }
+                                else {
+                                    alert("For " + orgName + " If Delivery point value is false then Level of Delivery point should not be selected");
+                                    window.location.reload();
+                                    break;
+                                }
+                            }
+
+
+                        }
+
+                        else {
+                            dataValue.categoryOptionCombo = selectedTemp.DEMappings[x].metadata.split("-")[1];
+                            dataValue.orgUnit = orgUnit.id;
+
+                            dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
+
+                            dataValue.value = dataValue.value == "" ? "omit" : dataValue.value;
+
+                            if (dataValue.orgUnit != "" && dataValue.value != "omit") {
+                                dataValues.push(dataValue);
+                            }
+                        }
+                    }
+                   
+                    /********************************************************** FOR DH **************************************************/
+                    else if (factype == "DH" || factype == "DWH" || factype == "OTH" || factype == "DMH" || factype == "DCH" || factype == "MC" || factype == "DH_TB" || factype == "DH_EYE") {
+
+                        if (dataValue.dataElement == "FIaGENXR3c5" || dataValue.dataElement == "fqM6fGLUqVD") {
+
+                            dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
+                            $scope.dp.push(dataValue.value);
+
+                            for (var i = 0; i < $scope.dp.length; i++) {
+
+                                value1 = $scope.dp[0];
+                                value2 = $scope.dp[1];
+                            }
+
+                            if (value1 == "") {
+                                alert("For " + orgName + " organisation Delivery Point value is empty");
+                                window.location.reload();
+                                break;
+
+                            }
+
+                            if (value1 == "true") {
+                                if (value2 == "") {
+                                    alert("For " + orgName + " If Delivery point value is true then please select Level of Delivery point");
+                                    window.location.reload();
+                                    break;
+                                }
+                                else {
+                                    dataValue.categoryOptionCombo = selectedTemp.DEMappings[x].metadata.split("-")[1];
+                                    dataValue.orgUnit = orgUnit.id;
+                                    dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
+                                    dataValue.value = dataValue.value == "" ? "omit" : dataValue.value;
+                                    if (dataValue.orgUnit != "" && dataValue.value != "omit") {
+                                        dataValues.push(dataValue);
+                                    }
+                                }
+                            }
+                            if (value1 == "false") {
+                                if (value2 == "") {
+                                    dataValue.categoryOptionCombo = selectedTemp.DEMappings[x].metadata.split("-")[1];
+                                    dataValue.orgUnit = orgUnit.id;
+                                    dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
+                                    dataValue.value = dataValue.value == "" ? "omit" : dataValue.value;
+                                    if (dataValue.orgUnit != "" && dataValue.value != "omit") {
+                                        dataValues.push(dataValue);
+                                    }
+                                }
+                                else if (value2 == undefined) {
+                                    dataValue.categoryOptionCombo = selectedTemp.DEMappings[x].metadata.split("-")[1];
+                                    dataValue.orgUnit = orgUnit.id;
+                                    dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
+                                    dataValue.value = dataValue.value == "" ? "omit" : dataValue.value;
+                                    if (dataValue.orgUnit != "" && dataValue.value != "omit") {
+                                        dataValues.push(dataValue);
+                                    }
+                                }
+                                else {
+                                    alert("For " + orgName + " If Delivery point value is false then Level of Delivery point should not be selected");
+                                    window.location.reload();
+                                    break;
+                                }
+                            }
+
+
+                        }
+
+                        else {
+                            dataValue.categoryOptionCombo = selectedTemp.DEMappings[x].metadata.split("-")[1];
+                            dataValue.orgUnit = orgUnit.id;
+
+                            dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
+
+                            dataValue.value = dataValue.value == "" ? "omit" : dataValue.value;
+
+                            if (dataValue.orgUnit != "" && dataValue.value != "omit") {
+                                dataValues.push(dataValue);
+                            }
+                        }
+                    }
+
+                 
+                    /********************************************************** FOR CHC **************************************************/
+                    else if (factype == "CHC" || factype == "BCHC" || factype == "UCHC") {
+
+
+                        if (dataValue.dataElement == "FIaGENXR3c5" || dataValue.dataElement == "fqM6fGLUqVD" || dataValue.dataElement == "GpEwBknDwF9") {
+
+                            dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
+                            $scope.dp.push(dataValue.value);
+
+                            for (var i = 0; i < $scope.dp.length; i++) {
+
+                                value1 = $scope.dp[2];
+                                value2 = $scope.dp[1];
+                                value3 = $scope.dp[0];
+                            }
+                            if (value3 == "") {
+                                alert("For " + orgName + " organisation FRU value is empty");
+                                window.location.reload();
+                                break;
+                            }
+                            if (value1 == "") {
+                                alert("For " + orgName + " organisation Delivery Point value is empty");
+                                window.location.reload();
+                                break;
+
+                            }
+
+                            if (value1 == "true") {
+                                if (value2 == "") {
+                                    alert("For " + orgName + " If Delivery point value is true then please select Level of Delivery point");
+                                    window.location.reload();
+                                    break;
+                                }
+                                else {
+                                    dataValue.categoryOptionCombo = selectedTemp.DEMappings[x].metadata.split("-")[1];
+                                    dataValue.orgUnit = orgUnit.id;
+                                    dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
+                                    dataValue.value = dataValue.value == "" ? "omit" : dataValue.value;
+                                    if (dataValue.orgUnit != "" && dataValue.value != "omit") {
+                                        dataValues.push(dataValue);
+                                    }
+                                }
+                            }
+                            if (value1 == "false") {
+                                if (value2 == "") {
+                                    dataValue.categoryOptionCombo = selectedTemp.DEMappings[x].metadata.split("-")[1];
+                                    dataValue.orgUnit = orgUnit.id;
+                                    dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
+                                    dataValue.value = dataValue.value == "" ? "omit" : dataValue.value;
+                                    if (dataValue.orgUnit != "" && dataValue.value != "omit") {
+                                        dataValues.push(dataValue);
+                                    }
+                                }
+                                else if (value2 == undefined) {
+                                    dataValue.categoryOptionCombo = selectedTemp.DEMappings[x].metadata.split("-")[1];
+                                    dataValue.orgUnit = orgUnit.id;
+                                    dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
+                                    dataValue.value = dataValue.value == "" ? "omit" : dataValue.value;
+                                    if (dataValue.orgUnit != "" && dataValue.value != "omit") {
+                                        dataValues.push(dataValue);
+                                    }
+                                }
+                                else {
+                                    alert("For " + orgName + " If Delivery point value is false then Level of Delivery point should not be selected");
+                                    window.location.reload();
+                                    break;
+                                }
+                            }
+
+
+                        }
+
+                        else {
+                            dataValue.categoryOptionCombo = selectedTemp.DEMappings[x].metadata.split("-")[1];
+                            dataValue.orgUnit = orgUnit.id;
+
+                            dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
+
+                            dataValue.value = dataValue.value == "" ? "omit" : dataValue.value;
+
+                            if (dataValue.orgUnit != "" && dataValue.value != "omit") {
+                                dataValues.push(dataValue);
+                            }
+                        }
+                    }
                     /******************************************** FOR PHC ********************************************************/
-                    // if (factype == "PHC" || factype == "BPHC") {
+                    else if (factype == "PHC" || factype == "BPHC" || factype == "UPHC" || factype == "NPHC" || factype == "APHC") {
+    
+    
+                        if (dataValue.dataElement == "FIaGENXR3c5" || dataValue.dataElement == "fqM6fGLUqVD") {
+
+                            dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
+                            $scope.dp.push(dataValue.value);
+
+                            for (var i = 0; i < $scope.dp.length; i++) {
+
+                                value1 = $scope.dp[0];
+                                value2 = $scope.dp[1];
+                            }
+
+                            if (value1 == "") {
+                                alert("For " + orgName + " organisation Delivery Point value is empty");
+                                window.location.reload();
+                                break;
+
+                            }
+
+                            if (value1 == "true") {
+                                if (value2 == "") {
+                                    alert("For " + orgName + " If Delivery point value is true then please select Level of Delivery point");
+                                    window.location.reload();
+                                    break;
+                                }
+                                else {
+                                    dataValue.categoryOptionCombo = selectedTemp.DEMappings[x].metadata.split("-")[1];
+                                    dataValue.orgUnit = orgUnit.id;
+                                    dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
+                                    dataValue.value = dataValue.value == "" ? "omit" : dataValue.value;
+                                    if (dataValue.orgUnit != "" && dataValue.value != "omit") {
+                                        dataValues.push(dataValue);
+                                    }
+                                }
+                            }
+                            if (value1 == "false") {
+                                if (value2 == "") {
+                                    dataValue.categoryOptionCombo = selectedTemp.DEMappings[x].metadata.split("-")[1];
+                                    dataValue.orgUnit = orgUnit.id;
+                                    dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
+                                    dataValue.value = dataValue.value == "" ? "omit" : dataValue.value;
+                                    if (dataValue.orgUnit != "" && dataValue.value != "omit") {
+                                        dataValues.push(dataValue);
+                                    }
+                                }
+                                else if (value2 == undefined) {
+                                    dataValue.categoryOptionCombo = selectedTemp.DEMappings[x].metadata.split("-")[1];
+                                    dataValue.orgUnit = orgUnit.id;
+                                    dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
+                                    dataValue.value = dataValue.value == "" ? "omit" : dataValue.value;
+                                    if (dataValue.orgUnit != "" && dataValue.value != "omit") {
+                                        dataValues.push(dataValue);
+                                    }
+                                }
+                                else {
+                                    alert("For " + orgName + " If Delivery point value is false then Level of Delivery point should not be selected");
+                                    window.location.reload();
+                                    break;
+                                }
+                            }
 
 
-                    //     dataValue.categoryOptionCombo = selectedTemp.DEMappings[x].metadata.split("-")[1];
-                    //     dataValue.orgUnit = orgUnit.id;
+                        }
 
-                    //     dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
+                        else {
+                            dataValue.categoryOptionCombo = selectedTemp.DEMappings[x].metadata.split("-")[1];
+                            dataValue.orgUnit = orgUnit.id;
 
-                    //     dataValue.value = dataValue.value == "" ? "omit" : dataValue.value;
+                            dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
 
-                    //     if (dataValue.orgUnit != "" && dataValue.value != "omit") {
-                    //         dataValues.push(dataValue);
-                    //     }
+                            dataValue.value = dataValue.value == "" ? "omit" : dataValue.value;
 
-                    // }
+                            if (dataValue.orgUnit != "" && dataValue.value != "omit") {
+                                dataValues.push(dataValue);
+                            }
+                        }
+                    }
+
+                    else {
+                        dataValue.categoryOptionCombo = selectedTemp.DEMappings[x].metadata.split("-")[1];
+                        dataValue.orgUnit = orgUnit.id;
+
+                        dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
+
+                        dataValue.value = dataValue.value == "" ? "omit" : dataValue.value;
+
+                        if (dataValue.orgUnit != "" && dataValue.value != "omit") {
+                            dataValues.push(dataValue);
+                        }
+                    }
+                }
                     dataValue.value = $scope.getImportDataByAddress(cellAddress, orgUnit);
                     dataValue.value = dataValue.value == "" ? "omit" : dataValue.value;
 
