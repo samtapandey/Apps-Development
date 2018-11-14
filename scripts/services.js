@@ -130,13 +130,13 @@ var excelUploadServices = angular.module('excelUploadServices', ['ngResource'])
                         for (var i = 0; i < data1.length; i++) {
                             if (data1[i] != key) {
                                 var url = '../../../api/dataStore/' + key + '/' + key;
-                                promise = $http.post(url, value).then(function (response) {
+                                promise = $http.put(url, value).then(function (response) {
                                     return response.data;
                                 });
                             }
                             else {
                                 var url = '../../../api/dataStore/' + key + '/' + key;
-                                promise = $http.put(url, value).then(function (response) {
+                                promise = $http.post(url, value).then(function (response) {
                                     return response.data;
                                 });
                             }
