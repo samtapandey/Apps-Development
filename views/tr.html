@@ -1,0 +1,8 @@
+<h3>Tracked Entity Attributes</h3>
+<table class="table table-striped tr-table" style="height:150px;overflow-y:scroll">
+    <span id="selectAlltrs" ng-click="toggleSelectAllTeas();"><i class="fa fa-check" style="font-size:12pt;margin-right:20px;opacity:0.2"></i>Select
+        All</span>
+    <tr ng-repeat="tr in trackedEntityAttributes" style="height:50px;cursor:pointer" ng-click="teaSelections($index,tr)">
+        <td><i class="fa fa-check" id="{{tr.id}}" style="font-size:12pt;margin-right:20px;opacity:0.2"></i>{{tr.name}}</td>
+    </tr>
+</table>

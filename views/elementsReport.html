@@ -39,6 +39,12 @@
                     Select Data Elements
                 </a>
             </li>
+            <li>
+                <a ng-click="updatePopup('tr')">
+                    <i class="fa fa-plus"></i>
+                    Select Tracked Entity Attirbutes
+                </a>
+            </li>
         </ul>
 
     </nav>
@@ -60,30 +66,33 @@
         <div id="mainPage">
             <table class="table custom-table">
                 <tr>
-                    <td width="25%">
+                    <td width="20%">
                         <p id="ouBtn"></p>
                     </td>
-                    <td width="25%">
+                    <td width="20%">
                         <p id="prBtn"></p>
                     </td>
-                    <td width="25%">
+                    <td width="20%">
                         <p id="psBtn"></p>
                     </td>
-                    <td width="25%">
+                    <td width="20%">
                         <p id="deBtn"></p>
+                    </td>
+                    <td width="20%">
+                        <p id="trBtn"></p>
                     </td>
                 </tr>
                 <tr>
-                    <td width="25%">
+                    <td width="20%">
                         <input id="daterange" type="text" name="daterange" value="" />
                     </td>
-                    <td width="25%">
+                    <td width="20%">
                         <button class="btn btn-primary" ng-click="generateReport('en')">Generate report (enrollments)</button>
                     </td>
-                    <td width="25%">
+                    <td width="20%">
                         <button class="btn btn-primary" ng-click="generateReport('ev')">Generate report (events)</button>
                     </td>
-                    <td width="25%">
+                    <td width="20%" colspan="2">
                         <button class="btn btn-success" ng-click="fnExcelReportAll()">Export in excel</button>
                     </td>
                 </tr>
@@ -109,6 +118,7 @@
                         <div ng-if="popup == 'pr'" ng-include="'views/pr.html'"></div>
                         <div ng-if="popup == 'ps'" ng-include="'views/ps.html'"></div>
                         <div ng-if="popup == 'de'" ng-include="'views/de.html'"></div>
+                        <div ng-if="popup == 'tr'" ng-include="'views/tr.html'"></div>
                     </div>
                     <div id="SubmitButton">
                         <button class="btn btn-primary" id="submit" ng-click="params()">Done</button>

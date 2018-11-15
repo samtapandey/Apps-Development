@@ -53,7 +53,7 @@ var trackerReportsAppServices = angular.module('trackerReportsAppServices', [])
                     type: "GET",
                     dataType: "json",
                     contentType: "application/json",
-                    url: '../../trackedEntityAttributes.json?fields=id,name,attributeValues[*,attribute[id,name,code]]&paging=false',
+                    url: '../../trackedEntityAttributes.json?fields=id,name&paging=false',
                     success: function (data) {
                         def.resolve(data);
                     }
@@ -80,6 +80,20 @@ var trackerReportsAppServices = angular.module('trackerReportsAppServices', [])
                     dataType: "json",
                     contentType: "application/json",
                     url: "../../events.json?orgUnit=" + ou + "&ouMode=DESCENDANTS&fields=dataValues,programStage,eventDate,trackedEntityInstance&startDate=" + sd + "&endDate=" + ed + "&skipPaging=true",
+                    success: function (data) {
+                        def.resolve(data);
+                    }
+                });
+                return def;
+            }
+            ,
+            getAllTeas: function (ou, pr) {
+                var def = $.Deferred();
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    contentType: "application/json",
+                    url: "../../trackedEntityInstances.json?program=" + pr + "&ou=" + ou + "&ouMode=DESCENDANTS&fields=attributes,created&paging=false",
                     success: function (data) {
                         def.resolve(data);
                     }
