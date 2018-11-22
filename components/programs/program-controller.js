@@ -15,6 +15,7 @@ reportsApp.controller('ProgramsController',
         ReportAppSectionSettingService.getAllReportAppSection().then(function(data){
             $scope.allSections = data.sections;
         });
+        $scope.sectionSettings= "";
 
         $scope.currentSection = {
             uid: "",

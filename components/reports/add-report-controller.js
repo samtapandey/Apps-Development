@@ -12,6 +12,7 @@ reportsApp.controller('AddReportController',
             "orgUnitGroup":"",
             "periodType":""
         }
+        $scope.reportSettings = "";
 
         $scope.periodTypes=[
             {
