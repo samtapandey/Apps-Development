@@ -127,8 +127,8 @@ var excelUploadServices = angular.module('excelUploadServices', ['ngResource'])
                 var url1 = "../../../api/dataStore.json?";
                 $.get(url1, function (data1) {
                     if (data1.length > 0) {
-                        for (var i = 0; i < data1.length; i++) {
-                            if (data1[i] != key) {
+                        // for (var i = 0; i < data1.length; i++) {
+                            if (data1.indexOf(key) > -1) {
                                 var url = '../../../api/dataStore/' + key + '/' + key;
                                 promise = $http.put(url, value).then(function (response) {
                                     return response.data;
@@ -140,7 +140,7 @@ var excelUploadServices = angular.module('excelUploadServices', ['ngResource'])
                                     return response.data;
                                 });
                             }
-                        }
+                        // }
                     }
                     else {
                         var url = '../../../api/dataStore/' + key + '/' + key;
