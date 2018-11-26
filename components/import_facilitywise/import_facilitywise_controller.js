@@ -1015,15 +1015,16 @@ excelUpload.controller('ImportFacilitywiseController',
                     if (tem.data.importCount.updated > 0 || tem.data.importCount.imported > 0) {
                         for (var i = 0; i < $scope.confirmedUploads.orgUnits.length; i++) {
                             var dataSetCompleteParams = {
-                                'ds': $("#imDataSetId").val(),
-                                'pe': $("#importPeriod").val(),
-                                'ou': $scope.confirmedUploads.orgUnits[i].id,
-                                'multiOu': false
+                                'dataSet': $("#imDataSetId").val(),
+                                'period': $("#importPeriod").val(),
+                                'organisationUnit': $scope.confirmedUploads.orgUnits[i].id
+                                // 'multiOu': false
                             };
 
                             $.ajax({
                                 url: '../../../api/completeDataSetRegistrations',
-                                data: dataSetCompleteParams,
+                                data: JSON.stringify( dataSetCompleteParams ),
+                                contentType: "application/json; charset=utf-8",
                                 dataType: 'json',
                                 type: 'post',
                                 success: function (data, textStatus, xhr) {
