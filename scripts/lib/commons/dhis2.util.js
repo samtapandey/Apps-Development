@@ -262,6 +262,6 @@ if( !Object.keys ) {
 
   // this shouldn't really be used anymore, but leaving it in for legacy reasons
   window.log = function( msg ) {
-    //console.log(msg);
+    console.log(msg);
   }
 }());

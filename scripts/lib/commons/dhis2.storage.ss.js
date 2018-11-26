@@ -205,7 +205,7 @@ dhis2.util.namespace( 'dhis2.storage' );
 
                 if ( filtered ) {
                     // just log and continue
-                   // console.log( 'predicate filtering is currently not supported in dom storage getAll, returning all' );
+                    console.log( 'predicate filtering is currently not supported in dom storage getAll, returning all' );
                 }
 
                 for ( var i = 0, len = idx.length; i < len; i++ ) {

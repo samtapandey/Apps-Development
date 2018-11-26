@@ -21,7 +21,7 @@ var d2Directives = angular.module('d2Directives', [])
                     selection.responseReceived();
                 }
                 else {
-                   // console.log('Finished loading orgunit tree');
+                    console.log('Finished loading orgunit tree');
                     orgUnitFromUrl = ($location.search()).ou;
                     $("#orgUnitTree").addClass("disable-clicks"); //Disable ou selection until meta-data has downloaded
                     $timeout(function () {
