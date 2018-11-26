@@ -143,7 +143,7 @@ reportsApp.controller('ProgramsController',
 
                     if( section.uid === $scope.editCurrentSection.uid )
                     {
-                        console.log( " Section Uid -- " + section.uid +  " Section Name -- " + $scope.editCurrentSection.name + " Section User Group -- " + $scope.editCurrentSection.userGroupUid );
+                      //  console.log( " Section Uid -- " + section.uid +  " Section Name -- " + $scope.editCurrentSection.name + " Section User Group -- " + $scope.editCurrentSection.userGroupUid );
 
                         section.name = $scope.editCurrentSection.name;
                         section.userGroupUid = $scope.editCurrentSection.userGroupUid;
@@ -209,12 +209,12 @@ reportsApp.controller('ProgramsController',
 
                     if( section.uid === uid)
                     {
-                        console.log( " Length -- 1 : " + $scope.sectionSettings.sections.length );
-                        console.log( " Index : " + index );
-                        console.log( " Selected Uid : " + uid + " Section Name : " + section.name + " After Save User Group : " + $scope.userGroupsMap[section.userGroupUid].name );
-                        $scope.sectionSettings.sections.splice(index,1);
+                       // console.log( " Length -- 1 : " + $scope.sectionSettings.sections.length );
+                      //  console.log( " Index : " + index );
+                      //  console.log( " Selected Uid : " + uid + " Section Name : " + section.name + " After Save User Group : " + $scope.userGroupsMap[section.userGroupUid].name );
+                      //  $scope.sectionSettings.sections.splice(index,1);
 
-                        console.log( " Length -- 2 : " + $scope.sectionSettings.sections.length );
+                     //   console.log( " Length -- 2 : " + $scope.sectionSettings.sections.length );
 
 
                         ReportAppSectionSettingService.saveSection($scope.sectionSettings).then(function (reponse) {

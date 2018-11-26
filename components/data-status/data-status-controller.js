@@ -22,7 +22,7 @@ reportsApp.controller('DataStatusController',
                                 $scope.filteredOrgUnitList.push( child.id );
                             
                     });
-                    console.log( "filtered OrgUnit List length  is -- " + $scope.filteredOrgUnitList.length );
+              //      console.log( "filtered OrgUnit List length  is -- " + $scope.filteredOrgUnitList.length );
                 }
             );
 		
@@ -199,7 +199,7 @@ reportsApp.controller('DataStatusController',
                     }
                 );
 				url=  $scope.basicUrl + $scope.orgUnitSV + "/data.json?var=orgUnitId:"+$scope.selectedOrgUnit[0] +"";
-				console.log(url);
+				//console.log(url);
 			
 				$.get(url, function(data){
 				
@@ -526,7 +526,7 @@ reportsApp.controller('DataStatusController',
 			
 			url+= "var=compulsoryDECount:" + $scope.compulsoryDECount + ",dataSetUid:" + selDataSetUid + ",orgUnitUid:" + selOrgUnit + ",startDate:" + selStartPeriod + ",endDate:" + selEndPeriod+ ",orgUnitUids:" +$scope.organisationunitid_1[0] ;
 			
-			console.log("url ---------- " + url);
+			//console.log("url ---------- " + url);
 			
 			$.get(url, function(data){
 			//$.get("summary.json", function(data){
@@ -741,7 +741,7 @@ reportsApp.controller('DataStatusController',
 			
 			url+= "var=compulsoryDECount:" + $scope.compulsoryDECount + ",dataSetUid:" + selDataSetUid + ",orgUnitUids:" +$scope.organisationunitid_1[0] + ",startDate:" + selStartPeriod + ",endDate:" + selEndPeriod;	;	
 			
-			console.log(url);
+			//console.log(url);
 			
 			$.get(url, function(data){
 			//$.get("status.json", function(data){
@@ -918,7 +918,7 @@ reportsApp.controller('DataStatusController',
 			
 			url+= "var=dataSetUid:" + selDataSetUid + ",orgUnitUid:" + selOrgUnit  + ",startDate:" + selStartPeriod + ",endDate:" + selEndPeriod;	;	
 			
-			console.log(url);
+			//console.log(url);
 			
 			$.get(url, function(data){
 			//$.get("views.json", function(data){				
@@ -1077,7 +1077,7 @@ reportsApp.controller('DataStatusController',
 			
 			url+= "var=dataSetUid:" + selDataSetUid + ",orgUnitUid:" + selOrgUnit  + ",startDate:" + selStartPeriod + ",endDate:" + selEndPeriod;	;	
 			
-			console.log(url);
+			//console.log(url);
 			
 			$.get(url, function(data){
 			//$.get("comments.json", function(data){				

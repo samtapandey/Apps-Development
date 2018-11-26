@@ -22,8 +22,8 @@ reportsApp.controller('DataStatusResultController',
             $scope.dataSetPeriodType = data.dataSets[0].periodType;
             $scope.dataSetName = data.dataSets[0].name;
             $scope.dataSetSource = data.dataSets[0].organisationUnits;
-            console.log( "dataSetPeriodType is -- " + $scope.dataSetPeriodType );
-            console.log( "dataSetSource length  is -- " + $scope.dataSetSource.length );
+         //   console.log( "dataSetPeriodType is -- " + $scope.dataSetPeriodType );
+         //   console.log( "dataSetSource length  is -- " + $scope.dataSetSource.length );
 
             $scope.filteredOrgUnitList=[];
             OrganisationUnitService.getAllChildrenOfSelectedOrgUnit( $scope.selOrgUnit ).then(function(orgUnitList){
@@ -36,12 +36,12 @@ reportsApp.controller('DataStatusResultController',
                             }
                         });
                     });
-                    console.log( "filtered OrgUnit List length  is -- " + $scope.filteredOrgUnitList.length );
+                //    console.log( "filtered OrgUnit List length  is -- " + $scope.filteredOrgUnitList.length );
                 }
             );
 
             $scope.periodList = periodService.getPeriodListBetweenTwoDates($scope.dataSetPeriodType, $scope.selStartPeriod, $scope.selEndPeriod );
-            console.log( "period List length  is -- " + $scope.periodList.length );
+         //   console.log( "period List length  is -- " + $scope.periodList.length );
 
             $scope.periodListMap = [];
             angular.forEach( $scope.periodList, function(period){
