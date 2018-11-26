@@ -11,8 +11,8 @@
 
 html,body 
 {
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
   background-color: white;
 }
 
@@ -23,7 +23,7 @@ img
 
 ul,ol 
 {
-  padding: 0;
+  padding: 0px;
 }
 
 a
@@ -54,13 +54,13 @@ input[type=text],input[type=password],input[type=email],textarea
 
 #header
 {
-  background-color: #276696;
+  background-color: #467e4a;
   height: 44px;
   position: fixed;
   z-index: 15;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0px;
+  left: 0px;
+  right: 0px;
   box-shadow: 0 0 3px #222;
 }
 
@@ -165,11 +165,11 @@ input[type=text],input[type=password],input[type=email],textarea
   background-color           : #f7f7f7;
   display                    : none;
   z-index                    : 9;
-  filter                     : alpha(opacity=98);
-  opacity                    : 0.98;
+  filter                     : alpha(opacity=94);
+  opacity                    : 0.94;
   border-bottom-left-radius  : 3px;
   border-bottom-right-radius : 3px;
-  box-shadow                 : #ccc 0 1px 1px 0;
+  box-shadow                 : #ccc 0px 1px 1px 0px;
 }
 
 .contextMenuItems 
@@ -263,7 +263,7 @@ input[type=text],input[type=password],input[type=email],textarea
   width: 100%;
 }
 
-.page
+.page 
 {
   font-size: 9pt;
 }
@@ -332,6 +332,11 @@ input[type=text],input[type=password],input[type=email],textarea
   margin: 65px 10px 10px 270px;
 }
 
+#popupPage 
+{
+  margin: 50px 10px 10px 10px;
+}
+
 .required 
 {
   font-style: normal;
@@ -358,6 +363,7 @@ input[type=text],input[type=password],input[type=email],textarea
 {
   padding: 11px 5px 10px 5px;
 }
+
 
 .listRow
 {

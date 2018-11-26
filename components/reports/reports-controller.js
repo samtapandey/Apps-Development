@@ -12,15 +12,15 @@ reportsApp.controller('ReportsController',
 
         $scope.editReport = function (reportUid) {
 
-            //$location.path('/edit-report?reportUid=' + reportUid );
+            $location.path('/edit-report?reportUid=' + reportUid );
 
-            //$location.path('/edit-report').replace();
-            //$scope.$apply();
-            //if(!$scope.$$phase) $scope.$apply();
+            $location.path('/edit-report').replace();
+            $scope.$apply();
+            if(!$scope.$$phase) $scope.$apply();
 
             sessionStorage.setItem('reportUid',reportUid);
 
-            window.location.href = '../../../dhis-web-reports-app/index.html#/edit-report?reportUid=' + reportUid;
+          //  window.location.href = '../../../dhis-web-reports-app/index.html#/edit-report?reportUid=' + reportUid;
             //console.log($location.path());
         };
 

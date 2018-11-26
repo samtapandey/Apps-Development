@@ -116,7 +116,7 @@ var reportsAppServices = angular.module('reportsAppServices', [])
                 var key = 'reportApp-reports-json';
                 var promise;
                 var value = JSON.stringify(value); //reportData
-                console.log(value);
+                //console.log(value);
 
                 var url = '../../../api/dataStore/' + key + '/' + key;
                 promise = $http.put(url, value).then(function (response) {

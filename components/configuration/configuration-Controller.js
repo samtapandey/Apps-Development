@@ -94,7 +94,7 @@ reportsApp.controller('ConfigurationController',
         };
 
         $scope.cancel = function(){
-            $location.path('/index.html');
+            $location.path('../../../index.html');
 
         };
 
