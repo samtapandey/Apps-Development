@@ -95,12 +95,12 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
     }
 
     $scope.resubmitData = function (program) {
-        $.ajax({
-            async: false,
-            type: "GET",
-            url: "../../events.json?orgUnit=" + $scope.selectedOrgUnit.id + "&ouMode=DESCENDANTS&program=" + $scope.selectedProgramID + "&programStage=" + $scope.selectedPSID + "&skipPaging=true",
-            success: function (response) {
-
+        $('#loader').attr('style', 'display:block !important');
+        $timeout(function () { $scope.createReport(program) }, 2000);
+    };
+    
+    $scope.createReport = function (program) {
+                MetadataService.getEventsWithoutFilter($scope.selectedOrgUnit.id,$scope.selectedProgramID,$scope.selectedPSID).then(function (response) {
                 for (var k = 0; k < response.events.length; k++) {
                     if (response.events[k].status === "COMPLETED") {
                         $scope.eventId = response.events[k].event;
@@ -141,16 +141,11 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
                         }
                     }
                 }
-                $timeout(function () {
-                    $('#loader').show();
-                    $scope.generateReport(program);
-                }, 1000);
-            }
+                $scope.generateReport(program);
         })
     }
 
     $scope.generateReport = function (program) {
-        $timeout(function () {
             $scope.program = program;
 
             for (var i = 0; i < $scope.program.programTrackedEntityAttributes.length; i++) {
@@ -186,12 +181,7 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
                 }
             }
             if (($scope.startdateSelected == undefined && $scope.enddateSelected == undefined) || ($scope.startdateSelected == null && $scope.enddateSelected == null) || ($scope.startdateSelected == "" && $scope.enddateSelected == "")) {
-                $.ajax({
-                    async: false,
-                    type: "GET",
-                    url: "../../events.json?orgUnit=" + $scope.selectedOrgUnit.id + "&ouMode=DESCENDANTS&program=" + $scope.selectedProgramID + "&programStage=" + $scope.selectedPSID + "&skipPaging=true",
-                    success: function (response) {
-
+                        MetadataService.getEventsWithoutFilter($scope.selectedOrgUnit.id,$scope.selectedProgramID,$scope.selectedPSID).then(function (response) {
                         $scope.existingEvents = [];
                         $scope.numberOfEvents.push(response.events.length);
 
@@ -273,23 +263,20 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
                                 }
                             }
                         }
-                    }
                 })
+                $('#loader').hide();
             }
             else {
                 if ((!$scope.startdateSelected) || (!$scope.enddateSelected)) {
                     window.alert("Please select the dates correctly");
+                    $('#loader').hide();
                 }
                 else if (moment($scope.enddateSelected).isBefore(moment($scope.startdateSelected))) {
                     window.alert('Please select end date Accordingly');
+                    $('#loader').hide();
                 }
                 else {
-                    $.ajax({
-                        async: false,
-                        type: "GET",
-                        url: "../../events.json?orgUnit=" + $scope.selectedOrgUnit.id + "&ouMode=DESCENDANTS&program=" + $scope.selectedProgramID + "&programStage=" + $scope.selectedPSID + "&startDate=" + $scope.startdateSelected + "&endDate=" + $scope.enddateSelected + "&skipPaging=true",
-                        success: function (response) {
-
+                        MetadataService.getEventsWithFilter($scope.selectedOrgUnit.id,$scope.selectedProgramID,$scope.selectedPSID,$scope.startdateSelected,$scope.enddateSelected).then(function (response) {
                             $scope.existingEvents = [];
                             $scope.numberOfEvents.push(response.events.length);
 
@@ -371,13 +358,18 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
                                     }
                                 }
                             }
-                        }
                     })
+                    $('#loader').hide();
                 }
             }
-            $('#loader').hide();
-        })
     }
+
+    // $scope.stopLoader =  function (){
+    //     $timeout(function () { 
+    //         $('#loader').hide();
+    //     });
+    // }
+
 
     $scope.checkApproved = function (eventDV) {
         for (var a = 0; a < eventDV.length; a++) {

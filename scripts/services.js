@@ -3,7 +3,7 @@
  */
 
 var trackerReportsAppServices = angular.module('trackerReportsAppServices', [])
-    .service('MetadataService', function () {
+    .service('MetadataService', function ($http, $q) {
         return {
             getOrgUnit: function (id) {
                 var def = $.Deferred();
@@ -70,7 +70,36 @@ var trackerReportsAppServices = angular.module('trackerReportsAppServices', [])
                     }
                 });
                 return def;
-            }
+            },
 
+            getEventsWithoutFilter: function(selectedOrgUnit,selectedProgram,selectedProgramStage){
+                var def = $q.defer();
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    async: false,
+                    contentType: "application/json",
+                    url:"../../events.json?orgUnit=" + selectedOrgUnit + "&ouMode=DESCENDANTS&program=" + selectedProgram + "&programStage=" + selectedProgramStage,
+                    success: function (data) {
+                    def.resolve(data);
+                    }
+                });
+                return def.promise;
+            },
+            
+            getEventsWithFilter: function(selectedOrgUnit,selectedProgram,selectedProgramStage,startdateSelected,enddateSelected){
+                var def = $q.defer();
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    async: false,
+                    contentType: "application/json",
+                    url:"../../events.json?orgUnit=" + selectedOrgUnit + "&ouMode=DESCENDANTS&program=" + selectedProgram + "&programStage=" + selectedProgramStage+ "&startDate=" + startdateSelected + "&endDate=" + enddateSelected + "&skipPaging=true",
+                    success: function (data) {
+                    def.resolve(data);
+                    }
+                });
+                return def.promise;
+            }
         }
     });

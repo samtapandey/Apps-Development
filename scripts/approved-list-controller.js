@@ -155,11 +155,9 @@ dataApprovalApp.controller('ApprovedListController', function ($rootScope,
                 }
             }
 
-            $.ajax({
-                async: false,
-                type: "GET",
-                url: "../../events.json?orgUnit=" + $scope.selectedOrgUnit.id + "&ouMode=DESCENDANTS&program=" + $scope.selectedProgramID + "&programStage=" + $scope.selectedPSID + "&startDate=" + $scope.startdateSelected + "&endDate=" + $scope.enddateSelected + "&skipPaging=true",
-                success: function (response) {
+    
+            MetadataService.getEventsWithFilter($scope.selectedOrgUnit.id,$scope.selectedProgramID,$scope.selectedPSID,$scope.startdateSelected,$scope.enddateSelected).then(function (response) {
+                            
                     $scope.existingEvents = [];
                     $scope.numberOfEvents.push(response.events.length);
 
@@ -244,11 +242,10 @@ dataApprovalApp.controller('ApprovedListController', function ($rootScope,
                             }
                         }
                     }
-                }
             })
             $('#loader').hide();
         });
-        $scope.show = true;
+            $scope.show = true;
     }
 
     getheirarchy = function (org) {
