@@ -79,7 +79,7 @@ var trackerReportsAppServices = angular.module('trackerReportsAppServices', [])
                     dataType: "json",
                     async: false,
                     contentType: "application/json",
-                    url:"../../events.json?orgUnit=" + selectedOrgUnit + "&ouMode=DESCENDANTS&program=" + selectedProgram + "&programStage=" + selectedProgramStage,
+                    url:"../../events.json?orgUnit=" + selectedOrgUnit + "&ouMode=DESCENDANTS&program=" + selectedProgram + "&programStage=" + selectedProgramStage + "&eventStatus=COMPLETED&skipPaging=true",
                     success: function (data) {
                     def.resolve(data);
                     }
@@ -94,7 +94,7 @@ var trackerReportsAppServices = angular.module('trackerReportsAppServices', [])
                     dataType: "json",
                     async: false,
                     contentType: "application/json",
-                    url:"../../events.json?orgUnit=" + selectedOrgUnit + "&ouMode=DESCENDANTS&program=" + selectedProgram + "&programStage=" + selectedProgramStage+ "&startDate=" + startdateSelected + "&endDate=" + enddateSelected + "&skipPaging=true",
+                    url:"../../events.json?orgUnit=" + selectedOrgUnit + "&ouMode=DESCENDANTS&program=" + selectedProgram + "&programStage=" + selectedProgramStage+ "&eventStatus=COMPLETED&startDate=" + startdateSelected + "&endDate=" + enddateSelected + "&skipPaging=true",
                     success: function (data) {
                     def.resolve(data);
                     }

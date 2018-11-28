@@ -155,10 +155,14 @@ dataApprovalApp.controller('ApprovedListController', function ($rootScope,
                 }
             }
 
-    
-            MetadataService.getEventsWithFilter($scope.selectedOrgUnit.id,$scope.selectedProgramID,$scope.selectedPSID,$scope.startdateSelected,$scope.enddateSelected).then(function (response) {
-                            
+            if ($scope.selectedOrgUnit.id === 'SpddBmmfvPr' || $scope.selectedOrgUnit.id === 'v8EzhiynNtf') {
+                alert("Please select Org Unit from below levels ");
+                $('#loader').hide();
+            } else {
+                MetadataService.getEventsWithFilter($scope.selectedOrgUnit.id, $scope.selectedProgramID, $scope.selectedPSID, $scope.startdateSelected, $scope.enddateSelected).then(function (response) {
+
                     $scope.existingEvents = [];
+                    //  while(response.events){
                     $scope.numberOfEvents.push(response.events.length);
 
                     for (var j = 0; j < response.events.length; j++) {
@@ -241,11 +245,13 @@ dataApprovalApp.controller('ApprovedListController', function ($rootScope,
 
                             }
                         }
+                        //   }
                     }
-            })
-            $('#loader').hide();
+                })
+                $('#loader').hide();
+            }
         });
-            $scope.show = true;
+        $scope.show = true;
     }
 
     getheirarchy = function (org) {

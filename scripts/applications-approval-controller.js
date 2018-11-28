@@ -100,8 +100,13 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
     };
     
     $scope.createReport = function (program) {
+        if($scope.selectedOrgUnit.id === 'SpddBmmfvPr' || $scope.selectedOrgUnit.id === 'v8EzhiynNtf'){
+                alert("Please select Org Unit from below levels ");
+                $('#loader').hide();
+        }else{
                 MetadataService.getEventsWithoutFilter($scope.selectedOrgUnit.id,$scope.selectedProgramID,$scope.selectedPSID).then(function (response) {
-                for (var k = 0; k < response.events.length; k++) {
+               // while(response.events){
+                    for (var k = 0; k < response.events.length; k++) {
                     if (response.events[k].status === "COMPLETED") {
                         $scope.eventId = response.events[k].event;
                         $scope.eventDV = response.events[k].dataValues;
@@ -140,10 +145,12 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
                             }
                         }
                     }
-                }
+              //  }
+            }
                 $scope.generateReport(program);
         })
     }
+}
 
     $scope.generateReport = function (program) {
             $scope.program = program;
@@ -183,6 +190,7 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
             if (($scope.startdateSelected == undefined && $scope.enddateSelected == undefined) || ($scope.startdateSelected == null && $scope.enddateSelected == null) || ($scope.startdateSelected == "" && $scope.enddateSelected == "")) {
                         MetadataService.getEventsWithoutFilter($scope.selectedOrgUnit.id,$scope.selectedProgramID,$scope.selectedPSID).then(function (response) {
                         $scope.existingEvents = [];
+                     //   while(response.events){
                         $scope.numberOfEvents.push(response.events.length);
 
                         for (var j = 0; j < response.events.length; j++) {
@@ -263,6 +271,7 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
                                 }
                             }
                         }
+                  //  }
                 })
                 $('#loader').hide();
             }
@@ -278,6 +287,7 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
                 else {
                         MetadataService.getEventsWithFilter($scope.selectedOrgUnit.id,$scope.selectedProgramID,$scope.selectedPSID,$scope.startdateSelected,$scope.enddateSelected).then(function (response) {
                             $scope.existingEvents = [];
+                        //    while(response.events){
                             $scope.numberOfEvents.push(response.events.length);
 
                             for (var j = 0; j < response.events.length; j++) {
@@ -358,6 +368,7 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
                                     }
                                 }
                             }
+                    //    }
                     })
                     $('#loader').hide();
                 }
