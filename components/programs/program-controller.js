@@ -209,12 +209,12 @@ reportsApp.controller('ProgramsController',
 
                     if( section.uid === uid)
                     {
-                       // console.log( " Length -- 1 : " + $scope.sectionSettings.sections.length );
-                      //  console.log( " Index : " + index );
-                      //  console.log( " Selected Uid : " + uid + " Section Name : " + section.name + " After Save User Group : " + $scope.userGroupsMap[section.userGroupUid].name );
-                      //  $scope.sectionSettings.sections.splice(index,1);
+                        console.log( " Length -- 1 : " + $scope.sectionSettings.sections.length );
+                        console.log( " Index : " + index );
+                        console.log( " Selected Uid : " + uid + " Section Name : " + section.name + " After Save User Group : " + $scope.userGroupsMap[section.userGroupUid].name );
+                        $scope.sectionSettings.sections.splice(index,1);
 
-                     //   console.log( " Length -- 2 : " + $scope.sectionSettings.sections.length );
+                        console.log( " Length -- 2 : " + $scope.sectionSettings.sections.length );
 
 
                         ReportAppSectionSettingService.saveSection($scope.sectionSettings).then(function (reponse) {
