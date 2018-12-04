@@ -78,11 +78,29 @@ excelUpload.controller('ImportFacilitywiseController',
                         console.log(ou);
                         $scope.orgUnitGroups = ou.organisationUnitGroups;
 
-                        //datasets
-                        $("#templateProgress").html("Fetching all the data sets...");
-                        $.get('../../../api/dataSets.json?paging=false', function (ds) {
-                            console.log(ds);
-                            $scope.dataSets = ds.dataSets;
+                       
+                        //datasets whith attributevalues="Excel_Import_DataSet_Filter"
+                         $("#templateProgress").html("Fetching all the data sets...");
+                         var datets =[];
+			$.get('../../../api/dataSets.json?fields=id,name,attributeValues[value,attribute[id,name,code]]&paging=false', function(ds){
+				 for(var j=0;j<ds.dataSets.length;j++)
+                           {var val=ds.dataSets[j].attributeValues.length;
+                                for (var i=0;i<val;i++)
+								{  var val1=ds.dataSets[j].attributeValues[i].attribute.code;
+									if( ds.dataSets[j].attributeValues.length!=0)
+									{
+									if (ds.dataSets[j].attributeValues[i].attribute.code == 'Excel_Import_DataSet_Filter' && ds.dataSets[j].attributeValues[i].value == "true")
+									{
+										datets.push(ds.dataSets[j]);
+										
+                                    }
+                                }
+							}
+						}
+							var test=datets;
+                            $scope.dataSets = datets;
+                            
+                            
 
                             //dataelements
                             $("#templateProgress").html("Fetching all the data elements...");
@@ -128,7 +146,7 @@ excelUpload.controller('ImportFacilitywiseController',
             $("#templateProgress").html("Making things ready...");
             $.each($scope.dataSets, function (i, d) {
                 //$("#imDataSetId").append("<option value='"+ d.id +"' > " + d.name +" </option>");
-                $("#imDataSetId").append("<option value='" + d.id + "' > " + d.displayName + " </option>");
+                $("#imDataSetId").append("<option value='" + d.id + "' > " + d.name + " </option>");
             });
 
             $.each($scope.orgUnitGroups, function (i, o) {

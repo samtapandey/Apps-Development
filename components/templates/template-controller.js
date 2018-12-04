@@ -44,11 +44,29 @@ excelUpload.controller('TemplateController',
 			console.log( ou );
 			$scope.orgUnitGroups = ou.organisationUnitGroups;
 			
-			//datasets
+			//datasets whith attributevalues="Excel_Import_DataSet_Filter"
 			$("#templateProgress").html("Fetching all the data sets...");
-			$.get('../../../api/dataSets.json?paging=false', function(ds){
-				console.log( ds );
-				$scope.dataSets = ds.dataSets;
+			var datets =[];
+			$.get('../../../api/dataSets.json?fields=id,name,attributeValues[value,attribute[id,name,code]]&paging=false', function(ds){
+				 for(var j=0;j<ds.dataSets.length;j++)
+				 	
+                           {var val=ds.dataSets[j].attributeValues.length;
+                                for (var i=0;i<val;i++)
+								{  var val1=ds.dataSets[j].attributeValues[i].attribute.code;
+									if( ds.dataSets[j].attributeValues.length!=0)
+									{
+									if (ds.dataSets[j].attributeValues[i].attribute.code == 'Excel_Import_DataSet_Filter' && ds.dataSets[j].attributeValues[i].value == "true")
+									{
+										datets.push(ds.dataSets[j]);
+										
+                                    }
+                                }
+							}
+						}
+							
+                            $scope.dataSets = datets;
+
+			
 				
 				$scope.startBuilding();
 				$("#loader").hide();
@@ -69,7 +87,7 @@ excelUpload.controller('TemplateController',
 		$("#templateProgress").html("Making things ready...");
 		$.each( $scope.dataSets , function( i, d ){
 			//$("#dataSetSelect").append("<option value='"+ d.id +"' > " + d.name +" </option>");
-			$("#dataSetSelect").append("<option value='"+ d.id +"' > " + d.displayName +" </option>");
+			$("#dataSetSelect").append("<option value='"+ d.id +"' > " + d.name +" </option>");
 		});
 		
 		$.each( $scope.orgUnitGroups , function( i, o ){
