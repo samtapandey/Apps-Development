@@ -7,7 +7,7 @@ import ProgramStage from '../ProgramStage'
 const MainPage = () => (
   <main className='main'>
     <Switch>
-      <Route path='/dataelements' component={DataElements}/>
+      <Route path='/' component={DataElements}/>
       <Route path='/programstage' component={ProgramStage}/>
      </Switch>
   </main>

@@ -2,7 +2,7 @@ import React from 'react'
 import { FormGroup, ControlLabel, FormControl, Button, HelpBlock } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { getDataElementValues } from '../actions/serviceActions';
-import { handleChange, handleInputChange } from "./updateDataElements";
+import { handleChange, handleInputChange, reloadFunc } from "./updateDataElements";
 import { handleSubmit } from "./validate"
 import { postDataElements } from '../actions/serviceActions';
 import { updateFormInput, validateFormInput } from '../actions/dataElementAction';
@@ -66,8 +66,10 @@ class DataElements extends React.Component {
                                 </FormControl>
                                 {(this.props.dataElement.sampleSourceValidy === 'error') ? <HelpBlock>No sample source selected.</HelpBlock> : false}
                             </FormGroup>
-                            <Button className="button" type="submit">Create</Button>
+                            <div><Button className="button" type="submit">Create</Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <Button className="button" type="submit" onClick={reloadFunc}>Reset</Button></div>
                         </form>
+                        
                     </div>
                     <div className="right-view">
                         <div className="responsetable">
@@ -77,11 +79,10 @@ class DataElements extends React.Component {
                                     <th>RESPONSE</th>
                                 </tr>
                                 {formdata}
-                                
                         </table>
                     </div>
                 </div>
-            </div></div >
+            </div></div>
 
         )
 
