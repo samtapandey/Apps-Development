@@ -1,0 +1,164 @@
+.App{
+    margin-top: 47px;
+    }
+.Leftbar{
+    float: left;
+    width: 15%;
+    position: fixed;
+     /* only for demonstration, should be removed */
+    
+}
+.main {
+    font-family: "Times New Roman", Times, serif;
+    float: left;
+    width: 100%;
+    height: 100%;
+    }
+ 
+/*navigation-bar*/
+.toollabel {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    
+}
+
+.toollabel .labeltext {
+    width: 180px;
+    background-color: rgba(12,91,76,.9);     ;
+    color: #fff;
+    text-align: center;
+    border-radius: 0 4px 4px 0;
+    padding: 5px 0;
+    /* Position the toollabel */
+    position: absolute;
+    z-index: 1;
+    top: -20px;
+    left: 105%;
+}
+.icon-bar {
+    width: 130px;
+    background-color: rgba(14, 102, 85,.7);
+}
+
+.icon-bar a {
+    display: block;
+    text-align: center;
+    padding: 16px;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 36px;
+}
+
+.icon-bar a:hover {
+    background-color: rgba(12,91,76,.8);
+}
+
+
+.form-control option{
+    border-bottom: 1px solid rgba(33, 122, 104, 0.8);
+    padding: 3px;
+    background: rgba(33, 122, 104, 0.2);
+}
+/*DataElements-form*/
+
+.display-form{
+    margin-left: 18%;
+}
+.body-content {
+    width: 90%;
+    float: left;
+    margin-bottom: 30px;
+}
+.left-view {
+    background-color: rgba(229, 231, 233,.7);
+    float: left;
+    width: 60%;
+    height: 640px;
+    padding: 25px;
+    }
+.right-view {
+    width: 40%;
+    float: left;
+    overflow: auto;
+    height: 640px;
+    box-shadow: 5px 4px 14px #4C4C4C;
+    background-color: rgba(12,91,76,.9);
+}
+.left-view,.right-view{
+    min-height: 640px;
+}
+
+.responsetable{
+    padding: 25px;
+}
+.control-label{
+    color: #084237;
+}
+.button{
+    background-color: rgba(12,91,76,.9);
+    border-color: rgba(12,91,76,.8);
+    box-shadow: 5px 5px 18px #888888;
+    color: white;
+    width: 30%;
+}
+.button:hover{
+    background-color: rgba(14, 102, 85,.8);
+    border-color: rgba(12,91,76,.8);
+    color:white;
+    }
+.header{
+    margin: 30px 500px 0 10px;
+    height:38px;
+    border-radius: 5px 5px 0 0;
+    background-color: rgba(12,91,76);
+    padding-left: 30px;
+    color: white;
+    font-weight: bold;
+    padding-top: 7px;
+    padding-left: 30px;
+    font-size: 1.3em;
+}
+#displayDE {
+    border-collapse: collapse;
+    width: 100%;
+    }
+
+#displayDE td, #displayDE th {
+    padding: 4px;
+    text-align: center;
+    background-color: rgba(229,231,233,.7);
+}
+
+#displayDE tr:nth-child(even){background-color: #f2f2f2;}
+
+#displayDE tr:hover {background-color: #ddd;}
+
+#displayDE th {
+    padding-top: 9px;
+    padding-bottom: 9px;
+    background-color: #145d4e;
+    color: white;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: rgba(158, 228, 214, 0.8);
+    box-shadow: inset 0 0 5px grey; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background:#145d4e ; 
+    box-shadow: inset 0 0 10px rgba(15, 36, 32, 0.7);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background:rgba(33, 122, 104, 0.8);
+    box-shadow: inset 0 0 10px rgba(15, 36, 32, 0.7);
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    
+    <script type="text/javascript" src="../../../dhis-web-core-resource/react-15/react-15.min.js"></script>
+    <script type="text/javascript" src="../../../dhis-web-core-resource/rxjs/4.1.0/rx.lite.min.js"></script>
+    <script type="text/javascript" src="../../../dhis-web-core-resource/lodash/4.15.0/lodash.min.js"></script>
+    <script type="text/javascript" src="../../../dhis-web-core-resource/lodash-functional/lodash-functional.js"></script>
+
+    <script type="text/javascript" src="../../../dhis-web-commons/javascripts/header-bar/babel-polyfill.js?_rev=0.1.7"></script>
+    <script type="text/javascript" src="../../../dhis-web-commons/javascripts/header-bar/header-bar.js?_rev=0.1.7"></script>
+    <!-- Latest compiled and minified CSS -->
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+    
+      window.onload = function(){
+    /* Menu Bar */
+        try {
+            if ('Dhis2HeaderBar' in window) {
+                Dhis2HeaderBar.initHeaderBar(document.querySelector('#header'), '../../../api', { noLoadingIndicator: true });
+            }
+        } catch (e) {
+            if ('console' in window) {
+                console.error(e);
+            }
+        }
+        
+    /********/
+    }
+    </script>
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="header">
+      <img id="headerBanner" src="../../../api/staticContent/logo_banner" style="cursor:pointer" title="View home page">
+  
+      <div id="dhisDropDownMenu"></div>
+      </div>
+  
+      <!-- // End menu -->
+      <div id="root"></div>  
+  </body>
+</html>
