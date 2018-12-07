@@ -24,18 +24,19 @@ export const handleInputChange = (thiz, e, param) => {
 
 export const postdata = (thiz, e) => {
     var fromData = [],
-    concentration = (thiz.props.dataElement.inputConcentation != null) ? "-" + thiz.props.dataElement.inputConcentation : "";
+    concentration = (thiz.props.dataElement.inputConcentation != null) ? "_" + thiz.props.dataElement.inputConcentation : "";
 
 
     for (let attr of thiz.props.dataElement.selectedAttrVal) {
         for (let testtype of thiz.props.dataElement.selectedTestType) {
             for (let guideline of thiz.props.dataElement.selectedGuideline) {
                 for (let samsource of thiz.props.dataElement.selectedSampleSource) {
+
                     fromData.push({
                         aggregationType: "NONE",
                         domainType: "TRACKER",
-                        name: attr + "-" + testtype + "-" + guideline + concentration + "-" + samsource,
-                        shortName: attr + "-" + testtype + "-" + guideline + concentration + "-" + samsource,
+                        name: attr + "_" + testtype + "_" + guideline + concentration + "_" + samsource,
+                        shortName: attr + "_" + testtype + "_" + guideline + concentration + "_" + samsource,
                         formName: attr + "_" + concentration,
                         valueType: "TEXT",
                         attributeValues:[
@@ -47,10 +48,50 @@ export const postdata = (thiz, e) => {
                                 }
                             }
                         ]
-                    })
-                }
+                    },
+                    {
+                        aggregationType: "NONE",
+                        domainType: "TRACKER",
+                        name: attr + "_" + testtype + "_" + guideline + concentration + "_" + samsource + "_Result",
+                        shortName: attr + "_" + testtype + "_" + guideline + concentration + "_" + samsource + "_Result",
+                        formName: attr + "_" + concentration + "_Result",
+                        valueType: "TEXT",
+                        attributeValues:[
+                            {
+                                value:true,
+                                attribute:{
+                                    id:'CSYk1xwiHbL',
+                                    name:'dataElementType'
+                                }
+                            }
+                        ],
+                        optionSet:{
+                            id:'bSgpKbkbVGL'
+                        }
+                    },{
+                        aggregationType: "NONE",
+                        domainType: "TRACKER",
+                        name: attr + "_Result",
+                        shortName: attr + "_Result",
+                        formName: attr + "_Result",
+                        valueType: "TEXT",
+                        attributeValues:[
+                            {
+                                value:true,
+                                attribute:{
+                                    id:'CSYk1xwiHbL',
+                                    name:'dataElementType'
+                                }
+                            }
+                        ],
+                        optionSet:{
+                            id:'bSgpKbkbVGL'
+                        }
+                    });
+                    }
             }
         }
     }
+    thiz.props.postDataElements(fromData);
 
 }
