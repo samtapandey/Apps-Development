@@ -536,6 +536,15 @@ excelUpload.controller('ImportFacilitywiseController',
 
         $scope.h = {};
         $scope.importData = function (orgUnit, index, callbackfunct) {
+            $.when(
+                $.getJSON("../../../api/organisationUnits/" + orgUnit.id + ".json?fields=comment", {
+                    format: "json"
+                })
+             
+            ).always(function (data5) {
+                factype = data5.comment;
+                factype = factype.substring(factype.indexOf(":") + 1).trim();
+                console.log(factype);
             var selectedTemp = $scope.getTemplate($scope.confirmedUploads.TempVal);
             var dataValues = [];
             $("#loader").fadeIn();
@@ -608,7 +617,7 @@ excelUpload.controller('ImportFacilitywiseController',
                         dataValue.categoryOptionCombo = selectedTemp.DEMappings[x].metadata.split("-")[1];
                         dataValue.orgUnit = orgUnit.id;
                         orgName = orgUnit.name;
-                        $.ajax({
+                      /*  $.ajax({
 
                             type: "GET",
                             dataType: "json",
@@ -624,6 +633,8 @@ excelUpload.controller('ImportFacilitywiseController',
                             },
                             error: function (response) { }
                         });
+                        */
+
                         /************************************* FOR SC ************************************************************/
                         if (factype == "SC") {
 
@@ -1092,6 +1103,7 @@ excelUpload.controller('ImportFacilitywiseController',
                     }
                 });
             });
+		})
         };
 
         //****************************************************************************************************************
