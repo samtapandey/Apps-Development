@@ -255,7 +255,7 @@ function refreshPage(){
 
 	}
 */
-//debugger;
+
 
 	/*function handleInputFile(e, ou){
 
@@ -310,9 +310,15 @@ function refreshPage(){
 		//handleFile(e);
 
 	}*/
-//debugger;
 
-function handleInputFile(e, ou){
+
+handleInputFile = function (e, ou) {
+            $('#loader').attr('style', 'display:block !important');
+            //document.getElementById("loader").style.display="block";
+            // document.getElementById("loader-wrapper").style.display="block";
+            setTimeout(function () {createReport(e, ou) }, 1000);
+        }
+function createReport(e, ou){
 
 
     var orgUnit = {};
@@ -346,9 +352,12 @@ function handleInputFile(e, ou){
 
     handleFile(e, callback);
 
-    //handleFile(e);
+    
 
 }
+
+
+		
 
 
 function generateOrgUnits(){
@@ -363,6 +372,7 @@ function generateOrgUnits(){
 		$('#confirmedUploadsContent').scope().confirmedUploads.orgUnitGrpVal = $("#imOrgUnitGrp").val();
 //				confirmedItem.orgUnitVal = $("#imOrgUnit").val();
 //confirmedUploads.orgUnitVal = $scope.selectedOrgUnit.id;
+       
 		$('#confirmedUploadsContent').scope().confirmedUploads.dataSetVal = $("#imDataSetId").val();
 		$('#confirmedUploadsContent').scope().confirmedUploads.periodVal = $("#importPeriod").val();
 		$('#confirmedUploadsContent').scope().confirmedUploads.TempVal = $("#importTemp").val();
@@ -374,7 +384,7 @@ function generateOrgUnits(){
 		$('#confirmedUploadsContent').scope().confirmedUploads.dataSetName = $('#imDataSetId option:selected').text();
 		$('#confirmedUploadsContent').scope().confirmedUploads.periodName = $('#importPeriod option:selected').text();
 		$('#confirmedUploadsContent').scope().confirmedUploads.TempName = $('#importTemp option:selected').text();
-
+	
 		$('#confirmedUploadsContent').scope().confirmedUploads.orgUnits = [];
 		//confirmedUploads.result = resultArray[2];
 

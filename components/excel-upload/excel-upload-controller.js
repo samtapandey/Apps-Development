@@ -38,7 +38,7 @@ excelUpload.controller('ExcelUploadController',
     };
     
     var getColumnsAndRows = function(){
-        
+       
         if(selections.ds.id && selections.pr && selections.ou.id && selections.row && selections.tmp){
             
             console.log('the template:  ', selections.tmp);
@@ -120,7 +120,7 @@ excelUpload.controller('ExcelUploadController',
         if(files.length > 0){
             $scope.excelFile = files[0];
             
-            
+       
             ExcelReaderService.readFile($scope.excelFile, $scope.showPreview).then(function(xlsxData) {
                 $scope.sheets = xlsxData.sheets;
                 $scope.sheetNames = [];
@@ -137,6 +137,7 @@ excelUpload.controller('ExcelUploadController',
  
     
     $scope.getSheet = function() {
+        
         if ($scope.selectedSheetName && $scope.excelFile) {
             ExcelReaderService.readFile($scope.excelFile, $scope.showPreview).then(function(xlsxData) {
                 $scope.sheets = xlsxData.sheets;

@@ -344,12 +344,14 @@ excelUpload.controller('ImportFacilitywiseController',
                     $("#confirmedUploadsContent").html(htmlString);
                     $("#confirmedUploadsDiv").attr("style", "width:300px;display:inline-block;float:right;max-height:500px;overflow-y:auto;padding:30px 10px 30px 10px");
                     $.each(ous.organisationUnits, function (i, ou) {
+                       
                         //console.log("doneee");
                         var elementID = ou.id;
                         //console.log("elementID : " + elementID);
                         var fileID = document.getElementById(elementID);
                         fileID.addEventListener('change', function (e) {
                             handleInputFile(e, ou);
+                            $("#loader").fadeOut();
                         }, false);
                     });
                 } else {
@@ -406,6 +408,7 @@ excelUpload.controller('ImportFacilitywiseController',
         $scope.isEverythingOK = true;
 
         $scope.validateAll = function (orgUnit, index) {
+            
             var dataCells = [];
             //				$scope.validatedMessage.length = 0;
             //				$("#loader").fadeIn();
@@ -425,6 +428,7 @@ excelUpload.controller('ImportFacilitywiseController',
                     dataCells.push(cell);
                     //confirmedUploads[item].dataCells = dataCells;
                     orgUnit.dataCells = dataCells;
+                  
                     $scope.confirmedUploads.orgUnits[index] = orgUnit;
                 });
             } else {
@@ -1028,6 +1032,7 @@ excelUpload.controller('ImportFacilitywiseController',
                 ExcelMappingService.importData(dataValueSet).then(function (tem) {
                     //						$("#loader").hide();
                     console.log("index : " + index);
+                   
                     console.log("no of orgUnits : " + $scope.confirmedUploads.orgUnits.length);
                     console.log(tem.data.importCount.updated);
                     console.log(tem.data.importCount.imported);
@@ -1187,7 +1192,7 @@ excelUpload.controller('ImportFacilitywiseController',
             $("#loader").fadeIn();
             $scope.validatedMessage.length = 0;
             $scope.isEverythingOK = true;
-
+         
             $scope.confirmedUploads.orgUnits.forEach(function (orgUnit, index) {
                 $scope.validateAll(orgUnit, index);
             });
