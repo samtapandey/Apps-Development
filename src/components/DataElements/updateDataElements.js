@@ -5,11 +5,20 @@ export const handleChange = (thiz, e, param) => {
     for (var i = 0, l = options.length; i < l; i++) {
         if (options[i].selected) {
             selectedOption = [...selectedOption, options[i].label]
-        }
-    }
-    
-    document.getElementById("formConcen").disabled = (selectedOption.length == 1 && selectedOption[0] === "MIC") ? true : false;
-
+        }}
+    if(param==="UPDATE-TESTTYPE")
+    document.getElementById("formConcen").disabled = (selectedOption.length==1 && selectedOption[0]==="MIC")?true:false;
+    thiz.props.updateFormInput(param, selectedOption)
+}
+export const handleSelListChange = (thiz, e, param) => {
+    var options = e.target.options;
+    var selectedOption = [], sel = [];
+    for (var i = 0, l = options.length; i < l; i++) {
+        if (options[i].selected) {
+            selectedOption = [...selectedOption, options[i].label]
+        }}
+    if(param==="UPDATE-TESTTYPE")
+    document.getElementById("formConcen").disabled = (selectedOption.length==1 && selectedOption[0]==="MIC")?true:false;
     thiz.props.updateFormInput(param, selectedOption)
 }
 
@@ -22,12 +31,14 @@ export const handleInputChange = (thiz, e, param) => {
 }
 
 
+export function handleListChange(thiz,e,param){
+    thiz.props.updateFormInput(param, e.target.textContent)
+}
+
 export const postdata = (thiz, e) => {
     var fromData = [],
     concentration = (thiz.props.dataElement.inputConcentation != null) ? "_" + thiz.props.dataElement.inputConcentation : "";
-
-
-    for (let attr of thiz.props.dataElement.selectedAttrVal) {
+     for (let attr of thiz.props.dataElement.selectedAttrVal) {
         for (let testtype of thiz.props.dataElement.selectedTestType) {
             for (let guideline of thiz.props.dataElement.selectedGuideline) {
                 for (let samsource of thiz.props.dataElement.selectedSampleSource) {
@@ -68,7 +79,11 @@ export const postdata = (thiz, e) => {
                         optionSet:{
                             id:'bSgpKbkbVGL'
                         }
-                    },{
+                    });
+                }
+            }
+        }
+        fromData.push({
                         aggregationType: "NONE",
                         domainType: "TRACKER",
                         name: attr + "_Result",
@@ -88,9 +103,6 @@ export const postdata = (thiz, e) => {
                             id:'bSgpKbkbVGL'
                         }
                     });
-                    }
-            }
-        }
     }
     thiz.props.postDataElements(fromData);
 

@@ -7,11 +7,9 @@ export const handleSubmit = (thiz, e) => {
         postdata(thiz, e)
        } else {
         console.log("Form has errors.")
-    }
+    }}
 
-}
 const handleValidation = (thiz, e) => {
-    let fields = e.target.value;
     var formTEI=e.target[0].value,
         formOptnSettTest=e.target[1].value,
         formQueueSet=e.target[2].value,
@@ -39,10 +37,11 @@ const handleValidation = (thiz, e) => {
         formSampleSourceVal='error'
         formIsValid=false
     }
-    if (formConcen===''||formConcen===null) {
-        formConcenVal='error'
-        formIsValid=false
-    }
+    if(e.target[3].disabled==false){
+        if (formConcen===''||formConcen===null) {
+            formConcenVal='error'
+            formIsValid=false
+        }}
     
     
 

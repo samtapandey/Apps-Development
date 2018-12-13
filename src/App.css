@@ -1,19 +1,15 @@
 .App{
     margin-top: 47px;
-    }
-.Leftbar{
-    float: left;
-    width: 15%;
-    position: fixed;
-     /* only for demonstration, should be removed */
-    
-}
-.main {
     font-family: "Times New Roman", Times, serif;
     float: left;
     width: 100%;
     height: 100%;
     }
+.Leftbar{
+    float: left;
+    width: 15%;
+    position: fixed;
+}
  
 /*navigation-bar*/
 .toollabel {
@@ -86,7 +82,7 @@
     background-color: rgba(12,91,76,.9);
 }
 .left-view,.right-view{
-    min-height: 640px;
+    min-height: 750px;
 }
 
 .responsetable{
@@ -144,7 +140,7 @@
 ::-webkit-scrollbar {
     width: 10px;
 }
-
+/****scroll-bar********/
 /* Track */
 ::-webkit-scrollbar-track {
     background: rgba(158, 228, 214, 0.8);
@@ -162,3 +158,28 @@
     background:rgba(33, 122, 104, 0.8);
     box-shadow: inset 0 0 10px rgba(15, 36, 32, 0.7);
 }
+
+/***sort-bar****/
+
+ul{
+    margin-left: -40px;
+}
+
+.grid li { 
+    margin-left: 5px;
+    float: left; 
+    width: 5%; 
+    height: 20px; 
+    list-style: none;
+    margin-bottom: 2px;
+    text-align: center;
+    border-radius: 5px;
+ }
+
+.grid a{
+    color: white;
+    padding: 4px 10px;
+    background-color: rgba(33, 122, 104, 0.8);
+    border-radius: 5px;
+    
+ }

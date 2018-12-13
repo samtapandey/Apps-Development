@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import NavigateBar from './components/navigate/navigation-bar';
-import MainPage from './components/navigate/main-display'
+import DataElements from './components/DataElements'
 import './App.css';
 
 
 const App = () => {
   return (
     <div className="App">
-      <NavigateBar />
-      <MainPage />
-    </div>
+      <DataElements />
+      </div>
   );
 };
 export default App;

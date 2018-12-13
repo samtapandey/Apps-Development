@@ -17,12 +17,27 @@ const dataElementReducer = (state = DataElementState, action) => {
         sampleSource: action.sampleSourcePayload.options.map(opVal1 => {
           return { value: opVal1.id, name: opVal1.name };
         }),
+        firstChar: action.firstChar.sort().filter((v, i) =>action.firstChar.indexOf(v) === i),
+        }
+        action.firstChar.sort().filter((v, i) =>action.firstChar.indexOf(v) === i).map(str => {
+          var attr = action.attrPayload.trackedEntityInstances;
+           state.attrValueUpdate[str] = [];
+          for (var i = 0; i < attr.length; i++) {
+            if (attr[i].attributes[0].value.charAt(0) == str)
+            state.attrValueUpdate[str].push(attr[i].attributes[0].value)
+          }
+         })
+      break;
+      case 'UPDATE-SELLIST':
+      state = {
+        ...state,
+        selectedList: action.payload
       }
       break;
     case 'UPDATE-TEI':
       state = {
         ...state,
-        selectedAttrVal: action.payload
+        selectedAttrVal: [...state.selectedAttrVal,...action.payload]
       }
       break;
     case 'UPDATE-TESTTYPE':
@@ -43,28 +58,29 @@ const dataElementReducer = (state = DataElementState, action) => {
         selectedSampleSource: action.payload
       }
       break;
-      case 'UPDATE-CONCENTRATION':
-      state={
+    case 'UPDATE-CONCENTRATION':
+      state = {
         ...state,
         inputConcentation: action.payload
       }
       break;
-      case 'VALIDATE-FORM':
-      state={
+    case 'VALIDATE-FORM':
+      state = {
         ...state,
-        attrValueValidy:action.formTEIVal,
-        testTypeValidy:action.formOptnSettTestVal,
-        guidelineValidy:action.formQueueSetVal,
-        sampleSourceValidy:action.formSampleSourceVal,
+        attrValueValidy: action.formTEIVal,
+        testTypeValidy: action.formOptnSettTestVal,
+        guidelineValidy: action.formQueueSetVal,
+        sampleSourceValidy: action.formSampleSourceVal,
         inputBoxValidy: action.formConcenVal
       }
       break;
-      case 'RECEIVED-RESPONSE':
-      state={
+    case 'RECEIVED-RESPONSE':
+      state = {
         ...state,
-        formNameCreated:[...state.formNameCreated,action.formName],
-       }
+        formNameCreated: [...state.formNameCreated, action.formName],
+      }
       break;
+
   }
   return state
 }

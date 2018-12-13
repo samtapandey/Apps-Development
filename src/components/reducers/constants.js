@@ -15,6 +15,9 @@ export const DataElementState={
     guidelineValidy:null,
     sampleSourceValidy:null,
     formNameCreated:[],
-    status:[]
+    status:[],
+    firstChar:[],
+    attrValueUpdate:[],
+    selectedList:null
     }
 

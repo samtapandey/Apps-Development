@@ -14,7 +14,8 @@ export const getDataElementValues = () => dispatch => {
         attrPayload: res1.data,
         testTypePayload: res2.data,
         guidelinePayload: res3.data,
-        sampleSourcePayload: res4.data
+        sampleSourcePayload: res4.data,
+        firstChar: res1.data.trackedEntityInstances.map(attrVal => attrVal.attributes[0].value.charAt(0)),
       })
     })).catch(err =>
       dispatch({
@@ -43,23 +44,23 @@ export const getPeriods = () => dispatch => {
 
 //post dataElements
 export const postDataElements = (data) => dispatch => {
-  
+
   data.map(de => {
-    var formName=[]
+    var formName = []
     axios.post('../../dataElements/',
       de)
       .then(function (response) {
         console.log(response.status);
-        formName[(JSON.parse(response.config.data)).name]=response.statusText;
+        formName[(JSON.parse(response.config.data)).name] = response.statusText;
         dispatch({
           type: 'RECEIVED-RESPONSE',
           formName: formName
         })
-        })
+      })
       .catch(function (error) {
         console.log(error.status);
       });
-      
+
   }
   )
-  }
+}

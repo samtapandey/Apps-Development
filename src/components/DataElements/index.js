@@ -2,35 +2,40 @@ import React from 'react'
 import { FormGroup, ControlLabel, FormControl, Button, HelpBlock } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { getDataElementValues } from '../actions/serviceActions';
-import { handleChange, handleInputChange, reloadFunc } from "./updateDataElements";
+import { handleChange, handleInputChange, reloadFunc, handleListChange,handleSelListChange } from "./updateDataElements";
 import { handleSubmit } from "./validate"
 import { postDataElements } from '../actions/serviceActions';
 import { updateFormInput, validateFormInput } from '../actions/dataElementAction';
 
 class DataElements extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = { counter: [] };
+        
+    }
 
     componentDidMount() {
         this.props.getDataElementValues()
     }
-    render() {
 
-        var formdata = []
+    render() {
+        var formdata = [];
         for (var i = 0; i <= this.props.dataElement.formNameCreated.length; i++) {
             for (var key in this.props.dataElement.formNameCreated[i])
                 formdata.push(<tr><td>{key}</td><td>{this.props.dataElement.formNameCreated[i][key]}</td></tr>)
         }
-
-
         return (
             <div className="display-form">
-                <div className="header"><span className="headertext">CREATE DATA-ELEMENTS</span></div>
+                <div className="header"><span className="headertext">ANTIBIOTIC PANEL</span></div>
                 <div className="body-content">
                     <div className="left-view">
                         <form onSubmit={event => handleSubmit(this, event)}>
                             <FormGroup controlId="formTEI" validationState={this.props.dataElement.attrValueValidy}>
                                 <ControlLabel>ANTIBIOTICS</ControlLabel>
-                                <FormControl componentClass="select" onChange={event => handleChange(this, event, 'UPDATE-TEI')} multiple>
-                                    {this.props.dataElement.attrValue.map((arr) => <option value={arr.value}>{arr.name}</option>)}
+                                <ul class="grid" onClick={event => handleListChange(this, event, 'UPDATE-SELLIST')} >{this.props.dataElement.firstChar.map(str => <li value={str}><a><span>{str}</span></a></li>)}</ul>
+                                <FormControl componentClass="select" onChange={event => handleSelListChange(this, event, 'UPDATE-TEI')} multiple>
+                                    {(this.props.dataElement.selectedList != null) ?
+                                        this.props.dataElement.attrValueUpdate[this.props.dataElement.selectedList].map((arr) => <option value={arr}>{arr}</option>) : false}
                                 </FormControl>
                                 {(this.props.dataElement.attrValueValidy === 'error') ? <HelpBlock>No antibiotic selected.</HelpBlock> : false}
                             </FormGroup>
@@ -69,7 +74,7 @@ class DataElements extends React.Component {
                             <div><Button className="button" type="submit">Create</Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <Button className="button" type="submit" onClick={reloadFunc}>Reset</Button></div>
                         </form>
-                        
+
                     </div>
                     <div className="right-view">
                         <div className="responsetable">
@@ -79,10 +84,10 @@ class DataElements extends React.Component {
                                     <th>RESPONSE</th>
                                 </tr>
                                 {formdata}
-                        </table>
+                            </table>
+                        </div>
                     </div>
-                </div>
-            </div></div>
+                </div></div>
 
         )
 
