@@ -5,20 +5,20 @@ export const handleChange = (thiz, e, param) => {
     for (var i = 0, l = options.length; i < l; i++) {
         if (options[i].selected) {
             selectedOption = [...selectedOption, options[i].label]
+            sel[options[i].label]=true
         }}
     if(param==="UPDATE-TESTTYPE")
-    document.getElementById("formConcen").disabled = (selectedOption.length==1 && selectedOption[0]==="MIC")?true:false;
+    document.getElementById("formConcen").disabled = (sel["MIC"])?true:false;
     thiz.props.updateFormInput(param, selectedOption)
 }
 export const handleSelListChange = (thiz, e, param) => {
-    var options = e.target.options;
-    var selectedOption = [], sel = [];
+    var options = e.target.options,sel = [];
+    var selectedOption = [];
     for (var i = 0, l = options.length; i < l; i++) {
         if (options[i].selected) {
             selectedOption = [...selectedOption, options[i].label]
+            sel[options[i].label]=true
         }}
-    if(param==="UPDATE-TESTTYPE")
-    document.getElementById("formConcen").disabled = (selectedOption.length==1 && selectedOption[0]==="MIC")?true:false;
     thiz.props.updateFormInput(param, selectedOption)
 }
 
