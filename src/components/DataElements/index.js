@@ -31,7 +31,7 @@ class DataElements extends React.Component {
                     <div className="left-view">
                         <form onSubmit={event => handleSubmit(this, event)}>
                             <FormGroup controlId="formTEI" validationState={this.props.dataElement.attrValueValidy}>
-                                <ControlLabel>ANTIBIOTICS</ControlLabel>
+                                <ControlLabel>ANTIBIOTICS<splan className="importantSel">*</splan></ControlLabel>
                                 <ul class="grid" onClick={event => handleListChange(this, event, 'UPDATE-SELLIST')} >{this.props.dataElement.firstChar.map(str => <li value={str}><a><span>{str}</span></a></li>)}</ul>
                                 <FormControl componentClass="select" onChange={event => handleSelListChange(this, event, 'UPDATE-TEI')} multiple>
                                     {(this.props.dataElement.selectedList != null) ?
@@ -41,7 +41,7 @@ class DataElements extends React.Component {
                             </FormGroup>
 
                             <FormGroup controlId="formOptnSettTest" validationState={this.props.dataElement.testTypeValidy}>
-                                <ControlLabel>TEST TYPE</ControlLabel>
+                                <ControlLabel>TEST TYPE<splan className="importantSel">*</splan></ControlLabel>
                                 <FormControl componentClass="select" onChange={event => handleChange(this, event, 'UPDATE-TESTTYPE')} multiple>
                                     {this.props.dataElement.testType.map((arr) => <option value={arr.value}>{arr.name}</option>)}
                                 </FormControl>
@@ -49,7 +49,7 @@ class DataElements extends React.Component {
                             </FormGroup>
 
                             <FormGroup controlId="formQueueSet" validationState={this.props.dataElement.guidelineValidy}>
-                                <ControlLabel>GUIDELINE</ControlLabel>
+                                <ControlLabel>GUIDELINE<splan className="importantSel">*</splan></ControlLabel>
                                 <FormControl componentClass="select" onChange={event => handleChange(this, event, 'UPDATE-GUIDELINE')} multiple>
                                     {this.props.dataElement.guideline.map((arr) => <option value={arr.value}>{arr.name}</option>)}
                                 </FormControl>
@@ -57,7 +57,7 @@ class DataElements extends React.Component {
                             </FormGroup>
 
                             <FormGroup controlId="formConcen" validationState={this.props.dataElement.inputBoxValidy}>
-                                <ControlLabel>CONCENTRATION</ControlLabel>
+                                <ControlLabel>CONCENTRATION<splan className="importantSel">*</splan></ControlLabel>
                                 <FormControl type="text" placeholder="Enter number" value={this.props.dataElement.inputConcentation} onChange={event => handleInputChange(this, event, 'UPDATE-CONCENTRATION')} disabled={false} />
                                 {(this.props.dataElement.inputConcentation === '') ?
                                     <HelpBlock>No value entered.</HelpBlock> : false
@@ -65,7 +65,7 @@ class DataElements extends React.Component {
                             </FormGroup>
 
                             <FormGroup controlId="formSampleSource" validationState={this.props.dataElement.sampleSourceValidy}>
-                                <ControlLabel>SAMPLE SOURCE</ControlLabel>
+                                <ControlLabel>SAMPLE SOURCE<splan className="importantSel">*</splan></ControlLabel>
                                 <FormControl componentClass="select" onChange={event => handleChange(this, event, 'UPDATE-SOURCETYPE')} multiple>
                                     {this.props.dataElement.sampleSource.map((arr) => <option value={arr.value}>{arr.name}</option>)}
                                 </FormControl>
