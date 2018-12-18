@@ -58,8 +58,16 @@ export const postDataElements = (data) => dispatch => {
         })
       })
       .catch(function (error) {
-        console.log(error.status);
-      });
+        if(error.request.status===409){
+          formName[(JSON.parse(error.config.data)).name] = "Existing";
+          dispatch({
+            type: 'RECEIVED-RESPONSE',
+            formName: formName
+          })
+        }else{
+          console.log("post data error "+error.status)
+      }
+       });
 
   }
   )

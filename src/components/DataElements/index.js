@@ -2,16 +2,16 @@ import React from 'react'
 import { FormGroup, ControlLabel, FormControl, Button, HelpBlock } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { getDataElementValues } from '../actions/serviceActions';
-import { handleChange, handleInputChange, reloadFunc, handleListChange,handleSelListChange } from "./updateDataElements";
+import { handleChange, handleInputChange, reloadFunc, handleListChange, handleSelListChange } from "./updateDataElements";
 import { handleSubmit } from "./validate"
 import { postDataElements } from '../actions/serviceActions';
 import { updateFormInput, validateFormInput } from '../actions/dataElementAction';
 
 class DataElements extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = { counter: [] };
-        
+
     }
 
     componentDidMount() {
@@ -33,10 +33,11 @@ class DataElements extends React.Component {
                             <FormGroup controlId="formTEI" validationState={this.props.dataElement.attrValueValidy}>
                                 <ControlLabel>ANTIBIOTICS<splan className="importantSel">*</splan></ControlLabel>
                                 <ul class="grid" onClick={event => handleListChange(this, event, 'UPDATE-SELLIST')} >{this.props.dataElement.firstChar.map(str => <li value={str}><a><span>{str}</span></a></li>)}</ul>
-                                <FormControl componentClass="select" onChange={event => handleSelListChange(this, event, 'UPDATE-TEI')} multiple>
                                     {(this.props.dataElement.selectedList != null) ?
-                                        this.props.dataElement.attrValueUpdate[this.props.dataElement.selectedList].map((arr) => <option value={arr}>{arr}</option>) : false}
-                                </FormControl>
+                                    <FormControl componentClass="select" onChange={event => handleSelListChange(this, event, 'UPDATE-TEI')} multiple>
+                                        {this.props.dataElement.attrValueUpdate[this.props.dataElement.selectedList].map((arr) => <option value={arr}>{arr}</option>)}</FormControl> 
+                                    : <FormControl componentClass="select" multiple>{false}</FormControl>}
+
                                 {(this.props.dataElement.attrValueValidy === 'error') ? <HelpBlock>No antibiotic selected.</HelpBlock> : false}
                             </FormGroup>
 

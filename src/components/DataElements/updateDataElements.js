@@ -44,84 +44,174 @@ export const postdata = (thiz, e) => {
         for (let testtype of thiz.props.dataElement.selectedTestType) {
             for (let guideline of thiz.props.dataElement.selectedGuideline) {
                 for (let samsource of thiz.props.dataElement.selectedSampleSource) {
-                    if (testtype === "MIC") {
-                        fromData.push({
-                            aggregationType: "NONE",
-                            domainType: "TRACKER",
-                            name: attr + "_" + testtype + "_" + guideline + "_" + samsource,
-                            shortName: attr + "_" + testtype + "_" + guideline + "_" + samsource,
-                            formName: attr + "_",
-                            valueType: "TEXT",
-                            attributeValues: [
-                                {
-                                    value: true,
-                                    attribute: {
-                                        id: 'CSYk1xwiHbL',
-                                        name: 'dataElementType'
-                                    }
-                                }
-                            ]
-                        },
-                            {
-                                aggregationType: "NONE",
-                                domainType: "TRACKER",
-                                name: attr + "_" + testtype + "_" + guideline + "_" + samsource + "_Result",
-                                shortName: attr + "_" + testtype + "_" + guideline + "_" + samsource + "_Result",
-                                formName: attr + "_Result",
-                                valueType: "TEXT",
-                                attributeValues: [
-                                    {
-                                        value: true,
-                                        attribute: {
-                                            id: 'CSYk1xwiHbL',
-                                            name: 'dataElementType'
-                                        }
-                                    }
-                                ],
-                                optionSet: {
-                                    id: 'bSgpKbkbVGL'
-                                }
-                            });
-                    } else {
-                        fromData.push({
-                            aggregationType: "NONE",
-                            domainType: "TRACKER",
-                            name: attr + "_" + testtype + "_" + guideline + concentration + "_" + samsource,
-                            shortName: attr + "_" + testtype + "_" + guideline + concentration + "_" + samsource,
-                            formName: attr + "_" + concentration,
-                            valueType: "TEXT",
-                            attributeValues: [
-                                {
-                                    value: true,
-                                    attribute: {
-                                        id: 'CSYk1xwiHbL',
-                                        name: 'dataElementType'
-                                    }
-                                }
-                            ]
-                        },
-                            {
-                                aggregationType: "NONE",
-                                domainType: "TRACKER",
-                                name: attr + "_" + testtype + "_" + guideline + concentration + "_" + samsource + "_Result",
-                                shortName: attr + "_" + testtype + "_" + guideline + concentration + "_" + samsource + "_Result",
-                                formName: attr + "_" + concentration + "_Result",
-                                valueType: "TEXT",
-                                attributeValues: [
-                                    {
-                                        value: true,
-                                        attribute: {
-                                            id: 'CSYk1xwiHbL',
-                                            name: 'dataElementType'
-                                        }
-                                    }
-                                ],
-                                optionSet: {
-                                    id: 'bSgpKbkbVGL'
-                                }
-                            });
-                    }
+                    var shortname = attr + "_" + testtype + "_" + guideline + "_" + samsource
+                    if (shortname.length >= 50) {
+                        if (testtype === "MIC") {
+                            shortname = attr.substring(0, 3) + "_" + testtype.substring(0, 3) + "_" + guideline + "_" + samsource.substring(0, 3);
 
+                                fromData.push({
+                                aggregationType: "NONE",
+                                domainType: "TRACKER",
+                                name: attr + "_" + testtype + "_" + guideline + "_" + samsource,
+                                shortName: shortname,
+                                formName: attr + "_",
+                                valueType: "TEXT",
+                                attributeValues: [
+                                    {
+                                        value: true,
+                                        attribute: {
+
+                                            id: 'CSYk1xwiHbL',
+                                            name: 'dataElementType'
+                                        }
+                                    }
+                                ]
+                            },
+                                {
+                                    aggregationType: "NONE",
+                                    domainType: "TRACKER",
+                                    name: attr + "_" + testtype + "_" + guideline + "_" + samsource + "_Result",
+                                    shortName: shortname + "_Result",
+                                    formName: attr + "_Result",
+                                    valueType: "TEXT",
+                                    attributeValues: [
+                                        {
+                                            value: true,
+                                            attribute: {
+                                                id: 'CSYk1xwiHbL',
+                                                name: 'dataElementType'
+                                            }
+                                        }
+                                    ],
+                                    optionSet: {
+                                        id: 'bSgpKbkbVGL'
+                                    }
+                                });
+                        } else {
+                            shortname = attr.substring(0, 3) + "_" + testtype.substring(0, 3) + "_" + guideline + concentration + "_" + samsource.substring(0, 3);
+
+                            fromData.push({
+                                aggregationType: "NONE",
+                                domainType: "TRACKER",
+                                name: attr + "_" + testtype + "_" + guideline + concentration + "_" + samsource,
+                                shortName: shortname,
+                                formName: attr + "_" + concentration,
+                                valueType: "TEXT",
+                                attributeValues: [
+                                    {
+                                        value: true,
+                                        attribute: {
+                                            id: 'CSYk1xwiHbL',
+                                            name: 'dataElementType'
+                                        }
+                                    }
+                                ]
+                            },
+                                {
+                                    aggregationType: "NONE",
+                                    domainType: "TRACKER",
+                                    name: attr + "_" + testtype + "_" + guideline + concentration + "_" + samsource + "_Result",
+                                    shortName: shortname + "_Result",
+                                    formName: attr + "_" + concentration + "_Result",
+                                    valueType: "TEXT",
+                                    attributeValues: [
+                                        {
+                                            value: true,
+                                            attribute: {
+                                                id: 'CSYk1xwiHbL',
+                                                name: 'dataElementType'
+                                            }
+                                        }
+                                    ],
+                                    optionSet: {
+                                        id: 'bSgpKbkbVGL'
+                                    }
+                                });
+                        }
+                    } else {
+                        if (testtype === "MIC") {
+                            shortname = attr.substring(0, 3) + "_" + testtype.substring(0, 3) + "_" + guideline + "_" + samsource.substring(0, 3);
+
+                            fromData.push({
+                                aggregationType: "NONE",
+                                domainType: "TRACKER",
+                                name: attr + "_" + testtype + "_" + guideline + "_" + samsource,
+                                shortName: shortname,
+                                formName: attr + "_",
+                                valueType: "TEXT",
+                                attributeValues: [
+                                    {
+                                        value: true,
+                                        attribute: {
+
+                                            id: 'CSYk1xwiHbL',
+                                            name: 'dataElementType'
+                                        }
+                                    }
+                                ]
+                            },
+                                {
+                                    aggregationType: "NONE",
+                                    domainType: "TRACKER",
+                                    name: attr + "_" + testtype + "_" + guideline + "_" + samsource + "_Result",
+                                    shortName: shortname + "_Result",
+                                    formName: attr + "_Result",
+                                    valueType: "TEXT",
+                                    attributeValues: [
+                                        {
+                                            value: true,
+                                            attribute: {
+                                                id: 'CSYk1xwiHbL',
+                                                name: 'dataElementType'
+                                            }
+                                        }
+                                    ],
+                                    optionSet: {
+                                        id: 'bSgpKbkbVGL'
+                                    }
+                                });
+                        } else {
+                            shortname = attr.substring(0, 3) + "_" + testtype.substring(0, 3) + "_" + guideline + concentration + "_" + samsource.substring(0, 3);
+
+                            fromData.push({
+                                aggregationType: "NONE",
+                                domainType: "TRACKER",
+                                name: attr + "_" + testtype + "_" + guideline + concentration + "_" + samsource,
+                                shortName: shortname,
+                                formName: attr + "_" + concentration,
+                                valueType: "TEXT",
+                                attributeValues: [
+                                    {
+                                        value: true,
+                                        attribute: {
+                                            id: 'CSYk1xwiHbL',
+                                            name: 'dataElementType'
+                                        }
+                                    }
+                                ]
+                            },
+                                {
+                                    aggregationType: "NONE",
+                                    domainType: "TRACKER",
+                                    name: attr + "_" + testtype + "_" + guideline + concentration + "_" + samsource + "_Result",
+                                    shortName: shortname + "_Result",
+                                    formName: attr + "_" + concentration + "_Result",
+                                    valueType: "TEXT",
+                                    attributeValues: [
+                                        {
+                                            value: true,
+                                            attribute: {
+                                                id: 'CSYk1xwiHbL',
+                                                name: 'dataElementType'
+                                            }
+                                        }
+                                    ],
+                                    optionSet: {
+                                        id: 'bSgpKbkbVGL'
+                                    }
+                                });
+                        }
+                    }
                 }
             }
         }
