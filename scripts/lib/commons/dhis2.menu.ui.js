@@ -975,21 +975,21 @@
                 {
                     name: "settings",
                     namespace: "dhis-web-commons-about",
-                    defaultAction: "..dhis-web-commons-about/userSettings.action",
+                    defaultAction: "../dhis-web-commons-about/userSettings.action",
                     icon: "../icons/usersettings.png",
                     description: ""
                 },
                 {
                     name: "profile",
                     namespace: "dhis-web-commons-about",
-                    defaultAction: "..dhis-web-commons-about/showUpdateUserProfileForm.action",
+                    defaultAction: "../dhis-web-commons-about/showUpdateUserProfileForm.action",
                     icon: "../icons/function-profile.png",
                     description: ""
                 },
                 {
                     name: "account",
                     namespace: "dhis-web-commons-about",
-                    defaultAction: "..dhis-web-commons-about/showUpdateUserAccountForm.action",
+                    defaultAction: "../dhis-web-commons-about/showUpdateUserAccountForm.action",
                     icon: "../icons/function-account.png",
                     description: ""
                 },
@@ -1003,14 +1003,14 @@
                 {
                     name: "log_out",
                     namespace: "dhis-web-commons-about",
-                    defaultAction: "..dhis-web-commons-security/logout.action",
+                    defaultAction: "../dhis-web-commons-security/logout.action",
                     icon: "../icons/function-log-out.png",
                     description: ""
                 },
                 {
                     name: "about_dhis2",
                     namespace: "dhis-web-commons-about",
-                    defaultAction: "..dhis-web-commons-about/about.action",
+                    defaultAction: "../dhis-web-commons-about/about.action",
                     icon: "../icons/function-about-dhis2.png",
                     description: ""
                 }
@@ -1028,7 +1028,7 @@
                 scrollable: true,
                 extraLink: {
                     text: 'more_applications',
-                    url: '..dhis-web-commons-about/modules.action'
+                    url: '../dhis-web-commons-about/modules.action'
                 },
                 shortCut: "m"
             }
