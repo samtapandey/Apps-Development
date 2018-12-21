@@ -1,0 +1,21 @@
+{
+    "version": "0.1",
+    "name": "Report App",
+    "description": "DHIS2 reports App",
+    "launch_path": "index.html",
+    "icons": {
+        "16": "icons/dhis-web-reports-app.png",
+        "48": "icons/dhis-web-reports-app.png",
+        "128": "icons/dhis-web-reports-app.png"
+    },
+    "developer": {
+        "name": "HISP",
+        "url": "http://dhis2.org"
+    },
+    "default_locale": "en",
+    "activities": {
+        "dhis": {
+            "href": "*"
+        }
+    }
+}
