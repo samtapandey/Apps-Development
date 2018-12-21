@@ -1,6 +1,6 @@
 {
     "version": "0.1",
-    "name": "UPHMIS_2.30_report-app",
+    "name": "Report App",
     "description": "UPHMIS_2.30_report-app",
     "launch_path": "index.html",
     "icons": {
