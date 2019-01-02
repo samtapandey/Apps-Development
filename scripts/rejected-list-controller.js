@@ -22,6 +22,7 @@ dataApprovalApp.controller('RejectedListController', function ($rootScope,
     MetadataService) {
 
     $scope.programStages = [];
+    document.getElementById("orgUnitTree").style.display="block";
 
     jQuery(document).ready(function () {
         hideLoad();

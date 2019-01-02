@@ -1,16 +1,7 @@
-<div id="leftBar">
-    <d2-left-bar></d2-left-bar>
-
-    <div id="orgUnitTree">
-        <ul>
-        </ul>
-    </div>
-
-</div>
 
 <div id="mainPage">
-    <div class="row">
-        <div class="col-sm-12 col-md-10">
+    <div class="">
+        <div class="">
             <table class="table table-borderless table-striped">
                 <tr>
                     <td>{{'orgUnitLabel' | translate}}</td>
@@ -24,7 +15,7 @@
                     <td>
                         {{'programs'| translate}}
                     </td>
-                    <td class='col-sm-4 col-md-3'>
+                    <td class=''>
                         <select ng-model="selectedProgram" class="form-control" ng-options="program.name for program in programs | orderBy: 'name'"
                             ng-change="getProgramStages(selectedProgram)">
                             <!--ng-disabled="selectedOrgUnit.programs.length < 1">-->
@@ -34,7 +25,7 @@
                     <td>
                         {{'program_stage'| translate}}
                     </td>
-                    <td class='col-sm-4 col-md-3'>
+                    <td class=''>
                         <select ng-model="selectedProgramStage" class="form-control" ng-options="programStage.name for programStage in programStages | orderBy: 'name'"
                             ng-change="getSelectedProgramStage(selectedProgramStage)">
                             <option value="">{{'Please select program stage'| translate}}</option>
@@ -60,7 +51,7 @@
 
             </table>
 
-            <div class="col-md-12 trim">
+            <div class="">
                 <button type="button" class="btn btn-primary center-block" ng-click="presubmitData(selectedProgram, report, selectedOuMode);showLoad();"
                     ng-disabled="!selectedProgram">{{'fetch_records'| translate}}</button>
             </div>

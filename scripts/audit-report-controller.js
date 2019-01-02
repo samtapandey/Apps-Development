@@ -22,7 +22,8 @@ dataApprovalApp.controller('AuditReportController', function ($rootScope,
     MetadataService) {
 
     $scope.programStages = [];
-
+    document.getElementById("orgUnitTree").style.display="block";
+    
     jQuery(document).ready(function () {
         hideLoad();
     })

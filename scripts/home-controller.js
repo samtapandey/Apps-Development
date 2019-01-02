@@ -3,7 +3,7 @@
  */
 dataApprovalApp
         .controller('homeController', function ($rootScope,
-                $scope, $location) {
+                                                $scope, $location) {
                 $scope.applicationsForApproval = function () {
                         $location.path('/applications-for-approval').search();
                 },

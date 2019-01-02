@@ -21,6 +21,8 @@ dataApprovalApp.controller('ApplicationsForApprovalController', function ($rootS
     $timeout,
     MetadataService) {
 
+    document.getElementById("orgUnitTree").style.display="block";
+
     $scope.programStages = [];
 
     //initially load tree
