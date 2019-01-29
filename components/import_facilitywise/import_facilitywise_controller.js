@@ -70,7 +70,7 @@ excelUpload.controller('ImportFacilitywiseController',
                 $("#templateProgress").html("Retrieving all the import history...");
                 ExcelMappingService.get('Excel-import-app-history').then(function (his) {
                     $scope.history = jQuery.isEmptyObject(his) ? JSON.parse('{"history" : []}') : his;
-                    console.log(his);
+                    //console.log(his);
 
                     //org unit group
                     $("#templateProgress").html("Fetching organisation unit groups...");
@@ -1089,15 +1089,15 @@ excelUpload.controller('ImportFacilitywiseController',
                     $scope.h.orgUnits[index].stats.imc = tem.data.importCount.imported;
                     $scope.h.stats.igc += tem.data.importCount.ignored;
                     $scope.h.orgUnits[index].stats.igc = tem.data.importCount.ignored;
-                    $scope.history.history.push($scope.h);
+                    //$scope.history.history.push($scope.h);
                     $scope.storeHistory();
 
-                    console.log("org upc : " + $scope.h.orgUnits[index].stats.upc);
-                    console.log("org imc : " + $scope.h.orgUnits[index].stats.imc);
-                    console.log("org igc : " + $scope.h.orgUnits[index].stats.igc);
-                    console.log("upc stat : " + $scope.h.stats.upc);
-                    console.log("imc stat : " + $scope.h.stats.imc);
-                    console.log("igc stat : " + $scope.h.stats.igc);
+                    //console.log("org upc : " + $scope.h.orgUnits[index].stats.upc);
+                    //console.log("org imc : " + $scope.h.orgUnits[index].stats.imc);
+                    //console.log("org igc : " + $scope.h.orgUnits[index].stats.igc);
+                    //console.log("upc stat : " + $scope.h.stats.upc);
+                    //console.log("imc stat : " + $scope.h.stats.imc);
+                    //console.log("igc stat : " + $scope.h.stats.igc);
 
                     //						$("#upc").html(tem.data.importCount.updated);
                     //						$("#imct").html(tem.data.importCount.imported);
