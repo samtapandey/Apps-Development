@@ -6,6 +6,8 @@
 
 var excelUploadServices = angular.module('excelUploadServices', ['ngResource'])
 
+	
+
     .factory('XLStorageService', function () {
         var store = new dhis2.storage.Store({
             name: 'dhis2xls',

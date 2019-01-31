@@ -7,6 +7,7 @@ excelUpload.controller('ImportController',
                 $timeout,
                 $route,
                 $filter,
+                $http,
                 ExcelMappingService,
                 ValidationRuleService,
                 CurrentSelection,
@@ -21,6 +22,7 @@ excelUpload.controller('ImportController',
 	$scope.templates = {};
 	$scope.orgUnitMapping = {};
 	$scope.history = {};
+	$scope.authority = '';
 	
 	//data cells
 	$scope.dataCells = [];
@@ -28,18 +30,54 @@ excelUpload.controller('ImportController',
 	$scope.engAddress = ["","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];		
 	
 	/* **************************************************************************************
+	**** RETRIEVING USER CREDIENTIAL DATA ***********************************************
+	************************************************************************************* **/
+	
+    //AURTORITY
+    
+    $http({
+     method: 'GET',
+     url: '../../../api/me.json?fields=userCredentials[userRoles[authorities]]&paging=false',
+     headers: {'X-Parse-Application-Id':'XXXXXXXXXXXXX', 'X-Parse-REST-API-Key':'YYYYYYYYYYYYY'}
+  })
+    .then(function successCallback(response) {
+        $scope.userCredentials = response.data;
+        
+        angular.forEach($scope.userCredentials, function (value, key) {
+        
+          angular.forEach(value.userRoles, function (value1, key){
+        	
+        	angular.forEach(value1.authorities, function (value2, key){
+        	
+	        	if (value2 == 'ALL') 
+	            {
+	               $scope.authority = 'ALL';
+	                console.log( value2 );
+	            }	
+        	});
+        	
+          });
+            
+            
+        });
+        
+        console.log(response.data);
+    }, function errorCallback(response) {
+        alert("Error connecting to API");
+    }); 
+
+	/* **************************************************************************************
 	**** RETRIEVING ROOT JSON AND NEEDED DATA ***********************************************
 	************************************************************************************* **/
 	
-    //templates
 	$("#templateProgress").html("Retrieving all the saved templates...");
 	ExcelMappingService.get('Excel-import-app-templates').then(function(tem){
 		if(!jQuery.isEmptyObject(tem))
 			$scope.templates = tem;
 		else
 			$scope.templates = { templates : [] };
-		
-		console.log( $scope.templates );
+		//console.log($scope.authority);
+		//console.log( $scope.templates );
 		
 		//templates
 		$("#templateProgress").html("Retrieving all the organisation units mapping data...");
@@ -49,36 +87,36 @@ excelUpload.controller('ImportController',
 			else
 				$scope.orgUnitMapping = { omaping : [] };
 			
-			console.log( $scope.orgUnitMapping );
+			//console.log( $scope.orgUnitMapping );
 		
 			//history
 			$("#templateProgress").html("Retrieving all the import history...");
 			ExcelMappingService.get('Excel-import-app-history').then(function(his){
 				$scope.history = jQuery.isEmptyObject( his ) ? JSON.parse('{"history" : []}') : his;
-				console.log( his );
+				//console.log( his );
 				
 				//org unit group
 				$("#templateProgress").html("Fetching organisation unit groups...");
 				$.get('../../../api/organisationUnitGroups.json?paging=false', function(ou){
-					console.log( ou );
+					//console.log( ou );
 					$scope.orgUnitGroups = ou.organisationUnitGroups;
 					
 					//datasets
 					$("#templateProgress").html("Fetching all the data sets...");
 					$.get('../../../api/dataSets.json?paging=false', function(ds){
-						console.log( ds );
+						//console.log( ds );
 						$scope.dataSets = ds.dataSets;
 						
 						//dataelements
 						$("#templateProgress").html("Fetching all the data elements...");
 						$.get('../../../api/dataElements.json?fields=id,name,shortName,categoryCombo[categoryOptionCombos[id,name]]&paging=false', function(ds){
-							console.log( ds );
+							//console.log( ds );
 							$scope.dataElements = ds.dataElements;
 							
 							//orgunits
 							$("#templateProgress").html("Fetching all the organisation units...");
 							$.get('../../../api/organisationUnits.json?paging=false', function(ds){
-								console.log( ds );
+								//console.log( ds );
 								$scope.organisationUnits = ds.organisationUnits;
 						
 								$scope.generateEnglishAddresses();
@@ -192,12 +230,12 @@ excelUpload.controller('ImportController',
 
 	$scope.setFacilities = function(){
 
-console.log("orgUnitGroup id : " + $("#imOrgUnitGrp").val());
+//console.log("orgUnitGroup id : " + $("#imOrgUnitGrp").val());
 		if( $("#imOrgUnitGrp").val() != "" ){
 			//api/organisationUnitGroups/FwEp1sq4nCQ.json?fields=id,name,displayName,code,organisationUnits[id,name]
 			//var url = "../api/organisationUnitGroups/" + $("#imOrgUnitGrp").val() + ".json";
 			var url = "../../../api/organisationUnitGroups/" + $("#imOrgUnitGrp").val() + ".json?fields=id,name,displayName,code,organisationUnits[id,name]";
-			console.log("url : " + url);
+			//console.log("url : " + url);
 			$.get(url, function(oug){
 				var imOrgUnitHTML = "";
 				$.each( oug.organisationUnits , function( i, ou ){
@@ -257,7 +295,7 @@ console.log("orgUnitGroup id : " + $("#imOrgUnitGrp").val());
 
 		
 		resultArray[2].forEach(function(r){
-console.log("r is : " + r);
+//console.log("r is : " + r);
 			var cell ={};
 			cell.address = r.split("=")[0];
 
@@ -303,7 +341,7 @@ console.log("r is : " + r);
 			else if ( selectedTemp.typeId == 2 ) //SOU - MDE
 			{
 				//if( selectedTemp.columnMetaData == "o" )
-					console.log(selectedTemp.orgUnitCell.rn + " " +  selectedTemp.orgUnitCell.cn );
+					//console.log(selectedTemp.orgUnitCell.rn + " " +  selectedTemp.orgUnitCell.cn );
 					$scope.isOrgUnitAvailable( $scope.getImportData( selectedTemp.orgUnitCell.rn , selectedTemp.orgUnitCell.cn ) );
 				//else
 					//$scope.isOrgUnitAvailable( $scope.getImportData( selectedTemp.rowStart.rn , selectedTemp.rowStart.cn ) );
@@ -496,7 +534,7 @@ console.log("r is : " + r);
 						dataValue.categoryOptionCombo = selectedTemp.DEMappings[x].metadata.split("-")[1];
 						var ouLabel = $scope.getImportData( selectedTemp.orgUnitCell.rn , selectedTemp.orgUnitCell.cn );
 						dataValue.orgUnit = $scope.getOrgUnitByLabel( ouLabel );
-console.log("orgUnit : " + dataValue.orgUnit);
+//console.log("orgUnit : " + dataValue.orgUnit);
 						dataValue.value = $scope.getImportDataByAddress( cellAddress );
 						
 						//if( $("#importEmpty").val() == 2 )
@@ -540,7 +578,7 @@ console.log("orgUnit : " + dataValue.orgUnit);
 				}*/
 			}
 			
-			console.log( JSON.stringify(dataValues) );
+			//console.log( JSON.stringify(dataValues) );
 		}
 	
 		$.each( dataValues , function(i,v){

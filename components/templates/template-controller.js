@@ -9,6 +9,7 @@ excelUpload.controller('TemplateController',
                 $filter,
                 $modal,
 				$log,
+				$http,
                 ExcelMappingService,
                 ValidationRuleService,
                 CurrentSelection,
@@ -24,6 +25,45 @@ excelUpload.controller('TemplateController',
 	$scope.dataSets = {};
 	$scope.templates = {};
     $scope.selectedTemp = {};
+    
+    $scope.authority = '';
+
+	/* **************************************************************************************
+		**** RETRIEVING USER CREDIENTIAL DATA ***********************************************
+		************************************************************************************* **/
+		
+	    //AURTORITY
+    
+		  $http({
+		     method: 'GET',
+		     url: '../../../api/me.json?fields=userCredentials[userRoles[authorities]]&paging=false',
+		     headers: {'X-Parse-Application-Id':'XXXXXXXXXXXXX', 'X-Parse-REST-API-Key':'YYYYYYYYYYYYY'}
+		  })
+		    .then(function successCallback(response) {
+		        $scope.userCredentials = response.data;
+		        
+		        angular.forEach($scope.userCredentials, function (value, key) {
+		        
+		          angular.forEach(value.userRoles, function (value1, key){
+		        	
+		        	angular.forEach(value1.authorities, function (value2, key){
+		        	
+			        	if (value2 == 'ALL') 
+			            {
+			               $scope.authority = 'ALL';
+			                console.log( value2 );
+			            }	
+		        	});
+		        	
+		          });
+		            
+		            
+		        });
+		        
+		        console.log(response.data);
+		    }, function errorCallback(response) {
+		        alert("Error connecting to API");
+		    }); 
 	
 	//retrieving all the needed things
 	//**************************************************************************************************************
