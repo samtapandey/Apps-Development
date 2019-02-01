@@ -7,7 +7,7 @@ excelUpload.controller('SettingController',
                 $timeout,
                 $route,
                 $filter,
-                $http,
+                //$http,
                 ExcelMappingService,
                 ValidationRuleService,
                 CurrentSelection,
@@ -35,7 +35,7 @@ excelUpload.controller('SettingController',
 	
 	$scope.engAddress = ["","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];		
 	
-    $scope.authority = '';
+   // $scope.authority = '';
 
 	/* **************************************************************************************
 		**** RETRIEVING USER CREDIENTIAL DATA ***********************************************
@@ -43,6 +43,7 @@ excelUpload.controller('SettingController',
 		
 	    //AURTORITY
     
+    /*
 		  $http({
 		     method: 'GET',
 		     url: '../../../api/me.json?fields=userCredentials[userRoles[authorities]]&paging=false',
@@ -75,7 +76,7 @@ excelUpload.controller('SettingController',
 		    }); 
     
     
-    
+    */
     
     $("#orgUnitTree").addClass("disable-clicks");
 	

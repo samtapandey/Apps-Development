@@ -7,7 +7,7 @@ excelUpload.controller('LogController',
                 $timeout,
                 $route,
                 $filter,
-                $http,
+               // $http,
                 ExcelMappingService,
                 ValidationRuleService,
                 CurrentSelection,
@@ -18,14 +18,14 @@ excelUpload.controller('LogController',
                 DialogService) {
     
 	$scope.history = {};
-	$scope.authority = '';
+	//$scope.authority = '';
 
 	/* **************************************************************************************
 		**** RETRIEVING USER CREDIENTIAL DATA ***********************************************
 		************************************************************************************* **/
 		
 	    //AURTORITY
-    
+    /*
 		  $http({
 		     method: 'GET',
 		     url: '../../../api/me.json?fields=userCredentials[userRoles[authorities]]&paging=false',
@@ -56,7 +56,7 @@ excelUpload.controller('LogController',
 		    }, function errorCallback(response) {
 		        alert("Error connecting to API");
 		    }); 
-	
+	*/
 	//history
 	$("#templateProgress").html("Retrieving all the import history...");
 	ExcelMappingService.get('Excel-import-app-history').then(function(his){

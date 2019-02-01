@@ -1,6 +1,6 @@
 {
     "version": "1.1",
-    "name": "Dhis Web Excel Import",
+    "name": "Dhis Web Excel Report",
     "description": "Dhis Web Excel Import App for UPHMISv30)",
     "launch_path": "index.html",
     "icons": {

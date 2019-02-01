@@ -25,7 +25,8 @@ excelUpload.controller('HomeController',function($scope,$http,$rootScope) {
 	};
 	
 	$scope.userCredentials = [];
-    $scope.authority = '';
+    $rootScope.authority = '';
+    
 
 	/* **************************************************************************************
 		**** RETRIEVING USER CREDIENTIAL DATA ***********************************************
@@ -49,8 +50,9 @@ excelUpload.controller('HomeController',function($scope,$http,$rootScope) {
 		        	
 			        	if (value2 == 'ALL') 
 			            {
-			               $scope.authority = 'ALL';
+			               $rootScope.authority = 'ALL';
 			                console.log( value2 );
+			                
 			            }	
 		        	});
 		        	

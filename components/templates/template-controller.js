@@ -9,7 +9,7 @@ excelUpload.controller('TemplateController',
                 $filter,
                 $modal,
 				$log,
-				$http,
+				//$http,
                 ExcelMappingService,
                 ValidationRuleService,
                 CurrentSelection,
@@ -26,7 +26,7 @@ excelUpload.controller('TemplateController',
 	$scope.templates = {};
     $scope.selectedTemp = {};
     
-    $scope.authority = '';
+   // $scope.authority = '';
 
 	/* **************************************************************************************
 		**** RETRIEVING USER CREDIENTIAL DATA ***********************************************
@@ -34,6 +34,7 @@ excelUpload.controller('TemplateController',
 		
 	    //AURTORITY
     
+    /*
 		  $http({
 		     method: 'GET',
 		     url: '../../../api/me.json?fields=userCredentials[userRoles[authorities]]&paging=false',
@@ -65,6 +66,7 @@ excelUpload.controller('TemplateController',
 		        alert("Error connecting to API");
 		    }); 
 	
+	*/
 	//retrieving all the needed things
 	//**************************************************************************************************************
 	

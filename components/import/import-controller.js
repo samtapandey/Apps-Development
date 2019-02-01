@@ -7,7 +7,7 @@ excelUpload.controller('ImportController',
                 $timeout,
                 $route,
                 $filter,
-                $http,
+                //$http,
                 ExcelMappingService,
                 ValidationRuleService,
                 CurrentSelection,
@@ -22,7 +22,7 @@ excelUpload.controller('ImportController',
 	$scope.templates = {};
 	$scope.orgUnitMapping = {};
 	$scope.history = {};
-	$scope.authority = '';
+	//$scope.authority = '';
 	
 	//data cells
 	$scope.dataCells = [];
@@ -34,7 +34,7 @@ excelUpload.controller('ImportController',
 	************************************************************************************* **/
 	
     //AURTORITY
-    
+   /* 
     $http({
      method: 'GET',
      url: '../../../api/me.json?fields=userCredentials[userRoles[authorities]]&paging=false',
@@ -65,7 +65,7 @@ excelUpload.controller('ImportController',
     }, function errorCallback(response) {
         alert("Error connecting to API");
     }); 
-
+*/
 	/* **************************************************************************************
 	**** RETRIEVING ROOT JSON AND NEEDED DATA ***********************************************
 	************************************************************************************* **/

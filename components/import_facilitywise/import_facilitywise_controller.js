@@ -16,7 +16,7 @@ excelUpload.controller('ImportFacilitywiseController',
         $timeout,
         $route,
         $filter,
-        $http,
+        //$http,
         ExcelMappingService,
         ValidationRuleService,
         CurrentSelection,
@@ -41,7 +41,8 @@ excelUpload.controller('ImportFacilitywiseController',
         $scope.engAddress = ["", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
         $scope.confirmedUploads = [];
-        $scope.authority = '';
+        
+       // $scope.authority = '';
 
 	/* **************************************************************************************
 		**** RETRIEVING USER CREDIENTIAL DATA ***********************************************
@@ -49,6 +50,7 @@ excelUpload.controller('ImportFacilitywiseController',
 		
 	    //AURTORITY
     
+    /*
 		  $http({
 		     method: 'GET',
 		     url: '../../../api/me.json?fields=userCredentials[userRoles[authorities]]&paging=false',
@@ -79,6 +81,8 @@ excelUpload.controller('ImportFacilitywiseController',
 		    }, function errorCallback(response) {
 		        alert("Error connecting to API");
 		    }); 
+		    
+		    */
 
 		/* **************************************************************************************
 		 **** RETRIEVING ROOT JSON AND NEEDED DATA ***********************************************
